@@ -13,6 +13,13 @@ const modelSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  additionalInstructions: {
+    type: String,
+  },
+  question: {
+    type: String,
+    required: true,
+  },
   options: {
     type: Array,
   },
