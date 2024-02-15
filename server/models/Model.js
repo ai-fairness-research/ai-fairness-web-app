@@ -1,22 +1,11 @@
 const mongoose = require("mongoose");
 
 const modelSchema = new mongoose.Schema({
-  instructions: {
-    type: String,
-    required: true,
-  },
   context: {
     type: String,
     required: true,
   },
   problem: {
-    type: String,
-    required: true,
-  },
-  additionalInstructions: {
-    type: String,
-  },
-  question: {
     type: String,
     required: true,
   },

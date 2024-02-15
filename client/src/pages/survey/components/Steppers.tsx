@@ -20,16 +20,16 @@ const Steppers: React.FC<SteppersProps> = ({
 }) => {
   const steps = [
     {
-      label: "Background Information",
+      label: "BIAS IN MACHINE LEARNING",
     },
     {
-      label: "Bias in Machine Learning",
+      label: "MODEL BUILDING EVALUATION",
     },
     {
-      label: "Fairness Scenarios",
+      label: "ATTITUDES AND OPINIONS ABOUT BIAS IN ML",
     },
     {
-      label: "Exit",
+      label: "DEMOGRAPHICS",
     },
   ];
 
