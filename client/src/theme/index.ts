@@ -6,7 +6,7 @@ import {
   responsiveFontSizes,
 } from "@mui/material";
 import merge from "lodash.merge";
-import { THEMES } from "../constant";
+import { THEMES } from "../constants";
 import {
   error,
   info,
@@ -39,7 +39,6 @@ const baseOptions = {
     MuiButton: {
       styleOverrides: {
         root: {
-          //   textTransform: "none",
           borderRadius: "50ex",
           color: "inherit",
           boxShadow: "none",

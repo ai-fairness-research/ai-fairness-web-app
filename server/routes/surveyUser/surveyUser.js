@@ -1,14 +1,11 @@
 const router = require("express").Router();
-const Model = require("../../models/Model");
 const SurveyUser = require("../../models/SurveyUser");
 const verify = require("../verify");
 
-const Joi = require("joi");
-
 router.post("/", async (req, res) => {
   try {
-    const model = new SurveyUser(req.body);
-    await model.save();
+    const user = new SurveyUser(req.body);
+    await user.save();
     res.status(200).send({ status: "200", message: "Successfully Created" });
   } catch (error) {
     console.log(error);
@@ -28,9 +25,9 @@ router.get("/", verify, async (req, res) => {
 router.put("/:id", verify, async (req, res) => {
   let updatedModel = req.body;
   try {
-    const model = await SurveyUser.findById(req.params.id).exec();
-    model.set(updatedModel);
-    await model.save();
+    const user = await SurveyUser.findById(req.params.id).exec();
+    user.set(updatedModel);
+    await user.save();
     res.status(200).send({ status: "200", message: "Successfully Edited" });
   } catch (error) {
     res.status(200).send({ status: "400", message: "Internal Servor Error" });

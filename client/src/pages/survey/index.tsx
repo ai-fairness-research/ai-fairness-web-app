@@ -21,12 +21,7 @@ const Survey = () => {
   return (
     <Grid container sx={{ minHeight: "80vh" }}>
       <Grid item xs={12} md={4}>
-        <Steppers
-          activeStep={activeStep}
-          handleNext={handleNext}
-          handleBack={handleBack}
-          handleReset={handleReset}
-        />
+        <Steppers activeStep={activeStep} />
       </Grid>
       <Grid item xs={12} md={8}>
         <Sections
