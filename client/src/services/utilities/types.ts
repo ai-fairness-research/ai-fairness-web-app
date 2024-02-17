@@ -11,11 +11,16 @@ export interface BiasResponse {
   message: Bias[];
 }
 
-export interface ContextResponse {
+export interface Context {
   _id: string;
   context: string;
   problem: string;
   options: string[];
   date: string;
   __v: number;
+}
+
+export interface ContextResponse {
+  data: number;
+  message: Context[];
 }

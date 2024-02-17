@@ -1,11 +1,23 @@
 import React from "react";
-import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import { FACTORS } from "../../../constants";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
 const Instructions = () => {
   return (
-    <Box>
-      <Typography>Instructions:</Typography>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      {/* <Typography sx={{ fontWeight: 500, fontSize: 20 }}>
+        Instructions:
+      </Typography> */}
+      <Alert severity="warning">Please Read them carefully.</Alert>
       <Typography>
         Please consider the three hypothetical data-related scenarios outlined
         below, answering the series of questions accompanying each scenario
@@ -20,27 +32,33 @@ const Instructions = () => {
         context and the problem. For example,
       </Typography>
       <Typography>
-        Context: Design a model for equitable distribution of healthcare
+        <b>Context:</b> Design a model for equitable distribution of healthcare
         resources, including medical staff, equipment, and facilities, across
         various regions.
       </Typography>
       <Typography>
-        Problem: Ensure the model allocates resources to address the needs of
-        each region fairly, without introducing bias based on protected
+        <b>Problem:</b> Ensure the model allocates resources to address the
+        needs of each region fairly, without introducing bias based on protected
         characteristics.
       </Typography>
-      You will ask to supply your evaluation and eventually justification for
-      which user characteristics might bias the model and then offer suggestions
-      for how to mitigate these biases. There is no right or wrong answer, we’re
-      collecting responses from 1000s of people and will average the results.
+      <Typography>
+        You will ask to supply your evaluation and eventually justification for
+        which user characteristics might bias the model and then offer
+        suggestions for how to mitigate these biases. There is no right or wrong
+        answer, we’re collecting responses from 1000s of people and will average
+        the results.
+      </Typography>
       <Typography>
         When considering protected identities, the following could influence the
         model's outcomes?
       </Typography>
       <List>
         {FACTORS.map((itm) => (
-          <ListItem disablePadding>
-            <ListItemText primary={itm} />
+          <ListItem disablePadding key={itm}>
+            <ListItemIcon>
+              <TaskAltIcon sx={{ fontSize: "1rem" }} />
+            </ListItemIcon>
+            <ListItemText primary={itm} sx={{ m: 0 }} />
           </ListItem>
         ))}
       </List>
@@ -49,17 +67,18 @@ const Instructions = () => {
         rationale.
       </Typography>
       <Typography>
-        Age In my experience, I've seen that healthcare needs vary greatly with
-        age, and overlooking this can lead to skewed resource distribution.
+        <i>Age</i> In my experience, I've seen that healthcare needs vary
+        greatly with age, and overlooking this can lead to skewed resource
+        distribution.
       </Typography>
       <Typography>
-        Gender I believe it's essential to represent gender-specific healthcare
-        requirements accurately to avoid imbalances.
+        <i>Gender</i> I believe it's essential to represent gender-specific
+        healthcare requirements accurately to avoid imbalances.
       </Typography>
       <Typography>
-        Socioeconomic Status I've observed that areas with different economic
-        backgrounds encounter distinct barriers to healthcare, which can lead to
-        unequal access if not addressed.
+        <i>Socioeconomic Status</i> I've observed that areas with different
+        economic backgrounds encounter distinct barriers to healthcare, which
+        can lead to unequal access if not addressed.
       </Typography>
       <Typography>
         Next, we need to tell the data scientists which of these factors are
@@ -67,49 +86,74 @@ const Instructions = () => {
         remove bias.
       </Typography>
       <Typography>
-        Question: Typically, a handful of protected characteristics can be
-        optimized, when building the model, the designer should focus on
+        <b>Question:</b> Typically, a handful of protected characteristics can
+        be optimized, when building the model, the designer should focus on
         limiting potential bias based on (select up to 2):
       </Typography>
       <List>
         {FACTORS.map((itm) => (
-          <ListItem disablePadding>
+          <ListItem disablePadding key={itm}>
+            <ListItemIcon>
+              <TaskAltIcon sx={{ fontSize: "1rem" }} />
+            </ListItemIcon>
+            <ListItemText primary={itm} sx={{ m: 0 }} />
+          </ListItem>
+        ))}
+      </List>
+      <Typography>
+        From the list of options you identified in the previous step, select the
+        two protected classes that are most important to reduce bias around.
+        John selected Socioeconomic Status. Here’s his rationale:
+      </Typography>
+      <Typography sx={{ fontStyle: "italic" }}>
+        My choice to prioritize socioeconomic status stems from witnessing how
+        it affects all aspects of healthcare. In my view, it is a proxy for a
+        multitude of other factors that impact health outcomes and access to
+        medical resources. By focusing on this, I am taking a step towards
+        addressing a root cause of inequality in healthcare provision.
+      </Typography>
+      <Typography>
+        Finally, there are many ways to reduce bias in a model. You will be
+        asked to select a model evaluation criteria.
+      </Typography>
+      <Typography>
+        <b>Question:</b> Among the choices below, the data scientist should
+        ensure that model:
+      </Typography>
+      <List>
+        {[
+          "allocate resources to ensure that all groups across different regions have access to adequate healthcare.",
+          "accurately reflect the healthcare needs of different groups. The model must recognize and address the specific health challenges faced by these groups.",
+          "allocation of resources does not disadvantage regions with a high proportion of low socioeconomic status populations. The model must provide an equal opportunity for these regions to receive necessary healthcare resources.",
+          "prevent systemic neglect of any region, regardless of its demographic makeup. It should be regularly assessed to correct any disparities in resource distribution",
+        ].map((itm) => (
+          <ListItem key={itm}>
+            <ListItemIcon>
+              <TaskAltIcon sx={{ fontSize: "1.25rem" }} />
+            </ListItemIcon>
             <ListItemText primary={itm} />
           </ListItem>
         ))}
       </List>
-      From the list of options you identified in the previous step, select the
-      two protected classes that are most important to reduce bias around. John
-      selected Socioeconomic Status. Here’s his rationale: My choice to
-      prioritize socioeconomic status stems from witnessing how it affects all
-      aspects of healthcare. In my view, it is a proxy for a multitude of other
-      factors that impact health outcomes and access to medical resources. By
-      focusing on this, I am taking a step towards addressing a root cause of
-      inequality in healthcare provision. Finally, there are many ways to reduce
-      bias in a model. You will be asked to select a model evaluation criteria.
-      Question: Among the choices below, the data scientist should ensure that
-      model: allocate resources to ensure that all groups across different
-      regions have access to adequate healthcare. accurately reflect the
-      healthcare needs of different groups. The model must recognize and address
-      the specific health challenges faced by these groups. allocation of
-      resources does not disadvantage regions with a high proportion of low
-      socioeconomic status populations. The model must provide an equal
-      opportunity for these regions to receive necessary healthcare resources.
-      prevent systemic neglect of any region, regardless of its demographic
-      makeup. It should be regularly assessed to correct any disparities in
-      resource distribution After assessing the criteria, John chose option C.
-      allocation of resources does not disadvantage regions with a high
-      proportion of low socioeconomic status populations. The model must provide
-      an equal opportunity for these regions to receive necessary healthcare
-      resources. In offering his rationale, John reflects, I've selected this
-      criterion because of my firm belief that healthcare resources should be
-      accessible to all, regardless of socioeconomic status. My experiences have
-      shown me that the most significant disparities in health outcomes arise
-      from resource inaccessibility in lower socioeconomic regions. By ensuring
-      that our model gives precedence to accessibility, we can make a
-      considerable difference in leveling the playing field for these
-      communities, which is a powerful step toward healthcare equity. In the
-      next few sections, you will be asked a similar set of questions.
+      <Typography>
+        After assessing the criteria, John chose option C. allocation of
+        resources does not disadvantage regions with a high proportion of low
+        socioeconomic status populations. The model must provide an equal
+        opportunity for these regions to receive necessary healthcare resources.
+      </Typography>
+      <Typography sx={{ fontStyle: "italic" }}>
+        In offering his rationale, John reflects, I've selected this criterion
+        because of my firm belief that healthcare resources should be accessible
+        to all, regardless of socioeconomic status. My experiences have shown me
+        that the most significant disparities in health outcomes arise from
+        resource inaccessibility in lower socioeconomic regions. By ensuring
+        that our model gives precedence to accessibility, we can make a
+        considerable difference in leveling the playing field for these
+        communities, which is a powerful step toward healthcare equity.
+      </Typography>
+      <Typography>
+        In the next few sections, you will be asked a similar set of questions.
+      </Typography>
     </Box>
   );
 };
