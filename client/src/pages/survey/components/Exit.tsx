@@ -13,7 +13,7 @@ const Exit = () => {
         and if chosen, we'll compensate you for your time.
       </Typography>
       <CommonSwitchComponent
-        question="r"
+        question=""
         choices={[
           "Yes, I would like to participate",
           "No, I do not want to participate",

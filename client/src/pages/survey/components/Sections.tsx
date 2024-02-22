@@ -130,7 +130,7 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
           Back
         </Button>
         <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
-          {activeStep === 4 ? "Reset" : "Continue"}
+          {activeStep === 4 ? "Submit" : "Continue"}
           <ArrowForwardIcon sx={{ ml: 2, fontSize: "1rem" }} />
         </Button>
       </Box>

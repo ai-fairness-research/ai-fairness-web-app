@@ -26,11 +26,13 @@ export const DEMO_QUESTIONS = [
   {
     question: "What is your current gender?",
     options: ["Man", "Woman"],
+    field: "gender",
   },
   {
     question: "What is your home country?",
     options: country_list,
     type: "select",
+    field: "home",
   },
   {
     question:
@@ -42,6 +44,7 @@ export const DEMO_QUESTIONS = [
       "13-15 years",
       "16 or more years",
     ],
+    field: "education",
   },
   {
     question: "Which phrase best describes the area where you currently live?",
@@ -52,6 +55,7 @@ export const DEMO_QUESTIONS = [
       "A country village",
       "A farm or home in the countryside",
     ],
+    field: "living_desc",
   },
   {
     question:
@@ -63,11 +67,13 @@ export const DEMO_QUESTIONS = [
       "Finding it very difficult on present income",
       "Prefer not to say",
     ],
+    field: "living_desc",
   },
   {
     question:
       "Do you consider yourself as belonging to any religion or denomination?",
     options: ["Yes", "No", "Prefer not to say"],
+    field: "isReligion",
   },
   {
     question: "Which religion do you belong to?",
@@ -82,20 +88,24 @@ export const DEMO_QUESTIONS = [
       "Other Christian denomination",
       "Prefer not to say",
     ],
+    field: "religion",
   },
   {
     question: "Do you consider yourself a member of a minority group?",
     options: ["Yes", "No", "Don't know"],
+    field: "isMinority",
   },
-  {
-    question:
-      "Do you consider yourself as belonging to any religion or denomination?",
-    options: ["Yes", "No", "Prefer not to say"],
-  },
+  // {
+  //   question:
+  //     "Do you consider yourself as belonging to any religion or denomination?",
+  //   options: ["Yes", "No", "Prefer not to say"],
+  // },
   {
     question:
       "Please identify any minority group(s) to which you belong (select all that apply): ",
     options: [...FACTORS],
+    type: "mcq",
+    field: "minority",
   },
   {
     question:

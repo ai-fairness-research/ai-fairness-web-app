@@ -4,10 +4,13 @@ import { BrowserRouter } from "react-router-dom";
 // Supports weights 100-900
 import "@fontsource-variable/outfit";
 import React from "react";
+import { SurveyAnswerProvider } from "./context/SurveyAnswerContext.tsx";
 // import './index.css'
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <SurveyAnswerProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </SurveyAnswerProvider>
 );

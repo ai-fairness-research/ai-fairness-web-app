@@ -3,19 +3,38 @@ import { biasService } from "../../../services/utilities/provider";
 import { Bias } from "../../../services/utilities/types";
 import CommonSwitchComponent from "../../../common/CommonSwitchComponent";
 import { Skeleton } from "@mui/material";
+import { useSurveyAnswerContext } from "../../../context/SurveyAnswerContext";
 
 const Bias = () => {
-  const [bias, setBias] = useState<Bias[]>([]);
+  const [biasQuestions, setBiasQuestions] = useState<Bias[]>([]);
+
+  const { surveyAnswers, setSurveyAnswers } = useSurveyAnswerContext();
+
   const [isLoading, setIsLoading] = useState(true);
+
   const fetchBias = async () => {
     const response = await biasService?.getAll();
-    setBias(response.message);
+    setBiasQuestions(response.message);
     setIsLoading(false);
   };
 
   useEffect(() => {
     fetchBias();
   }, []);
+
+  const handleQuestionChange = (
+    questionIndex: number,
+    selectedOption: string
+  ) => {
+    setSurveyAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      bias: {
+        ...prevAnswers.bias,
+        [questionIndex]: selectedOption,
+        // [biasQuestions[questionIndex]._id]: selectedOption,
+      },
+    }));
+  };
 
   return isLoading ? (
     <>
@@ -25,11 +44,15 @@ const Bias = () => {
     </>
   ) : (
     <>
-      {bias.map((itm) => (
+      {biasQuestions.map((question, index) => (
         <CommonSwitchComponent
-          question={itm.question}
-          choices={itm.options}
-          key={itm._id}
+          question={question.question}
+          selectedOption={surveyAnswers?.bias[index] || ""}
+          choices={question.options}
+          key={question._id}
+          onOptionChange={(selectedOption) =>
+            handleQuestionChange(index, selectedOption)
+          }
         />
       ))}
     </>

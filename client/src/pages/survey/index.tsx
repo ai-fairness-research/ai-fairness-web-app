@@ -2,8 +2,12 @@ import * as React from "react";
 import { Grid } from "@mui/material";
 import Steppers from "./components/Steppers";
 import Sections from "./components/Sections";
+import { useSurveyAnswerContext } from "../../context/SurveyAnswerContext";
+import { useNavigate } from "react-router-dom";
 
 const Survey = () => {
+  const navigate = useNavigate();
+  const { surveyAnswers } = useSurveyAnswerContext();
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -15,7 +19,13 @@ const Survey = () => {
   };
 
   const handleReset = () => {
+    sendAnswer();
+    navigate("/");
     setActiveStep(0);
+  };
+
+  const sendAnswer = () => {
+    console.log(surveyAnswers);
   };
 
   return (
