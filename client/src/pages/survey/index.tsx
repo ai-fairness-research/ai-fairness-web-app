@@ -4,6 +4,7 @@ import Steppers from "./components/Steppers";
 import Sections from "./components/Sections";
 import { useSurveyAnswerContext } from "../../context/SurveyAnswerContext";
 import { useNavigate } from "react-router-dom";
+import { secondary } from "../../theme/themeColors";
 
 const Survey = () => {
   const navigate = useNavigate();
@@ -30,10 +31,15 @@ const Survey = () => {
 
   return (
     <Grid container sx={{ minHeight: "80vh" }}>
-      <Grid item xs={12} md={4}>
+      <Grid
+        item
+        xs={12}
+        md={4}
+        sx={{ position: "sticky", top: 0, backgroundColor: secondary.main }}
+      >
         <Steppers activeStep={activeStep} />
       </Grid>
-      <Grid item xs={12} md={8}>
+      <Grid item xs={12} md={8} sx={{ overflowY: "scroll", maxHeight: "80vh" }}>
         <Sections
           activeStep={activeStep}
           handleNext={handleNext}

@@ -14,6 +14,7 @@ const Bias = () => {
 
   const fetchBias = async () => {
     const response = await biasService?.getAll();
+    console.log(response);
     setBiasQuestions(response.message);
     setIsLoading(false);
   };

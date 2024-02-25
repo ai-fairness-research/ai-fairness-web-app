@@ -1,4 +1,4 @@
-const slugify = (str) =>
+export const slugify = (str: string) =>
   str
     .toLowerCase()
     .trim()
@@ -6,4 +6,4 @@ const slugify = (str) =>
     .replace(/[\s_-]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-module.exports = { slugify };
+// module.exports = { slugify };

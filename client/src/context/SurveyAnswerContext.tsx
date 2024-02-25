@@ -30,11 +30,13 @@ export const SurveyAnswerProvider: React.FC<SurveyAnswerProviderProps> = ({
 }) => {
   const [surveyAnswers, setSurveyAnswers] = useState<SurveyAnswerPayload>({
     email: "",
-    bornYear: "",
+    isInterested: "",
+    birthYear: "",
     gender: "",
-    home: "United States",
-    education: "",
-    living_desc: "",
+    country: "United States",
+    educationYears: "",
+    areaDesc: "",
+    incomeDesc: "",
     isReligion: "",
     religion: "",
     isMinority: "",

@@ -35,11 +35,13 @@ export interface ContextAnswer {
 
 export interface SurveyAnswerPayload {
   email: string;
-  bornYear: string;
+  isInterested: string;
+  birthYear: string;
   gender: string;
-  home: string;
-  education: string;
-  living_desc: string;
+  country: string;
+  educationYears: string;
+  areaDesc: string;
+  incomeDesc: string;
   isReligion: string;
   religion: string;
   isMinority: string;

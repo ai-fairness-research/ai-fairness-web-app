@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -6,8 +6,9 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Instructions from "./Instructions";
 import { contextService } from "../../../services/utilities/provider";
-import { Context } from "../../../services/utilities/types";
+import { Context, ContextAnswer } from "../../../services/utilities/types";
 import ContextSection from "./ContextSection";
+import { useSurveyAnswerContext } from "../../../context/SurveyAnswerContext";
 
 const steps = [
   "Instructions",
@@ -18,8 +19,12 @@ const steps = [
   "Scenario 5",
 ];
 
-const Context = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
+const ContextComponent = () => {
+  const [activeStep, setActiveStep] = useState(0);
+  const [context, setContext] = useState<Context[]>([]);
+  const [contextAnswers, setContextAnswers] = useState<ContextAnswer[]>([]);
+
+  const { setSurveyAnswers } = useSurveyAnswerContext();
 
   const handleNext = () => {
     if (activeStep !== steps.length - 1)
@@ -30,19 +35,30 @@ const Context = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const [context, setContext] = React.useState<Context[]>([]);
   const fetchContext = async () => {
     const response = await contextService.getAll();
     setContext(response.message);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchContext();
   }, []);
 
+  const handleFinish = () => {
+    // You can handle storing context answers in context or wherever necessary
+    console.log("Context Answers:", contextAnswers);
+    setSurveyAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      answers: contextAnswers,
+    }));
+  };
+
   return (
     <Box sx={{ width: "100%" }}>
-      <Stepper activeStep={activeStep} sx={{ mb: 4 }}>
+      <Stepper
+        activeStep={activeStep}
+        sx={{ mb: 4, width: "100%", overflowX: "auto" }}
+      >
         {steps.map((label) => {
           const stepProps: { completed?: boolean } = {};
           const labelProps: {
@@ -59,7 +75,15 @@ const Context = () => {
         {activeStep === 0 ? (
           <Instructions />
         ) : (
-          <ContextSection context={context[activeStep]} />
+          <ContextSection
+            context={context[activeStep]}
+            index={activeStep}
+            contextAnswers={contextAnswers}
+            setContextAnswers={setContextAnswers}
+            // onAnswer={(answer) =>
+            //   setContextAnswers((prevAnswers) => [...prevAnswers, answer])
+            // }
+          />
         )}
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
           <Button
@@ -71,7 +95,11 @@ const Context = () => {
             Back
           </Button>
           <Box sx={{ flex: "1 1 auto" }} />
-          <Button onClick={handleNext}>
+          <Button
+            onClick={
+              activeStep === steps.length - 1 ? handleFinish : handleNext
+            }
+          >
             {activeStep === steps.length - 1 ? "Finish" : "Next"}
           </Button>
         </Box>
@@ -80,4 +108,4 @@ const Context = () => {
   );
 };
 
-export default Context;
+export default ContextComponent;
