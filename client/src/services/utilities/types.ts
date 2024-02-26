@@ -28,7 +28,7 @@ export interface ContextResponse {
 export interface ContextAnswer {
   context: string;
   protected: string[];
-  optimised: string[];
+  optimized: string[];
   developer: string[];
   textAnswer: string;
 }
@@ -36,6 +36,7 @@ export interface ContextAnswer {
 export interface SurveyAnswerPayload {
   email: string;
   isInterested: string;
+  isDiscriminated: string;
   birthYear: string;
   gender: string;
   country: string;
@@ -49,4 +50,9 @@ export interface SurveyAnswerPayload {
   bias: string[];
   answers: ContextAnswer[];
   attitude: string[];
+}
+
+export interface SurveyResponse {
+  data: number;
+  message: SurveyAnswerPayload[];
 }

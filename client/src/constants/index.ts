@@ -32,7 +32,7 @@ export const DEMO_QUESTIONS = [
     question: "What is your home country?",
     options: country_list,
     type: "select",
-    field: "home",
+    field: "country",
   },
   {
     question:
@@ -44,7 +44,7 @@ export const DEMO_QUESTIONS = [
       "13-15 years",
       "16 or more years",
     ],
-    field: "education",
+    field: "educationYears",
   },
   {
     question: "Which phrase best describes the area where you currently live?",
@@ -55,7 +55,7 @@ export const DEMO_QUESTIONS = [
       "A country village",
       "A farm or home in the countryside",
     ],
-    field: "living_desc",
+    field: "areaDesc",
   },
   {
     question:
@@ -67,7 +67,7 @@ export const DEMO_QUESTIONS = [
       "Finding it very difficult on present income",
       "Prefer not to say",
     ],
-    field: "living_desc",
+    field: "incomeDesc",
   },
   {
     question:
@@ -95,11 +95,6 @@ export const DEMO_QUESTIONS = [
     options: ["Yes", "No", "Don't know"],
     field: "isMinority",
   },
-  // {
-  //   question:
-  //     "Do you consider yourself as belonging to any religion or denomination?",
-  //   options: ["Yes", "No", "Prefer not to say"],
-  // },
   {
     question:
       "Please identify any minority group(s) to which you belong (select all that apply): ",
@@ -111,6 +106,7 @@ export const DEMO_QUESTIONS = [
     question:
       "Would you describe yourself as being a member of a group that is discriminated against?",
     options: ["Yes", "No"],
+    field: "isDiscriminated",
   },
 ];
 

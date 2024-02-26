@@ -2,7 +2,7 @@ import { Schema, Document, model, Types } from "mongoose";
 
 export interface ISurveyUser {
   email?: string;
-  isInterested?: boolean;
+  isInterested?: string;
   birthYear?: string;
   gender?: string;
   country?: string;
@@ -13,6 +13,7 @@ export interface ISurveyUser {
   religion?: string;
   isMinority?: string;
   minority?: string[];
+  isDiscriminated?: string;
   bias?: string[];
   answers?: Types.Array<IAnswer>;
   attitude?: string[];
@@ -31,7 +32,7 @@ interface ISurveyUserDocument extends ISurveyUser, Document {}
 
 const SurveyUserSchema = new Schema<ISurveyUserDocument>({
   email: { type: String },
-  isInterested: { type: Boolean },
+  isInterested: { type: String },
   birthYear: { type: String },
   gender: { type: String },
   country: { type: String },
@@ -42,6 +43,7 @@ const SurveyUserSchema = new Schema<ISurveyUserDocument>({
   religion: { type: String },
   isMinority: { type: String },
   minority: { type: [String] },
+  isDiscriminated: { type: String },
   bias: { type: [String] },
   answers: { type: [Object] },
   attitude: { type: [String] },

@@ -14,7 +14,6 @@ const Bias = () => {
 
   const fetchBias = async () => {
     const response = await biasService?.getAll();
-    console.log(response);
     setBiasQuestions(response.message);
     setIsLoading(false);
   };
@@ -27,14 +26,9 @@ const Bias = () => {
     questionIndex: number,
     selectedOption: string
   ) => {
-    setSurveyAnswers((prevAnswers) => ({
-      ...prevAnswers,
-      bias: {
-        ...prevAnswers.bias,
-        [questionIndex]: selectedOption,
-        // [biasQuestions[questionIndex]._id]: selectedOption,
-      },
-    }));
+    const biasAnswers = [...surveyAnswers.bias];
+    biasAnswers[questionIndex] = selectedOption;
+    setSurveyAnswers({ ...surveyAnswers, ["bias"]: biasAnswers });
   };
 
   return isLoading ? (

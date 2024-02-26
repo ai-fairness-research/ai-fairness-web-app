@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, Divider, TextField, Typography } from "@mui/material";
 import CommonCheckboxComponent from "../../../common/CommonCheckboxComponent";
 import { FACTORS } from "../../../constants";
 import { Context, ContextAnswer } from "../../../services/utilities/types";
@@ -19,55 +19,31 @@ const ContextSection: React.FC<ContextSectionProps> = ({
   setContextAnswers,
 }) => {
   const handleContextChange = (
-    questionIndex: number,
     selectedOption: string,
-    field: string
+    field: string,
+    checked?: boolean
   ) => {
-    setContextAnswers((prevAnswers) => {
-      const updatedAnswers = [...prevAnswers];
-      const currentAnswer = updatedAnswers[index]; // Get the current answer object
-      const updatedAnswer = { ...currentAnswer }; // Create a copy of the current answer object to modify
+    const updatedContextAnswers = [...contextAnswers];
+    let updatedAnswer = { ...contextAnswers[index - 1] };
+    if (field === "protected" || field === "optimized") {
+      if (!updatedAnswer[field]) updatedAnswer[field] = [];
+      let updatedChoice = [...updatedAnswer[field]];
+      if (checked) updatedChoice = [...updatedChoice, selectedOption];
+      else
+        updatedChoice = updatedChoice.filter((itm) => itm !== selectedOption);
+      updatedAnswer = { ...updatedAnswer, [field]: updatedChoice };
+    } else if (field === "developer") {
+      updatedAnswer = { ...updatedAnswer, [field]: [selectedOption] };
+    } else {
+      updatedAnswer = { ...updatedAnswer, [field]: selectedOption };
+    }
 
-      // Update the specific field in the answer object based on the provided field parameter
-      if (field === "developer") {
-        updatedAnswer[field] = [selectedOption];
-      } else if (field === "textAnswer") {
-        updatedAnswer[field] = selectedOption;
-      } else {
-        // Handle other fields if needed
-      }
+    updatedAnswer["context"] = context.context;
+    updatedContextAnswers[index - 1] = updatedAnswer;
+    console.log({ updatedContextAnswers });
 
-      // Update the answer object at the specified index in the array
-      updatedAnswers[index - 1] = updatedAnswer;
-
-      console.log(updatedAnswers);
-      return updatedAnswers;
-    });
+    setContextAnswers(updatedContextAnswers);
   };
-  // const handleContextChange = (
-  //   questionIndex: number,
-  //   selectedOption: string,
-  //   field: string
-  // ) => {
-  //   console.log(questionIndex, selectedOption, field);
-  //   setContextAnswers((prevAnswers) => {
-  //     const updatedAnswers = [...prevAnswers];
-  //     // eslint-disable-next-line no-unsafe-optional-chaining
-  //     const newAnswer = {
-  //       context: [],
-  //       protected: [],
-  //       optimised: [],
-  //       developer: [selectedOption],
-  //     };
-
-  //     updatedAnswers[index] = newAnswer;
-  //     // updatedAnswers[field] = [selectedOption];
-  //     console.log(updatedAnswers);
-  //     return updatedAnswers;
-  //   });
-  // };
-
-  console.log(contextAnswers);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
@@ -89,43 +65,52 @@ const ContextSection: React.FC<ContextSectionProps> = ({
           "Which of the following protected identities be bias the outcome of the model (check all that apply)?"
         }
         choices={FACTORS}
+        selectedOptions={contextAnswers?.[index - 1]?.protected || []}
+        onOptionChange={(selectedOption, checked) =>
+          handleContextChange(selectedOption, "protected", checked)
+        }
       />
       <CommonCheckboxComponent
         question={
           "Typically, a handful of protected characteristics can be optimized, when building the model, the designer should focus on limiting potential bias based on (select up to 2):"
         }
         choices={FACTORS}
+        selectedOptions={contextAnswers?.[index - 1]?.optimized || []}
+        onOptionChange={(selectedOption, checked) =>
+          handleContextChange(selectedOption, "optimized", checked)
+        }
       />
       <CommonSwitchComponent
         question={"The developer should ensure that model:"}
         choices={context.options}
-        selectedOption={contextAnswers[index - 1]?.developer[0] || ""}
+        selectedOption={contextAnswers?.[index - 1]?.developer?.[0] || ""}
         onOptionChange={(selectedOption) =>
-          handleContextChange(index, selectedOption, "developer")
+          handleContextChange(selectedOption, "developer")
         }
       />
-      <Box>
-        <Typography> In this evaluation, you indicated that:</Typography>
-        <Typography>
-          [options from the second question in the scenario]
+      <Divider />
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+        <Typography sx={{ fontWeight: 500 }}>
+          In this evaluation, you indicated that:
         </Typography>
         <Typography>
+          {contextAnswers[index - 1]?.protected?.map((itm) => itm + ",")}
+        </Typography>
+        <Typography sx={{ fontWeight: 500 }}>
           were important and that the model output should ensure that:
         </Typography>
         <Typography>
-          [text selection from the third question in the scenario]
+          {contextAnswers[index - 1]?.optimized?.map((itm) => itm + ", ")}
         </Typography>
       </Box>
-      <Typography>
+      <Typography sx={{ fontWeight: 500 }}>
         Can you provide a brief rationale for your choice?
       </Typography>
       <TextField
         multiline
         rows={4}
-        // value={contextAnswers[index - 1]?.textAnswer || ""}
-        // onChange={(e) =>
-        //   handleContextChange(index, e.target.value, "textAnswer")
-        // }
+        value={contextAnswers[index - 1]?.textAnswer || ""}
+        onChange={(e) => handleContextChange(e.target.value, "textAnswer")}
       />
     </Box>
   );

@@ -5,10 +5,11 @@ import Sections from "./components/Sections";
 import { useSurveyAnswerContext } from "../../context/SurveyAnswerContext";
 import { useNavigate } from "react-router-dom";
 import { secondary } from "../../theme/themeColors";
+import { surveyUserService } from "../../services/utilities/provider";
 
 const Survey = () => {
   const navigate = useNavigate();
-  const { surveyAnswers } = useSurveyAnswerContext();
+  const { surveyAnswers, setSurveyAnswers } = useSurveyAnswerContext();
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -25,8 +26,29 @@ const Survey = () => {
     setActiveStep(0);
   };
 
-  const sendAnswer = () => {
+  const sendAnswer = async () => {
+    await surveyUserService.post(surveyAnswers).then((res) => {
+      console.log(res);
+    });
     console.log(surveyAnswers);
+    setSurveyAnswers({
+      email: "",
+      isInterested: "",
+      isDiscriminated: "",
+      birthYear: "",
+      gender: "",
+      country: "United States",
+      educationYears: "",
+      areaDesc: "",
+      incomeDesc: "",
+      isReligion: "",
+      religion: "",
+      isMinority: "",
+      minority: [],
+      bias: [],
+      answers: [],
+      attitude: [],
+    });
   };
 
   return (

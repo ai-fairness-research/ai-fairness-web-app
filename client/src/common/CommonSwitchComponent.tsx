@@ -4,6 +4,7 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  TextField,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -18,6 +19,7 @@ interface CommonSwitchComponentProps {
   choices: string[];
   selectedOption?: string;
   onOptionChange?: (selectedOption: string) => void;
+  additionalTextField?: boolean;
 }
 
 const CommonSwitchComponent: React.FC<CommonSwitchComponentProps> = ({
@@ -25,6 +27,7 @@ const CommonSwitchComponent: React.FC<CommonSwitchComponentProps> = ({
   choices,
   selectedOption,
   onOptionChange,
+  additionalTextField = false,
 }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (onOptionChange)
@@ -66,6 +69,18 @@ const CommonSwitchComponent: React.FC<CommonSwitchComponentProps> = ({
             />
           ))}
         </RadioGroup>
+        {additionalTextField && (
+          <>
+            <Typography sx={{ fontStyle: "italic", mb: 0.5 }}>
+              Not listed, please tell us
+            </Typography>
+            <TextField
+              value={selectedOption}
+              onChange={handleChange}
+              size="small"
+            />
+          </>
+        )}
       </FormControl>
     </>
   );

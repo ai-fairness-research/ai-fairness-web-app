@@ -12,17 +12,26 @@ interface CommonCheckboxComponentProps {
   question: string;
   choices: string[];
   additionalText?: string;
+  selectedOptions?: string[];
+  onOptionChange?: (selectedOption: string, checked: boolean) => void;
 }
 
 const CommonCheckboxComponent: React.FC<CommonCheckboxComponentProps> = ({
   question,
   choices,
   additionalText,
+  selectedOptions = [],
+  onOptionChange,
 }) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked, name } = event.target;
+    if (onOptionChange) onOptionChange(name, checked);
+  };
+
   return (
     <>
       <FormControl>
-        <FormLabel id="demo-radio-buttons-group-label">
+        <FormLabel id="check-box">
           <Typography component="span" sx={{ color: "#000", fontWeight: 500 }}>
             {question}{" "}
           </Typography>
@@ -38,7 +47,13 @@ const CommonCheckboxComponent: React.FC<CommonCheckboxComponentProps> = ({
             <FormControlLabel
               key={choice}
               value={choice}
-              control={<Checkbox />}
+              control={
+                <Checkbox
+                  name={choice}
+                  onChange={handleChange}
+                  checked={selectedOptions?.includes(choice) || false}
+                />
+              }
               label={choice}
             />
           ))}

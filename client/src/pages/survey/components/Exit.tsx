@@ -1,8 +1,20 @@
 import { TextField, Typography } from "@mui/material";
 import React from "react";
 import CommonSwitchComponent from "../../../common/CommonSwitchComponent";
+import { useSurveyAnswerContext } from "../../../context/SurveyAnswerContext";
 
 const Exit = () => {
+  const { surveyAnswers, setSurveyAnswers } = useSurveyAnswerContext();
+
+  const handleExitChange = (selectedOption: string, field: string) => {
+    const updatedExitAnswers = { ...surveyAnswers };
+
+    updatedExitAnswers[field] = selectedOption;
+
+    console.log({ updatedExitAnswers });
+    setSurveyAnswers(updatedExitAnswers);
+  };
+
   return (
     <>
       <Typography>Thank you for participating!</Typography>
@@ -18,9 +30,18 @@ const Exit = () => {
           "Yes, I would like to participate",
           "No, I do not want to participate",
         ]}
+        selectedOption={surveyAnswers?.isInterested || ""}
+        onOptionChange={(selectedOption) =>
+          handleExitChange(selectedOption, "isInterested")
+        }
       />
-
-      <TextField />
+      <Typography sx={{ fontWeight: 500 }}>
+        If Yes, Please enter your email
+      </Typography>
+      <TextField
+        value={surveyAnswers?.email || ""}
+        onChange={(e) => handleExitChange(e.target.value, "email")}
+      />
     </>
   );
 };
