@@ -7,9 +7,13 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { authLoginService } from "../../services/utilities/provider";
+import { AuthResponse } from "../../services/utilities/types";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
-  //   const classes = useStyles();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,9 +27,21 @@ const Login: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Handle submission logic here, e.g., validation and API call
-    console.log("Email:", email);
-    console.log("Password:", password);
+    authLoginService
+      .post({ email: email, password: password })
+      .then((res: AuthResponse) => {
+        console.log(res);
+        if (res.status === "200") {
+          localStorage.setItem("moral-token", res.token);
+          localStorage.setItem("moral-name", res?.name || "");
+          navigate("/dashboard");
+        } else {
+          toast.error("incorrect password/email");
+        }
+      })
+      .catch(() => {
+        toast.error("login failed");
+      });
   };
 
   return (
@@ -34,10 +50,16 @@ const Login: React.FC = () => {
         maxWidth: 400,
         margin: "auto",
         marginTop: 2,
+        my: "150px",
       }}
     >
       <CardContent>
-        <Typography color="primary" component={"h2"}>
+        <Typography
+          color="primary"
+          component={"h2"}
+          variant="h3"
+          sx={{ mb: 3, textAlign: "center" }}
+        >
           Login
         </Typography>
         <Box
@@ -51,19 +73,21 @@ const Login: React.FC = () => {
         >
           <TextField
             label="Email"
-            variant="outlined"
             type="email"
             value={email}
             onChange={handleEmailChange}
-            sx={{ marginBottom: 1 }}
+            sx={{ marginBottom: 2 }}
+            size="small"
+            fullWidth
           />
           <TextField
             label="Password"
-            variant="outlined"
             type="password"
             value={password}
             onChange={handlePasswordChange}
-            sx={{ marginBottom: 1 }}
+            sx={{ marginBottom: 2 }}
+            size="small"
+            fullWidth
           />
           <Button
             variant="contained"

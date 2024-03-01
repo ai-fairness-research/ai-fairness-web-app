@@ -13,18 +13,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window?: () => Window;
 }
 
 const drawerWidth = 240;
-// const navItems = ["Home", "About", "Contact"];
+
 const navItems = [
   {
     label: "About",
@@ -39,9 +35,18 @@ const navItems = [
 export default function DrawerAppBar(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const token = localStorage.getItem("moral-token");
+
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("moral-token");
+    navigate("/");
+    // Optionally: Redirect to the login page or update state to reflect logout
   };
 
   const drawer = (
@@ -89,11 +94,13 @@ export default function DrawerAppBar(props: Props) {
             <NavLink to="/">AI Fairness</NavLink>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <NavLink to={item.link} key={item.label}>
-                <Button>{item.label}</Button>
+            {token ? (
+              <Button onClick={handleLogout}>Logout</Button>
+            ) : (
+              <NavLink to="/login">
+                <Button>Login</Button>
               </NavLink>
-            ))}
+            )}
           </Box>
         </Toolbar>
       </AppBar>
