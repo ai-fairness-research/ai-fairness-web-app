@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-// import { BACKEND_URL } from "../api";
-import { LOCALHOST_URL } from "../api";
+import { BACKEND_URL } from "../api";
+// import { LOCALHOST_URL } from "../api";
 import {
   BiasResponse,
   ContextResponse,
@@ -13,7 +13,7 @@ class ApiService<T> {
   private ENDPOINT: string;
 
   constructor(endpoint: string) {
-    this.BASE_URL = LOCALHOST_URL;
+    this.BASE_URL = BACKEND_URL;
     this.ENDPOINT = endpoint;
   }
 
