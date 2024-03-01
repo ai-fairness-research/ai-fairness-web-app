@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon --exec ts-node index.ts",
-    "build": "tsc",
+    "build": "tsc -p . --outDir dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "push-repos": "git push origin main && git push main main"
   },
