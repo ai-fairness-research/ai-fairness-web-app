@@ -30,7 +30,7 @@ const Login: React.FC = () => {
     authLoginService
       .post({ email: email, password: password })
       .then((res: AuthResponse) => {
-        console.log(res);
+        // console.log(res);
         if (res.status === "200") {
           localStorage.setItem("moral-token", res.token);
           localStorage.setItem("moral-name", res?.name || "");

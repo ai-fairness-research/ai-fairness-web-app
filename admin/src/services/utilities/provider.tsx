@@ -11,8 +11,6 @@ import {
   Bias,
 } from "./types";
 
-const token = localStorage.getItem("moral-token");
-
 export class ApiService<T, P> {
   private BASE_URL: string;
   private ENDPOINT: string;
@@ -23,7 +21,7 @@ export class ApiService<T, P> {
     this.BASE_URL = BACKEND_URL;
     this.ENDPOINT = endpoint;
     this.ADDITIONAL_URL = additionalUrl;
-    this.TOKEN = token;
+    this.TOKEN = localStorage.getItem("moral-token");
   }
 
   private async request<R>(config: AxiosRequestConfig): Promise<R> {

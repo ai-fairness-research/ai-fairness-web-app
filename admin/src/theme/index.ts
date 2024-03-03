@@ -251,6 +251,13 @@ const baseOptions = {
         },
       },
     },
+    MuiDataGridCell: {
+      styleOverrides: {
+        root: {
+          textWrap: "wrap",
+        },
+      },
+    },
     MuiStepper: {
       styleOverrides: {
         root: {
