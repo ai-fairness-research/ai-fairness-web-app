@@ -1,26 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { surveyUserService } from "../../../services/utilities/provider";
-// import {
-//   Box,
-//   Table,
-//   TableBody,
-//   TableCell,
-//   TableContainer,
-//   TableHead,
-//   TableRow,
-// } from "@mui/material";
 import {
-  // ContextAnswer,
   SurveyAnswerPayload,
   SurveyResponse,
 } from "../../../services/utilities/types";
 import { SURVEY_DATA } from "../../../constant";
-import {
-  DataGrid,
-  // GridColDef,
-  GridToolbar,
-  // GridValueGetterParams,
-} from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
 const SurveyData: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);

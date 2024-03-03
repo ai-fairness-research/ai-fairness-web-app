@@ -1,9 +1,9 @@
+import React from "react";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { Box, Container, Divider, IconButton, Typography } from "@mui/material";
-import React from "react";
 import { Link } from "react-router-dom";
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <Container component={"footer"}>
       <Divider />
