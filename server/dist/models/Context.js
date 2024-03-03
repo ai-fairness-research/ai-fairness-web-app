@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const ModelSchema = new mongoose_1.Schema({
+    image: {
+        type: Buffer,
+    },
     context: {
         type: String,
         required: true,

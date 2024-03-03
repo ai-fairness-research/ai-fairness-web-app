@@ -4,6 +4,8 @@ import CommonCheckboxComponent from "../../../common/CommonCheckboxComponent";
 import { FACTORS } from "../../../constants";
 import { Context, ContextAnswer } from "../../../services/utilities/types";
 import CommonSwitchComponent from "../../../common/CommonSwitchComponent";
+import { LOCALHOST_URL } from "../../../services/api";
+import { secondary } from "../../../theme/themeColors";
 
 interface ContextSectionProps {
   context: Context;
@@ -40,16 +42,51 @@ const ContextSection: React.FC<ContextSectionProps> = ({
 
     updatedAnswer["context"] = context.context;
     updatedContextAnswers[index - 1] = updatedAnswer;
-    console.log({ updatedContextAnswers });
+    // console.log({ updatedContextAnswers });
 
     setContextAnswers(updatedContextAnswers);
   };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-      <Typography sx={{ fontWeight: 500 }}>
-        Context: {context.context}
-      </Typography>
+      <Box
+        sx={{
+          position: "relative",
+          height: 200,
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            height: 200,
+            width: "100%",
+            backgroundColor: "rgba(0,0,0,0.5)",
+          },
+        }}
+      >
+        <img
+          src={`${LOCALHOST_URL}/context/image/${context?._id}`}
+          style={{
+            objectFit: "cover",
+            height: 200,
+            width: "100%",
+            backgroundPosition: "center",
+          }}
+          loading="lazy"
+        />
+        <Typography
+          sx={{
+            fontWeight: 600,
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            color: secondary.main,
+            fontSize: 28,
+            transform: "translate(-50%, -50%)",
+            textAlign: "center",
+          }}
+        >
+          Context: {context?.context}
+        </Typography>
+      </Box>
       <Typography
         sx={{
           textAlign: "center",
@@ -58,7 +95,7 @@ const ContextSection: React.FC<ContextSectionProps> = ({
           //   fontStyle: "italic",
         }}
       >
-        Problem: {context.problem}
+        Problem: {context?.problem}
       </Typography>
       <CommonCheckboxComponent
         question={
@@ -109,7 +146,7 @@ const ContextSection: React.FC<ContextSectionProps> = ({
       <TextField
         multiline
         rows={4}
-        value={contextAnswers[index - 1]?.textAnswer || ""}
+        value={contextAnswers?.[index - 1]?.textAnswer || ""}
         onChange={(e) => handleContextChange(e.target.value, "textAnswer")}
       />
     </Box>

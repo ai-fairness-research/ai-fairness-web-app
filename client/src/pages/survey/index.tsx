@@ -22,7 +22,7 @@ const Survey = () => {
 
   const handleReset = () => {
     sendAnswer();
-    navigate("/");
+    navigate("/success");
     setActiveStep(0);
   };
 

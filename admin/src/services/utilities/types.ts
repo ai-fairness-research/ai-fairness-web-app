@@ -7,7 +7,8 @@ export interface Bias {
 }
 
 export interface BiasResponse {
-  data: number;
+  // data: number;
+  status: string;
   message: Bias[];
 }
 
@@ -16,12 +17,14 @@ export interface Context {
   context: string;
   problem: string;
   options: string[];
+  reasoning: string[];
   date: string;
   __v: number;
 }
 
 export interface ContextResponse {
-  data: number;
+  // data: number;
+  status: string;
   message: Context[];
 }
 
@@ -70,4 +73,9 @@ export interface AuthResponse {
   userId: string;
   name?: string;
   uname?: string;
+}
+
+export interface ApiResponse {
+  status: string;
+  message: string;
 }

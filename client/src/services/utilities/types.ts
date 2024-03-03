@@ -56,3 +56,8 @@ export interface SurveyResponse {
   data: number;
   message: SurveyAnswerPayload[];
 }
+
+export interface ApiResponse {
+  status: string;
+  message: string;
+}

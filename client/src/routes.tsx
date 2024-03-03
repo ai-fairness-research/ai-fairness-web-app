@@ -17,6 +17,7 @@ const Loadable =
 const LandingPage = Loadable(lazy(() => import("./pages/home")));
 const QuestionsPage = Loadable(lazy(() => import("./pages/survey")));
 const AboutPage = Loadable(lazy(() => import("./pages/about")));
+const SuccessPage = Loadable(lazy(() => import("./pages/success")));
 const ErrorPage = Loadable(lazy(() => import("./pages/error")));
 
 const routes = [
@@ -35,6 +36,10 @@ const routes = [
       {
         path: "questions",
         element: <QuestionsPage />,
+      },
+      {
+        path: "success",
+        element: <SuccessPage />,
       },
     ],
   },

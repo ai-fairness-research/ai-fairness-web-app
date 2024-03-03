@@ -8,11 +8,12 @@ import {
   SurveyAnswerPayload,
   SurveyResponse,
   AuthPayload,
+  Bias,
 } from "./types";
 
 const token = localStorage.getItem("moral-token");
 
-class ApiService<T, P> {
+export class ApiService<T, P> {
   private BASE_URL: string;
   private ENDPOINT: string;
   private ADDITIONAL_URL: string | undefined;
@@ -49,6 +50,9 @@ class ApiService<T, P> {
     return this.request<T>({
       method: "GET",
       url: `${this.BASE_URL}/${this.ENDPOINT}/${id}`,
+      headers: {
+        "auth-token": this.TOKEN,
+      },
     });
   }
 
@@ -72,9 +76,36 @@ class ApiService<T, P> {
       throw new Error(`Failed to post data: ${error}`);
     }
   }
+
+  public async put(payload: P): Promise<T> {
+    try {
+      // Send the POST request using axios
+      let url;
+      if (this.ADDITIONAL_URL) {
+        url = `${this.BASE_URL}/${this.ENDPOINT}/${this.ADDITIONAL_URL}`;
+      } else {
+        url = `${this.BASE_URL}/${this.ENDPOINT}`;
+      }
+
+      const headers = {
+        "auth-token": this.TOKEN,
+      };
+
+      const response: AxiosResponse<T> = await axios.put<T>(url, payload, {
+        headers: headers,
+      });
+
+      // Return the response data
+      return response.data;
+    } catch (error: unknown) {
+      console.log(error);
+      // Handle errors appropriately
+      throw new Error(`Failed to post data: ${error}`);
+    }
+  }
 }
 
-export const biasService = new ApiService<BiasResponse, null>("bias");
+export const biasService = new ApiService<BiasResponse, Bias[]>("bias");
 export const contextService = new ApiService<ContextResponse, null>("context");
 export const surveyUserService = new ApiService<
   SurveyResponse,

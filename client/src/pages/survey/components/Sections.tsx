@@ -43,7 +43,10 @@ const Sections: React.FC<SectionsProps> = ({
           handleBack={handleBack}
         >
           <>
-            <Context />
+            <Context
+              handleSectionNext={handleNext}
+              handleSectionBack={handleBack}
+            />
           </>
         </SectionWrapper>
       )}
@@ -103,6 +106,7 @@ interface SectionWrapperProps {
   topic: string;
   handleNext: () => void;
   handleBack: () => void;
+  activeContextStep?: number;
   children: ReactElement;
 }
 
@@ -121,19 +125,25 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
         </Typography>
       )}
       <Box>{children}</Box>
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button
-          onClick={handleBack}
-          sx={{ mt: 1, mr: 1 }}
-          disabled={activeStep === 0}
-        >
-          Back
-        </Button>
-        <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
-          {activeStep === 4 ? "Submit" : "Continue"}
-          <ArrowForwardIcon sx={{ ml: 2, fontSize: "1rem" }} />
-        </Button>
-      </Box>
+      {activeStep !== 1 && (
+        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            onClick={handleBack}
+            sx={{ mt: 1, mr: 1 }}
+            disabled={activeStep === 0}
+          >
+            Back
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleNext}
+            sx={{ mt: 1, mr: 1 }}
+          >
+            {activeStep === 4 ? "Submit" : "Continue"}
+            <ArrowForwardIcon sx={{ ml: 2, fontSize: "1rem" }} />
+          </Button>
+        </Box>
+      )}
     </Paper>
   );
 };

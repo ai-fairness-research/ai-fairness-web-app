@@ -1,6 +1,7 @@
 import { Schema, Document, model } from "mongoose";
 
 export interface IModel {
+  image: Buffer;
   context: string;
   problem: string;
   options?: string[];
@@ -11,6 +12,9 @@ export interface IModel {
 interface IModelDocument extends IModel, Document {}
 
 const ModelSchema = new Schema<IModelDocument>({
+  image: {
+    type: Buffer,
+  },
   context: {
     type: String,
     required: true,

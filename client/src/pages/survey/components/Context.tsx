@@ -5,8 +5,12 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Instructions from "./Instructions";
-import { contextService } from "../../../services/utilities/provider";
-import { Context, ContextAnswer } from "../../../services/utilities/types";
+import { ApiService } from "../../../services/utilities/provider";
+import {
+  Context,
+  ContextAnswer,
+  ContextResponse,
+} from "../../../services/utilities/types";
 import ContextSection from "./ContextSection";
 import { useSurveyAnswerContext } from "../../../context/SurveyAnswerContext";
 
@@ -19,7 +23,15 @@ const steps = [
   "Scenario 5",
 ];
 
-const ContextComponent = () => {
+interface ContextComponentProps {
+  handleSectionNext: () => void;
+  handleSectionBack: () => void;
+}
+
+const ContextComponent: React.FC<ContextComponentProps> = ({
+  handleSectionNext,
+  handleSectionBack,
+}) => {
   const [activeStep, setActiveStep] = useState(0);
   const [context, setContext] = useState<Context[]>([]);
   const [contextAnswers, setContextAnswers] = useState<ContextAnswer[]>([]);
@@ -36,7 +48,13 @@ const ContextComponent = () => {
   };
 
   const fetchContext = async () => {
-    const response = await contextService.getAll();
+    const contextRandomizeService = new ApiService<ContextResponse, Context[]>(
+      "context",
+      `randomize/5`
+    );
+
+    const response = await contextRandomizeService.getAll();
+    // console.log(response);
     setContext(response.message);
   };
 
@@ -51,6 +69,7 @@ const ContextComponent = () => {
       ...prevAnswers,
       answers: contextAnswers,
     }));
+    if (handleSectionNext) handleSectionNext();
   };
 
   return (
@@ -76,7 +95,7 @@ const ContextComponent = () => {
           <Instructions />
         ) : (
           <ContextSection
-            context={context[activeStep]}
+            context={context[activeStep - 1]}
             index={activeStep}
             contextAnswers={contextAnswers}
             setContextAnswers={setContextAnswers}
@@ -88,8 +107,14 @@ const ContextComponent = () => {
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
           <Button
             color="inherit"
-            disabled={activeStep === 0}
-            onClick={handleBack}
+            // disabled={activeStep === 0}
+            onClick={() => {
+              if (activeStep === 0) {
+                if (handleSectionBack) handleSectionBack();
+              } else {
+                handleBack();
+              }
+            }}
             sx={{ mr: 1 }}
           >
             Back

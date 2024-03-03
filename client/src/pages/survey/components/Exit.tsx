@@ -11,7 +11,7 @@ const Exit = () => {
 
     updatedExitAnswers[field] = selectedOption;
 
-    console.log({ updatedExitAnswers });
+    // console.log({ updatedExitAnswers });
     setSurveyAnswers(updatedExitAnswers);
   };
 

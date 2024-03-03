@@ -6,15 +6,22 @@ import {
   ContextResponse,
   SurveyAnswerPayload,
   SurveyResponse,
+  Bias,
 } from "./types";
 
-class ApiService<T> {
+const token = localStorage.getItem("moral-token");
+
+export class ApiService<T, P> {
   private BASE_URL: string;
   private ENDPOINT: string;
+  private ADDITIONAL_URL: string | undefined;
+  private TOKEN: string | null;
 
-  constructor(endpoint: string) {
+  constructor(endpoint: string, additionalUrl?: string) {
     this.BASE_URL = BACKEND_URL;
     this.ENDPOINT = endpoint;
+    this.ADDITIONAL_URL = additionalUrl;
+    this.TOKEN = token;
   }
 
   private async request<R>(config: AxiosRequestConfig): Promise<R> {
@@ -28,9 +35,19 @@ class ApiService<T> {
   }
 
   public async getAll(): Promise<T> {
+    let url: string;
+    if (this.ADDITIONAL_URL) {
+      url = `${this.BASE_URL}/${this.ENDPOINT}/${this.ADDITIONAL_URL}`;
+    } else {
+      url = `${this.BASE_URL}/${this.ENDPOINT}`;
+    }
+
     return this.request<T>({
       method: "GET",
-      url: `${this.BASE_URL}/${this.ENDPOINT}`,
+      url: url,
+      headers: {
+        "auth-token": this.TOKEN,
+      },
     });
   }
 
@@ -38,35 +55,64 @@ class ApiService<T> {
     return this.request<T>({
       method: "GET",
       url: `${this.BASE_URL}/${this.ENDPOINT}/${id}`,
+      headers: {
+        "auth-token": this.TOKEN,
+      },
     });
   }
 
-  // public async post(payload: SurveyAnswerPayload): Promise<T> {
-  //   return this.request<T>({
-  //     method: "POST",
-  //     body: payload,
-  //     url: `${this.BASE_URL}/${this.ENDPOINT}`,
-  //   });
-  // }
-
-  public async post(payload: SurveyAnswerPayload): Promise<T> {
+  public async post(payload: P): Promise<T> {
     try {
       // Send the POST request using axios
-      const response: AxiosResponse<T> = await axios.post<T>(
-        `${this.BASE_URL}/${this.ENDPOINT}`,
-        payload
-      );
+      let url;
+      if (this.ADDITIONAL_URL) {
+        url = `${this.BASE_URL}/${this.ENDPOINT}/${this.ADDITIONAL_URL}`;
+      } else {
+        url = `${this.BASE_URL}/${this.ENDPOINT}`;
+      }
+
+      const response: AxiosResponse<T> = await axios.post<T>(url, payload);
 
       // Return the response data
       return response.data;
-    } catch (error) {
+    } catch (error: unknown) {
       console.log(error);
       // Handle errors appropriately
-      throw new Error(`Failed to post data: ${error.message}`);
+      throw new Error(`Failed to post data: ${error}`);
+    }
+  }
+
+  public async put(payload: P): Promise<T> {
+    try {
+      // Send the POST request using axios
+      let url;
+      if (this.ADDITIONAL_URL) {
+        url = `${this.BASE_URL}/${this.ENDPOINT}/${this.ADDITIONAL_URL}`;
+      } else {
+        url = `${this.BASE_URL}/${this.ENDPOINT}`;
+      }
+
+      const headers = {
+        "auth-token": this.TOKEN,
+      };
+
+      const response: AxiosResponse<T> = await axios.put<T>(url, payload, {
+        headers: headers,
+      });
+
+      // Return the response data
+      return response.data;
+    } catch (error: unknown) {
+      console.log(error);
+      // Handle errors appropriately
+      throw new Error(`Failed to post data: ${error}`);
     }
   }
 }
 
-export const biasService = new ApiService<BiasResponse>("bias");
-export const contextService = new ApiService<ContextResponse>("context");
-export const surveyUserService = new ApiService<SurveyResponse>("surveyUser");
+export const biasService = new ApiService<BiasResponse, Bias[]>("bias");
+export const contextService = new ApiService<ContextResponse, null>("context");
+export const surveyUserService = new ApiService<
+  SurveyResponse,
+  SurveyAnswerPayload
+>("surveyUser");

@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const Context_1 = __importDefault(require("../../models/Context"));
 const verify_1 = __importDefault(require("../verify"));
+const handleImageUpload_1 = require("../../middlewares/handleImageUpload");
 const router = (0, express_1.Router)();
 router.post("/", verify_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -29,11 +30,53 @@ router.post("/", verify_1.default, (req, res) => __awaiter(void 0, void 0, void 
 }));
 router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const results = yield Context_1.default.find({}).exec();
+        const results = yield Context_1.default.find({}).select({
+            context: 1,
+            problem: 1,
+            options: 1,
+            reasoning: 1,
+            date: 1,
+            __v: 1,
+        });
         res.status(200).json({ status: "200", message: results });
     }
     catch (error) {
         res.status(500).json({ status: "500", message: "Error" });
+    }
+}));
+router.get("/randomize/:n", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const results = yield Context_1.default.find({}).select({
+            context: 1,
+            problem: 1,
+            options: 1,
+            reasoning: 1,
+            date: 1,
+            __v: 1,
+        });
+        // Shuffle the array
+        const shuffledResults = results.sort(() => Math.random() - 0.5);
+        // Select the first 'n' elements
+        const randomResults = shuffledResults.slice(0, parseInt(req.params.n));
+        res.status(200).json({ status: "200", message: randomResults });
+    }
+    catch (error) {
+        res.status(500).json({ status: "500", message: "Error" });
+    }
+}));
+router.get("/image/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield Context_1.default.findById(req.params.id);
+        res.set("Content-Type", "image/jpeg");
+        if (!result) {
+            return res
+                .status(404)
+                .send({ status: "404", message: "Image not found" });
+        }
+        res.status(200).send(result.image);
+    }
+    catch (error) {
+        res.status(200).send({ status: "400", message: error });
     }
 }));
 router.put("/:id", verify_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -46,6 +89,26 @@ router.put("/:id", verify_1.default, (req, res) => __awaiter(void 0, void 0, voi
                 .send({ status: "404", message: "Model not found" });
         }
         model.set(updatedModel);
+        yield model.save();
+        res.status(200).send({ status: "200", message: "Successfully Edited" });
+    }
+    catch (error) {
+        res.status(400).send({ status: "400", message: "Internal Server Error" });
+    }
+}));
+router.put("/image/:id", handleImageUpload_1.handleImageUpload, verify_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        // console.log(req.file);
+        let updatedContext = req.body;
+        if (req.file)
+            updatedContext.image = req.file.buffer;
+        let model = yield Context_1.default.findById(req.params.id).exec();
+        if (!model) {
+            return res
+                .status(404)
+                .send({ status: "404", message: "Context not found" });
+        }
+        model.set(updatedContext);
         yield model.save();
         res.status(200).send({ status: "200", message: "Successfully Edited" });
     }
