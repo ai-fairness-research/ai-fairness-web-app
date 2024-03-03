@@ -12,7 +12,8 @@ import Context from "./components/Context";
 const Dashboard: React.FC = () => {
   const [value, setValue] = React.useState("1");
 
-  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    console.log(event.target);
     setValue(newValue);
   };
 
