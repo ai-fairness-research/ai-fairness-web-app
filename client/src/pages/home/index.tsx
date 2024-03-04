@@ -1,81 +1,53 @@
 import React from "react";
-import {
-  Container,
-  Typography,
-  Button,
-  Grid,
-  Card,
-  CardContent,
-  CardActions,
-} from "@mui/material";
+import { Container, Typography, Button, Grid } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import { grey } from "@mui/material/colors";
 
 const LandingPage: React.FC = () => {
   return (
     <Container>
       <Grid container spacing={3} justifyContent="center" alignItems="center">
-        <Grid item xs={12} sx={{ mb: 5, mt: 3 }}>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          justifyContent="center"
+          alignItems="center"
+          sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+        >
           <Typography variant="h2" align="center">
-            Welcome to Our Landing Page
+            AI Fairness Survey
           </Typography>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Card sx={{ p: 2 }}>
-            <CardContent>
-              <Typography variant="h4">About Us</Typography>
-              <Typography variant="body1">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                nec odio. Praesent libero. Sed cursus ante dapibus diam.
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button variant="contained" color="primary">
-                Learn More
-              </Button>
-            </CardActions>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Card sx={{ p: 2 }}>
-            <CardContent>
-              <Typography variant="h4">About Us</Typography>
-              <Typography variant="body1">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                nec odio. Praesent libero. Sed cursus ante dapibus diam.
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button variant="contained" color="primary">
-                Learn More
-              </Button>
-            </CardActions>
-          </Card>
-        </Grid>
-        {/* <Grid item xs={12} md={6}>
-          <Card sx={{ p: 3 }}>
-            <CardContent>
-              <Typography variant="h4">Our Services</Typography>
-              <Typography variant="body1">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                nec odio. Praesent libero. Sed cursus ante dapibus diam.
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button variant="contained" color="primary">
-                Explore Services
-              </Button>
-            </CardActions>
-          </Card>
-        </Grid> */}
-        <Grid item xs={12} sx={{ textAlign: "center" }}>
-          <Typography variant="h4" align="center" sx={{ mt: 4 }}>
-            Start Survey Today
+          <Typography variant="body1" sx={{ color: grey[600] }} align="center">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
+            odio. Praesent libero. Sed cursus ante dapibus diam. Lorem ipsum
+            dolor sit amet, consectetur adipiscing elit. Integer nec odio.
+            Praesent libero. Sed cursus ante dapibus diam. Lorem ipsum dolor sit
+            amet, consectetur adipiscing elit. Integer nec odio. Praesent
+            libero. Sed cursus ante dapibus diam.
           </Typography>
-          <NavLink to="/questions">
-            <Button variant="contained" color="primary" sx={{ mt: 2, mb: 4 }}>
-              Get Started
+          <NavLink
+            to="/questions"
+            style={{
+              marginLeft: "auto",
+              marginRight: "auto",
+              textAlign: "center",
+            }}
+          >
+            <Button variant="contained" color="primary" sx={{ mt: 4, mb: 4 }}>
+              Start Survey
             </Button>
           </NavLink>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <img
+            src={
+              "https://ik.imagekit.io/aifairness/Frame-2.webp?updatedAt=1709519629218"
+            }
+            alt="bg-"
+            style={{ width: "100%", objectFit: "contain" }}
+            loading="eager"
+          />
         </Grid>
       </Grid>
     </Container>

@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { lazy, Suspense as ReactSuspense, ReactElement } from "react";
 import Layout from "./layout";
 

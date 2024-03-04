@@ -37,6 +37,13 @@ export interface ContextAnswer {
   textAnswer: string;
 }
 
+export interface ContextPayload {
+  context: string;
+  problem: string;
+  options: string[];
+  reasoning: string[];
+}
+
 export interface SurveyAnswerPayload {
   [key: string]: string | string[] | ContextAnswer[];
   email: string;

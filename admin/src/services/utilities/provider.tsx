@@ -9,6 +9,7 @@ import {
   SurveyResponse,
   AuthPayload,
   Bias,
+  ContextPayload,
 } from "./types";
 
 export class ApiService<T, P> {
@@ -64,7 +65,13 @@ export class ApiService<T, P> {
         url = `${this.BASE_URL}/${this.ENDPOINT}`;
       }
 
-      const response: AxiosResponse<T> = await axios.post<T>(url, payload);
+      const headers = {
+        "auth-token": this.TOKEN,
+      };
+
+      const response: AxiosResponse<T> = await axios.post<T>(url, payload, {
+        headers: headers,
+      });
 
       // Return the response data
       return response.data;
@@ -104,7 +111,9 @@ export class ApiService<T, P> {
 }
 
 export const biasService = new ApiService<BiasResponse, Bias[]>("bias");
-export const contextService = new ApiService<ContextResponse, null>("context");
+export const contextService = new ApiService<ContextResponse, ContextPayload>(
+  "context"
+);
 export const surveyUserService = new ApiService<
   SurveyResponse,
   SurveyAnswerPayload

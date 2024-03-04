@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { biasService } from "../../../services/utilities/provider";
 import { Bias } from "../../../services/utilities/types";
 import CommonSwitchComponent from "../../../common/CommonSwitchComponent";
-import { Skeleton } from "@mui/material";
+import { Divider, Skeleton, Typography } from "@mui/material";
 import { useSurveyAnswerContext } from "../../../context/SurveyAnswerContext";
+import LiteYouTubeEmbed from "react-lite-youtube-embed";
+import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
 
 const Bias = () => {
   const [biasQuestions, setBiasQuestions] = useState<Bias[]>([]);
@@ -50,6 +52,18 @@ const Bias = () => {
           }
         />
       ))}
+      {(surveyAnswers.bias[0] === "Not knowledgeable at all" ||
+        surveyAnswers.bias[0] === "Slightly knowledgeable" ||
+        surveyAnswers.bias[1] === "Not concerned" ||
+        surveyAnswers.bias[1] === "Slightly concerned") && (
+        <>
+          <Divider />
+          <Typography component={"h4"} variant="h4" sx={{ mb: 4 }}>
+            Learning about bias in algorithmic systems
+          </Typography>
+          <LiteYouTubeEmbed id="BtgcuhQ0cks" title="Bias in AI is a Problem" />
+        </>
+      )}
     </>
   );
 };

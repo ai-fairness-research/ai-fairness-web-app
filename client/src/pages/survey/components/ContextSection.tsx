@@ -4,7 +4,7 @@ import CommonCheckboxComponent from "../../../common/CommonCheckboxComponent";
 import { FACTORS } from "../../../constants";
 import { Context, ContextAnswer } from "../../../services/utilities/types";
 import CommonSwitchComponent from "../../../common/CommonSwitchComponent";
-import { LOCALHOST_URL } from "../../../services/api";
+import { BACKEND_URL } from "../../../services/api";
 import { secondary } from "../../../theme/themeColors";
 
 interface ContextSectionProps {
@@ -63,7 +63,7 @@ const ContextSection: React.FC<ContextSectionProps> = ({
         }}
       >
         <img
-          src={`${LOCALHOST_URL}/context/image/${context?._id}`}
+          src={`${BACKEND_URL}/context/image/${context?._id}`}
           style={{
             objectFit: "cover",
             height: 200,

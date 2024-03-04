@@ -95,7 +95,7 @@ const Login: React.FC = () => {
             type="submit"
             sx={{ marginTop: 2 }}
           >
-            Submit
+            Login
           </Button>
         </Box>
       </CardContent>
