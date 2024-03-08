@@ -19,7 +19,7 @@ router.post("/", async (req: Request, res: Response) => {
 router.get("/", verify, async (req: Request, res: Response) => {
   try {
     const results = await SurveyUser.find({}).exec();
-    res.status(200).json({ status: "200", message: results });
+    res.status(200).json({ status: "200", message: results.reverse() });
   } catch (error) {
     res.status(500).json({ status: "500", message: "Error" });
   }

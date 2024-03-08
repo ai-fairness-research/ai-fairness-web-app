@@ -22,13 +22,13 @@ const Survey = () => {
 
   const handleReset = () => {
     sendAnswer();
-    navigate("/success");
     setActiveStep(0);
   };
 
   const sendAnswer = async () => {
     await surveyUserService.post(surveyAnswers).then((res) => {
       console.log(res);
+      navigate("/success");
     });
     console.log(surveyAnswers);
     setSurveyAnswers({
