@@ -17,6 +17,7 @@ export interface ISurveyUser {
   bias?: string[];
   answers?: Types.Array<IAnswer>;
   attitude?: string[];
+  uniqueId?: string;
   date?: Date;
 }
 
@@ -47,6 +48,7 @@ const SurveyUserSchema = new Schema<ISurveyUserDocument>({
   bias: { type: [String] },
   answers: { type: [Object] },
   attitude: { type: [String] },
+  uniqueId: { type: [String] },
   date: { type: Date, default: Date.now },
 });
 

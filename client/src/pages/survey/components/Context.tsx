@@ -99,15 +99,11 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
             index={activeStep}
             contextAnswers={contextAnswers}
             setContextAnswers={setContextAnswers}
-            // onAnswer={(answer) =>
-            //   setContextAnswers((prevAnswers) => [...prevAnswers, answer])
-            // }
           />
         )}
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
           <Button
             color="inherit"
-            // disabled={activeStep === 0}
             onClick={() => {
               if (activeStep === 0) {
                 if (handleSectionBack) handleSectionBack();

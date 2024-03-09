@@ -50,6 +50,7 @@ export interface SurveyAnswerPayload {
   bias: string[];
   answers: ContextAnswer[];
   attitude: string[];
+  uniqueId: string;
 }
 
 export interface SurveyResponse {

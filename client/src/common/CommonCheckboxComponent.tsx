@@ -3,6 +3,7 @@ import {
   FormControl,
   FormControlLabel,
   FormGroup,
+  FormHelperText,
   FormLabel,
   Typography,
 } from "@mui/material";
@@ -14,6 +15,7 @@ interface CommonCheckboxComponentProps {
   additionalText?: string;
   selectedOptions?: string[];
   onOptionChange?: (selectedOption: string, checked: boolean) => void;
+  helperText?: string;
 }
 
 const CommonCheckboxComponent: React.FC<CommonCheckboxComponentProps> = ({
@@ -22,6 +24,7 @@ const CommonCheckboxComponent: React.FC<CommonCheckboxComponentProps> = ({
   additionalText,
   selectedOptions = [],
   onOptionChange,
+  helperText = "",
 }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, name } = event.target;
@@ -58,6 +61,7 @@ const CommonCheckboxComponent: React.FC<CommonCheckboxComponentProps> = ({
             />
           ))}
         </FormGroup>
+        {helperText !== "" && <FormHelperText>{helperText}</FormHelperText>}
       </FormControl>
     </>
   );

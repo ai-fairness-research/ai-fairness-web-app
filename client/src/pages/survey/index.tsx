@@ -1,4 +1,5 @@
 import * as React from "react";
+import cryptoRandomString from "crypto-random-string";
 import { Grid } from "@mui/material";
 import Steppers from "./components/Steppers";
 import Sections from "./components/Sections";
@@ -30,7 +31,7 @@ const Survey = () => {
       console.log(res);
       navigate("/success");
     });
-    console.log(surveyAnswers);
+    // console.log(surveyAnswers);
     setSurveyAnswers({
       email: "",
       isInterested: "",
@@ -48,6 +49,7 @@ const Survey = () => {
       bias: [],
       answers: [],
       attitude: [],
+      uniqueId: cryptoRandomString({ length: 10, type: "alphanumeric" }),
     });
   };
 
