@@ -1,18 +1,15 @@
+import React from "react";
 import {
   FormControl,
   FormControlLabel,
+  FormHelperText,
   FormLabel,
   Radio,
   RadioGroup,
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
-
-// interface FormProps {
-//   value: string;
-//   label: string;
-// }
+import { error } from "../theme/themeColors";
 
 interface CommonSwitchComponentProps {
   question: string;
@@ -20,6 +17,8 @@ interface CommonSwitchComponentProps {
   selectedOption?: string;
   onOptionChange?: (selectedOption: string) => void;
   additionalTextField?: boolean;
+  helperText?: string;
+  isError?: boolean;
 }
 
 const CommonSwitchComponent: React.FC<CommonSwitchComponentProps> = ({
@@ -28,6 +27,8 @@ const CommonSwitchComponent: React.FC<CommonSwitchComponentProps> = ({
   selectedOption,
   onOptionChange,
   additionalTextField = false,
+  helperText = "Select one option at least",
+  isError = false,
 }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (onOptionChange)
@@ -36,12 +37,12 @@ const CommonSwitchComponent: React.FC<CommonSwitchComponentProps> = ({
 
   return (
     <>
-      <FormControl>
+      <FormControl error={isError}>
         {question !== "" && (
           <FormLabel id="radio-buttons-group-label">
             <Typography
               component="span"
-              sx={{ color: "#000", fontWeight: 500 }}
+              sx={{ color: isError ? error.main : "#000", fontWeight: 500 }}
             >
               {question}{" "}
             </Typography>
@@ -69,6 +70,7 @@ const CommonSwitchComponent: React.FC<CommonSwitchComponentProps> = ({
             />
           ))}
         </RadioGroup>
+        {isError && <FormHelperText>{helperText}</FormHelperText>}
         {additionalTextField && (
           <>
             <Typography sx={{ fontStyle: "italic", mb: 0.5 }}>

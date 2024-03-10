@@ -31,7 +31,7 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 router.get("/", verify_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const results = yield SurveyUser_1.default.find({}).exec();
-        res.status(200).json({ status: "200", message: results });
+        res.status(200).json({ status: "200", message: results.reverse() });
     }
     catch (error) {
         res.status(500).json({ status: "500", message: "Error" });

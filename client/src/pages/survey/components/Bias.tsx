@@ -7,7 +7,11 @@ import { useSurveyAnswerContext } from "../../../context/SurveyAnswerContext";
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
 import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
 
-const Bias = () => {
+interface BiasProps {
+  isBiasedSubmitted: boolean;
+}
+
+const Bias: React.FC<BiasProps> = ({ isBiasedSubmitted }) => {
   const [biasQuestions, setBiasQuestions] = useState<Bias[]>([]);
 
   const { surveyAnswers, setSurveyAnswers } = useSurveyAnswerContext();
@@ -33,6 +37,14 @@ const Bias = () => {
     setSurveyAnswers({ ...surveyAnswers, ["bias"]: biasAnswers });
   };
 
+  const doesItHaveErr = (val: string): boolean | undefined => {
+    if (isBiasedSubmitted) {
+      if (val === "" || val === undefined) return true;
+      return false;
+    }
+    return false;
+  };
+
   return isLoading ? (
     <>
       <Skeleton variant="rounded" width={"100%"} height={60} animation="wave" />
@@ -50,6 +62,7 @@ const Bias = () => {
           onOptionChange={(selectedOption) =>
             handleQuestionChange(index, selectedOption)
           }
+          isError={doesItHaveErr(surveyAnswers?.bias[index])}
         />
       ))}
       {(surveyAnswers.bias[0] === "Not knowledgeable at all" ||

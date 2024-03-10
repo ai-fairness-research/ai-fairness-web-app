@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { error } from "../theme/themeColors";
 
 interface CommonCheckboxComponentProps {
   question: string;
@@ -15,6 +16,7 @@ interface CommonCheckboxComponentProps {
   additionalText?: string;
   selectedOptions?: string[];
   onOptionChange?: (selectedOption: string, checked: boolean) => void;
+  isError?: boolean;
   helperText?: string;
 }
 
@@ -24,7 +26,8 @@ const CommonCheckboxComponent: React.FC<CommonCheckboxComponentProps> = ({
   additionalText,
   selectedOptions = [],
   onOptionChange,
-  helperText = "",
+  isError = false,
+  helperText = "Select at least one option",
 }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, name } = event.target;
@@ -33,9 +36,12 @@ const CommonCheckboxComponent: React.FC<CommonCheckboxComponentProps> = ({
 
   return (
     <>
-      <FormControl>
+      <FormControl error={isError}>
         <FormLabel id="check-box">
-          <Typography component="span" sx={{ color: "#000", fontWeight: 500 }}>
+          <Typography
+            component="span"
+            sx={{ color: isError ? error.main : "#000", fontWeight: 500 }}
+          >
             {question}{" "}
           </Typography>
           <Typography
@@ -61,7 +67,7 @@ const CommonCheckboxComponent: React.FC<CommonCheckboxComponentProps> = ({
             />
           ))}
         </FormGroup>
-        {helperText !== "" && <FormHelperText>{helperText}</FormHelperText>}
+        {isError && <FormHelperText>{helperText}</FormHelperText>}
       </FormControl>
     </>
   );

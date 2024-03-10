@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ATTITUDE_CHOICES, ATTITUDE_QUESTIONS } from "../../../constants";
 import CommonSwitchComponent from "../../../common/CommonSwitchComponent";
 import { useSurveyAnswerContext } from "../../../context/SurveyAnswerContext";
 
-const Opinions = () => {
+interface OpinionsProps {
+  isOpinionsSubmitted: boolean;
+}
+
+const Opinions: React.FC<OpinionsProps> = ({ isOpinionsSubmitted }) => {
   const { setSurveyAnswers } = useSurveyAnswerContext();
   const [attitudeAnswers, setAttitudeAnswers] = useState<string[]>([]);
 
@@ -27,6 +31,18 @@ const Opinions = () => {
     });
   };
 
+  const doesItHaveErr = useCallback(
+    (val: string): boolean | undefined => {
+      if (isOpinionsSubmitted) {
+        if (val === "" || val === undefined || val.length === 0) return true;
+        return false;
+      }
+      return false;
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isOpinionsSubmitted, attitudeAnswers]
+  );
+
   return (
     <>
       {ATTITUDE_QUESTIONS.map((question, index: number) => (
@@ -38,6 +54,7 @@ const Opinions = () => {
           onOptionChange={(selectedOption) =>
             handleAttitudeChange(index, selectedOption)
           }
+          isError={doesItHaveErr(attitudeAnswers[index])}
         />
       ))}
     </>

@@ -108,6 +108,33 @@ export class ApiService<T, P> {
       throw new Error(`Failed to post data: ${error}`);
     }
   }
+
+  public async delete(additonalUrl?: string): Promise<T> {
+    try {
+      // Send the POST request using axios
+      let url;
+      if (additonalUrl) {
+        url = `${this.BASE_URL}/${this.ENDPOINT}/${additonalUrl}`;
+      } else {
+        url = `${this.BASE_URL}/${this.ENDPOINT}`;
+      }
+
+      const headers = {
+        "auth-token": this.TOKEN,
+      };
+
+      const response: AxiosResponse<T> = await axios.delete<T>(url, {
+        headers: headers,
+      });
+
+      // Return the response data
+      return response.data;
+    } catch (error: unknown) {
+      console.log(error);
+      // Handle errors appropriately
+      throw new Error(`Failed to post data: ${error}`);
+    }
+  }
 }
 
 export const biasService = new ApiService<BiasResponse, Bias[]>("bias");

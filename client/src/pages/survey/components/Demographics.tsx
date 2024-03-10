@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { DEMO_QUESTIONS } from "../../../constants";
 import CommonSwitchComponent from "../../../common/CommonSwitchComponent";
 import { FormControl, TextField, Typography } from "@mui/material";
 import CommonCheckboxComponent from "../../../common/CommonCheckboxComponent";
 import { useSurveyAnswerContext } from "../../../context/SurveyAnswerContext";
 import CommonSelectComponent from "../../../common/CommonSelectComponent";
+import { error } from "../../../theme/themeColors";
 
-const Demographics = () => {
+interface DemographicsProps {
+  isDemoSubmitted: boolean;
+}
+
+const Demographics: React.FC<DemographicsProps> = ({ isDemoSubmitted }) => {
   const { surveyAnswers, setSurveyAnswers } = useSurveyAnswerContext();
 
   const handleDemoChange = (
@@ -34,14 +39,34 @@ const Demographics = () => {
     setSurveyAnswers(updatedSurveysAnswers);
   };
 
+  const doesItHaveErr = useCallback(
+    (val: string | string[]): boolean | undefined => {
+      if (isDemoSubmitted) {
+        if (val === "" || val === undefined || val?.length === 0) return true;
+        return false;
+      }
+      return false;
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isDemoSubmitted]
+  );
+
   return (
     <>
       <FormControl fullWidth>
-        <Typography>In what year were you born?</Typography>
+        <Typography
+          sx={{
+            color: doesItHaveErr(surveyAnswers.birthYear) ? error.main : "#000",
+          }}
+        >
+          In what year were you born?
+        </Typography>
         <TextField
+          type="number"
           size="small"
           value={surveyAnswers.birthYear}
           onChange={(e) => handleDemoChange(e.target.value, "birthYear")}
+          error={doesItHaveErr(surveyAnswers?.birthYear)}
         />
       </FormControl>
       {DEMO_QUESTIONS.map((itm) =>
@@ -64,6 +89,7 @@ const Demographics = () => {
             onOptionChange={(selectedOption, checked) =>
               handleDemoChange(selectedOption, itm.field, checked)
             }
+            isError={doesItHaveErr(surveyAnswers?.[itm.field])}
           />
         ) : (
           <CommonSwitchComponent
@@ -75,6 +101,7 @@ const Demographics = () => {
               handleDemoChange(selectedOption, itm.field)
             }
             additionalTextField={itm.field === "gender"}
+            isError={doesItHaveErr(surveyAnswers?.[itm.field])}
           />
         )
       )}

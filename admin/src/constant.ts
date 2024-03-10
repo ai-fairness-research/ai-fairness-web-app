@@ -302,4 +302,9 @@ export const SURVEY_DATA: GridColDef[] = [
     valueGetter: (params: GridValueGetterParams) =>
       `${params.row?.answers[4]?.textAnswer || ""} `,
   },
+  {
+    field: "uniqueId",
+    headerName: "Unique ID",
+    width: 100,
+  },
 ];

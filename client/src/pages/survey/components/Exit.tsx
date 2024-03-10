@@ -1,19 +1,32 @@
 import { TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useCallback } from "react";
 import CommonSwitchComponent from "../../../common/CommonSwitchComponent";
 import { useSurveyAnswerContext } from "../../../context/SurveyAnswerContext";
 
-const Exit = () => {
+interface ExitProps {
+  isExitSubmitted: boolean;
+}
+
+const Exit: React.FC<ExitProps> = ({ isExitSubmitted }) => {
   const { surveyAnswers, setSurveyAnswers } = useSurveyAnswerContext();
 
   const handleExitChange = (selectedOption: string, field: string) => {
     const updatedExitAnswers = { ...surveyAnswers };
-
     updatedExitAnswers[field] = selectedOption;
-
-    // console.log({ updatedExitAnswers });
     setSurveyAnswers(updatedExitAnswers);
   };
+
+  const doesItHaveErr = useCallback(
+    (val: string): boolean | undefined => {
+      if (isExitSubmitted) {
+        if (val === "" || val === undefined) return true;
+        return false;
+      }
+      return false;
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isExitSubmitted]
+  );
 
   return (
     <>
@@ -34,14 +47,22 @@ const Exit = () => {
         onOptionChange={(selectedOption) =>
           handleExitChange(selectedOption, "isInterested")
         }
+        isError={doesItHaveErr(surveyAnswers?.isInterested)}
       />
-      <Typography sx={{ fontWeight: 500 }}>
-        If Yes, Please enter your email
-      </Typography>
-      <TextField
-        value={surveyAnswers?.email || ""}
-        onChange={(e) => handleExitChange(e.target.value, "email")}
-      />
+
+      {surveyAnswers?.isInterested === "Yes, I would like to participate" && (
+        <>
+          <Typography sx={{ fontWeight: 500 }}>
+            If Yes, Please enter your email
+          </Typography>
+          <TextField
+            label="Enter your email"
+            value={surveyAnswers?.email || ""}
+            onChange={(e) => handleExitChange(e.target.value, "email")}
+            error={doesItHaveErr(surveyAnswers?.email)}
+          />
+        </>
+      )}
     </>
   );
 };

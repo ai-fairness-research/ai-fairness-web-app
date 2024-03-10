@@ -5,7 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 import "@fontsource-variable/outfit";
 import React from "react";
 import { SurveyAnswerProvider } from "./context/SurveyAnswerContext.tsx";
-// import './index.css'
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <SurveyAnswerProvider>

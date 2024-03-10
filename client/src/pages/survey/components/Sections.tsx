@@ -12,6 +12,10 @@ interface SectionsProps {
   handleNext: () => void;
   handleBack: () => void;
   handleReset: () => void;
+  isBiasedSubmitted: boolean;
+  isOpinionsSubmitted: boolean;
+  isDemoSubmitted: boolean;
+  isExitSubmitted: boolean;
 }
 
 const Sections: React.FC<SectionsProps> = ({
@@ -19,6 +23,10 @@ const Sections: React.FC<SectionsProps> = ({
   handleNext,
   handleBack,
   handleReset,
+  isBiasedSubmitted,
+  isOpinionsSubmitted,
+  isDemoSubmitted,
+  isExitSubmitted,
 }) => {
   return (
     <>
@@ -31,7 +39,7 @@ const Sections: React.FC<SectionsProps> = ({
           handleBack={handleBack}
         >
           <Box sx={{ display: "flex", gap: 4, flexDirection: "column", mb: 4 }}>
-            <Bias />
+            <Bias isBiasedSubmitted={isBiasedSubmitted} />
           </Box>
         </SectionWrapper>
       )}
@@ -59,7 +67,7 @@ const Sections: React.FC<SectionsProps> = ({
           handleBack={handleBack}
         >
           <Box sx={{ display: "flex", gap: 4, flexDirection: "column", mb: 4 }}>
-            <Opinions />
+            <Opinions isOpinionsSubmitted={isOpinionsSubmitted} />
           </Box>
         </SectionWrapper>
       )}
@@ -74,7 +82,7 @@ const Sections: React.FC<SectionsProps> = ({
             <Box
               sx={{ display: "flex", gap: 4, flexDirection: "column", mb: 4 }}
             >
-              <Demographics />
+              <Demographics isDemoSubmitted={isDemoSubmitted} />
             </Box>
           </>
         </SectionWrapper>
@@ -90,7 +98,7 @@ const Sections: React.FC<SectionsProps> = ({
             <Box
               sx={{ display: "flex", gap: 4, flexDirection: "column", mb: 4 }}
             >
-              <Exit />
+              <Exit isExitSubmitted={isExitSubmitted} />
             </Box>
           </>
         </SectionWrapper>

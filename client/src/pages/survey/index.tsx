@@ -7,14 +7,58 @@ import { useSurveyAnswerContext } from "../../context/SurveyAnswerContext";
 import { useNavigate } from "react-router-dom";
 import { secondary } from "../../theme/themeColors";
 import { surveyUserService } from "../../services/utilities/provider";
+import CommonSnackbar from "../../common/CommonSnackbar";
 
 const Survey = () => {
   const navigate = useNavigate();
   const { surveyAnswers, setSurveyAnswers } = useSurveyAnswerContext();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(4);
+
+  const [isBiasedSubmitted, setIsBiasedSubmitted] = React.useState(false);
+  const [isOpinionsSubmitted, setIsOpinionsSubmitted] = React.useState(false);
+  const [isDemoSubmitted, setIsDemoSubmitted] = React.useState(false);
+  const [isExitSubmitted, setIsExitSubmitted] = React.useState(false);
+
+  const [openSnack, setIsOpenSnack] = React.useState(false);
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 0) {
+      setIsBiasedSubmitted(true);
+      if (surveyAnswers.bias[0] && surveyAnswers.bias[1]) {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      } else {
+        setIsOpenSnack(true);
+      }
+    } else if (activeStep === 2) {
+      setIsOpinionsSubmitted(true);
+      if (surveyAnswers.attitude.length === 6) {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      } else {
+        setIsOpenSnack(true);
+      }
+    } else if (activeStep === 3) {
+      setIsDemoSubmitted(true);
+      if (
+        surveyAnswers.birthYear !== "" &&
+        surveyAnswers.gender &&
+        surveyAnswers.country &&
+        surveyAnswers.educationYears &&
+        surveyAnswers.areaDesc &&
+        surveyAnswers.incomeDesc &&
+        surveyAnswers.isReligion &&
+        surveyAnswers.religion &&
+        surveyAnswers.isMinority &&
+        surveyAnswers.minority &&
+        surveyAnswers.minority.length !== 0 &&
+        surveyAnswers.isDiscriminated
+      ) {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      } else {
+        setIsOpenSnack(true);
+      }
+    } else {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
   };
 
   const handleBack = () => {
@@ -22,15 +66,31 @@ const Survey = () => {
   };
 
   const handleReset = () => {
-    sendAnswer();
-    setActiveStep(0);
+    setIsExitSubmitted(true);
+    if (
+      !surveyAnswers.isInterested ||
+      (surveyAnswers.isInterested === "Yes, I would like to participate" &&
+        (surveyAnswers.email === undefined || surveyAnswers.email === ""))
+    ) {
+      setIsOpenSnack(true);
+    } else {
+      sendAnswer();
+    }
   };
 
   const sendAnswer = async () => {
-    await surveyUserService.post(surveyAnswers).then((res) => {
-      console.log(res);
-      navigate("/success");
-    });
+    await surveyUserService
+      .post(surveyAnswers)
+      .then((res) => {
+        console.log(res);
+        navigate("/success");
+      })
+      .finally(() => {
+        setActiveStep(0);
+      });
+
+    const uniqueId = cryptoRandomString({ length: 10, type: "alphanumeric" });
+    localStorage.setItem("uniqueId", uniqueId);
     // console.log(surveyAnswers);
     setSurveyAnswers({
       email: "",
@@ -49,12 +109,16 @@ const Survey = () => {
       bias: [],
       answers: [],
       attitude: [],
-      uniqueId: cryptoRandomString({ length: 10, type: "alphanumeric" }),
+      uniqueId: uniqueId,
     });
   };
 
   return (
     <Grid container sx={{ minHeight: "80vh" }}>
+      <CommonSnackbar
+        open={openSnack}
+        handleClose={() => setIsOpenSnack(false)}
+      />
       <Grid
         item
         xs={12}
@@ -69,6 +133,10 @@ const Survey = () => {
           handleNext={handleNext}
           handleBack={handleBack}
           handleReset={handleReset}
+          isBiasedSubmitted={isBiasedSubmitted}
+          isOpinionsSubmitted={isOpinionsSubmitted}
+          isDemoSubmitted={isDemoSubmitted}
+          isExitSubmitted={isExitSubmitted}
         />
       </Grid>
     </Grid>

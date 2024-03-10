@@ -4,6 +4,8 @@ import { SurveyAnswerPayload } from "../services/utilities/types";
 interface SurveyAnswerContextProps {
   surveyAnswers: SurveyAnswerPayload;
   setSurveyAnswers: React.Dispatch<React.SetStateAction<SurveyAnswerPayload>>;
+  isSurveyError: boolean;
+  setIsSurveyError: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SurveyAnswerContext = createContext<SurveyAnswerContextProps | undefined>(
@@ -45,11 +47,16 @@ export const SurveyAnswerProvider: React.FC<SurveyAnswerProviderProps> = ({
     bias: [],
     answers: [],
     attitude: [],
+    uniqueId: "",
   });
+
+  const [isSurveyError, setIsSurveyError] = useState<boolean>(false);
 
   const value: SurveyAnswerContextProps = {
     surveyAnswers,
     setSurveyAnswers,
+    isSurveyError,
+    setIsSurveyError,
   };
 
   return (
