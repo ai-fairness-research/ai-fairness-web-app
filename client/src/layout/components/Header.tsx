@@ -15,14 +15,6 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { NavLink } from "react-router-dom";
 
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
-}
-
 const drawerWidth = 240;
 // const navItems = ["Home", "About", "Contact"];
 const navItems = [
@@ -36,8 +28,7 @@ const navItems = [
   },
 ];
 
-export default function DrawerAppBar(props: Props) {
-  const { window } = props;
+export default function DrawerAppBar() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -47,7 +38,15 @@ export default function DrawerAppBar(props: Props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        <NavLink to="/">AI Fairness</NavLink>
+        <NavLink to="/">
+          <img
+            src={
+              "https://ik.imagekit.io/aifairness/ai-logo.webp?updatedAt=1710051459362"
+            }
+            alt="ai-logo"
+            style={{ width: "100%", height: 200, objectFit: "contain" }}
+          />
+        </NavLink>
       </Typography>
       <Divider />
       <List>
@@ -63,9 +62,6 @@ export default function DrawerAppBar(props: Props) {
       </List>
     </Box>
   );
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -86,7 +82,15 @@ export default function DrawerAppBar(props: Props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            <NavLink to="/">AI Fairness</NavLink>
+            <NavLink to="/">
+              <img
+                src={
+                  "https://ik.imagekit.io/aifairness/ai-logo.webp?updatedAt=1710051459362"
+                }
+                alt="ai-logo"
+                style={{ height: 30, objectFit: "contain" }}
+              />
+            </NavLink>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
@@ -99,7 +103,6 @@ export default function DrawerAppBar(props: Props) {
       </AppBar>
       <nav>
         <Drawer
-          container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}

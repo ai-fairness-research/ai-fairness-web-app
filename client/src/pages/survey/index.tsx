@@ -12,7 +12,7 @@ import CommonSnackbar from "../../common/CommonSnackbar";
 const Survey = () => {
   const navigate = useNavigate();
   const { surveyAnswers, setSurveyAnswers } = useSurveyAnswerContext();
-  const [activeStep, setActiveStep] = React.useState(4);
+  const [activeStep, setActiveStep] = React.useState(0);
 
   const [isBiasedSubmitted, setIsBiasedSubmitted] = React.useState(false);
   const [isOpinionsSubmitted, setIsOpinionsSubmitted] = React.useState(false);

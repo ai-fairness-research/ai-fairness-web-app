@@ -52,7 +52,15 @@ export default function DrawerAppBar(props: Props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        <NavLink to="/">AI Fairness</NavLink>
+        <NavLink to="/">
+          <img
+            src={
+              "https://ik.imagekit.io/aifairness/ai-logo.webp?updatedAt=1710051459362"
+            }
+            alt="ai-logo"
+            style={{ width: "100%", height: 200, objectFit: "contain" }}
+          />
+        </NavLink>
       </Typography>
       <Divider />
       <List>
@@ -91,7 +99,15 @@ export default function DrawerAppBar(props: Props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            <NavLink to="/">AI Fairness</NavLink>
+            <NavLink to="/">
+              <img
+                src={
+                  "https://ik.imagekit.io/aifairness/ai-logo.webp?updatedAt=1710051459362"
+                }
+                alt="ai-logo"
+                style={{ height: 30, objectFit: "contain" }}
+              />
+            </NavLink>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {token ? (
