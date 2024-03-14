@@ -19,6 +19,8 @@ const SurveyData: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [surveys, setSurveys] = useState<SurveyAnswerPayload[]>([]);
 
+  const token = localStorage.getItem("moral-token");
+
   const fetchSurveyData = async () => {
     setIsLoading(true);
     try {
@@ -33,9 +35,6 @@ const SurveyData: React.FC = () => {
         setSurveys(surveysWithCustomKey);
         setIsLoading(false);
       } else {
-        if (surveys.length === 0) {
-          fetchSurveyData();
-        }
         setIsLoading(false);
       }
     } catch (error) {
@@ -47,7 +46,7 @@ const SurveyData: React.FC = () => {
   useEffect(() => {
     fetchSurveyData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [token]);
 
   const delSurveyData = async (id: string) => {
     await surveyUserService
