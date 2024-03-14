@@ -33,6 +33,9 @@ const SurveyData: React.FC = () => {
         setSurveys(surveysWithCustomKey);
         setIsLoading(false);
       } else {
+        if (surveys.length === 0) {
+          fetchSurveyData();
+        }
         setIsLoading(false);
       }
     } catch (error) {
@@ -43,6 +46,7 @@ const SurveyData: React.FC = () => {
 
   useEffect(() => {
     fetchSurveyData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const delSurveyData = async (id: string) => {

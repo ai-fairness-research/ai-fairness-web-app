@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { BACKEND_URL } from "../api";
 // import { LOCALHOST_URL } from "../api";
@@ -8,8 +9,10 @@ import {
   SurveyAnswerPayload,
   SurveyResponse,
   AuthPayload,
-  Bias,
   ContextPayload,
+  AttitudeResponse,
+  AttitudePayload,
+  BiasPayload,
 } from "./types";
 
 export class ApiService<T, P> {
@@ -137,7 +140,7 @@ export class ApiService<T, P> {
   }
 }
 
-export const biasService = new ApiService<BiasResponse, Bias[]>("bias");
+export const biasService = new ApiService<BiasResponse, BiasPayload>("bias");
 export const contextService = new ApiService<ContextResponse, ContextPayload>(
   "context"
 );
@@ -150,3 +153,7 @@ export const authLoginService = new ApiService<AuthResponse, AuthPayload>(
   "auth",
   "signin"
 );
+export const attitudeService = new ApiService<
+  AttitudeResponse,
+  AttitudePayload
+>("attitude");

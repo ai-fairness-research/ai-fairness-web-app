@@ -19,12 +19,13 @@ import {
 import toast from "react-hot-toast";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
+import { secondary } from "../../../theme/themeColors";
 
 const Context: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [context, setContext] = useState<ContextType[]>([]);
 
-  const fetchSurveyData = async () => {
+  const fetchContext = async () => {
     setIsLoading(true);
     try {
       const res: ContextResponse = await contextService.getAll();
@@ -42,10 +43,10 @@ const Context: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchSurveyData();
+    fetchContext();
   }, []);
 
-  const editBias = async (id: string, index: number) => {
+  const editContext = async (id: string, index: number) => {
     const contextEditService = new ApiService<ApiResponse, ContextType>(
       "context",
       id
@@ -87,11 +88,31 @@ const Context: React.FC = () => {
     setContext(updatedBiases);
   };
 
+  const deleteContext = async (id: string) => {
+    setIsLoading(true);
+    try {
+      const res: ContextResponse = await contextService.delete(id);
+      console.log(res);
+      if (res.status === "200") {
+        toast.success("Successfully Deleted");
+        setIsLoading(false);
+        fetchContext();
+      } else {
+        setIsLoading(false);
+        fetchContext();
+      }
+    } catch (error) {
+      console.error("Error deleting context", error);
+      setIsLoading(false);
+      fetchContext();
+    }
+  };
+
   return isLoading ? (
     <Skeleton width="100%" height="400px" />
   ) : (
     <Container sx={{ py: 2 }}>
-      <AddContext />
+      <AddContext fetchContext={fetchContext} />
       <Typography variant="h5">Edit Context</Typography>
       {context.map((item, index) => (
         <Box key={item._id}>
@@ -145,8 +166,16 @@ const Context: React.FC = () => {
           </Box>
           <Box sx={{ textAlign: "end", mt: 4 }}>
             <Button
+              onClick={() => deleteContext(item._id)}
               variant="contained"
-              onClick={() => editBias(item._id, index)}
+              color="error"
+              sx={{ mr: 2, color: secondary.light }}
+            >
+              Delete
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => editContext(item._id, index)}
             >
               Update
             </Button>
@@ -159,7 +188,11 @@ const Context: React.FC = () => {
 
 export default Context;
 
-const AddContext = () => {
+interface AddContextProps {
+  fetchContext: () => void;
+}
+
+const AddContext: React.FC<AddContextProps> = ({ fetchContext }) => {
   const [isAddContext, setIsAddContext] = useState<boolean>(false);
   const [file, setFile] = useState<File | null>(null);
   const [context, setContext] = useState({
@@ -186,11 +219,19 @@ const AddContext = () => {
   };
 
   const addContext = async () => {
-    await contextService.post(context).then((res) => {
-      if (res.status === "200") {
-        toast.success("Context is added");
-      }
-    });
+    await contextService
+      .post(context)
+      .then((res) => {
+        if (res.status === "200") {
+          toast.success("Context is added");
+        }
+      })
+      .catch(() => {
+        toast.error("Context deletion failed");
+      })
+      .finally(() => {
+        fetchContext();
+      });
   };
 
   const VisuallyHiddenInput = styled("input")({

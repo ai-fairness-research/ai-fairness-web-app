@@ -12,6 +12,12 @@ export interface BiasResponse {
   message: Bias[];
 }
 
+export interface BiasPayload {
+  // data: number;
+  question: string;
+  options: string[];
+}
+
 export interface Context {
   _id: string;
   context: string;
@@ -86,4 +92,20 @@ export interface AuthResponse {
 export interface ApiResponse {
   status: string;
   message: string;
+}
+
+export interface Attitude {
+  _id: string;
+  question: string;
+  date: string;
+  __v: number;
+}
+
+export interface AttitudeResponse {
+  status: string;
+  message: Attitude[];
+}
+
+export interface AttitudePayload {
+  question: string;
 }

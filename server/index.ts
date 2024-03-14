@@ -7,6 +7,7 @@ import authRoute from "./routes/auth/auth";
 import biasRoute from "./routes/bias/bias";
 import contextRoute from "./routes/context/context";
 import surveyUserRoute from "./routes/surveyUser/surveyUser";
+import attitudeRoute from "./routes/attitude/attitude";
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/bias", biasRoute);
 app.use("/api/context", contextRoute);
 app.use("/api/surveyUser", surveyUserRoute);
+app.use("/api/attitude", attitudeRoute);
 
 app.get("/", (req: Request, res: Response) => {
   res.send(`<p>Ai Fairness Backend !</p>`);

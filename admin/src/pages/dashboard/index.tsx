@@ -8,6 +8,7 @@ import { Container } from "@mui/material";
 import SurveyData from "./components/SurveyData";
 import Bias from "./components/Bias";
 import Context from "./components/Context";
+import Attitude from "./components/Attitude";
 
 const Dashboard: React.FC = () => {
   const [value, setValue] = React.useState("1");
@@ -29,6 +30,7 @@ const Dashboard: React.FC = () => {
             <Tab label="Survey Data" value="1" />
             <Tab label="Bias" value="2" />
             <Tab label="Context" value="3" />
+            <Tab label="Attitude" value="4" />
           </TabList>
         </Box>
 
@@ -43,6 +45,9 @@ const Dashboard: React.FC = () => {
           </TabPanel>
           <TabPanel value="3">
             <Context />
+          </TabPanel>
+          <TabPanel value="4">
+            <Attitude />
           </TabPanel>
         </Box>
       </Container>
