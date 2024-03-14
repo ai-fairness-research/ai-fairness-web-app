@@ -11,6 +11,7 @@ const auth_1 = __importDefault(require("./routes/auth/auth"));
 const bias_1 = __importDefault(require("./routes/bias/bias"));
 const context_1 = __importDefault(require("./routes/context/context"));
 const surveyUser_1 = __importDefault(require("./routes/surveyUser/surveyUser"));
+const attitude_1 = __importDefault(require("./routes/attitude/attitude"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 8000;
@@ -35,6 +36,7 @@ app.use("/api/auth", auth_1.default);
 app.use("/api/bias", bias_1.default);
 app.use("/api/context", context_1.default);
 app.use("/api/surveyUser", surveyUser_1.default);
+app.use("/api/attitude", attitude_1.default);
 app.get("/", (req, res) => {
     res.send(`<p>Ai Fairness Backend !</p>`);
 });
