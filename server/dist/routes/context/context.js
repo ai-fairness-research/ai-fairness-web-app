@@ -36,6 +36,7 @@ router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             options: 1,
             title: 1,
             reasoning: 1,
+            example: 1,
             date: 1,
             __v: 1,
         });
@@ -53,6 +54,7 @@ router.get("/randomize/:n", (req, res) => __awaiter(void 0, void 0, void 0, func
             title: 1,
             options: 1,
             reasoning: 1,
+            example: 1,
             date: 1,
             __v: 1,
         });

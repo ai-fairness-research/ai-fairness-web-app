@@ -24,6 +24,7 @@ router.get("/", async (req: Request, res: Response) => {
       options: 1,
       title: 1,
       reasoning: 1,
+      example: 1,
       date: 1,
       __v: 1,
     });
@@ -41,6 +42,7 @@ router.get("/randomize/:n", async (req: Request, res: Response) => {
       title: 1,
       options: 1,
       reasoning: 1,
+      example: 1,
       date: 1,
       __v: 1,
     });
