@@ -9,6 +9,9 @@ const ModelSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
+    title: {
+        type: String,
+    },
     problem: {
         type: String,
         required: true,

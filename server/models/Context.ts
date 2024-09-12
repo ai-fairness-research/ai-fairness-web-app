@@ -3,6 +3,7 @@ import { Schema, Document, model } from "mongoose";
 export interface IModel {
   image: Buffer;
   context: string;
+  title?: string;
   problem: string;
   options?: string[];
   reasoning?: string[];
@@ -18,6 +19,9 @@ const ModelSchema = new Schema<IModelDocument>({
   context: {
     type: String,
     required: true,
+  },
+  title: {
+    type: String,
   },
   problem: {
     type: String,
