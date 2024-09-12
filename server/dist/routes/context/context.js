@@ -34,6 +34,7 @@ router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             context: 1,
             problem: 1,
             options: 1,
+            title: 1,
             reasoning: 1,
             date: 1,
             __v: 1,
@@ -49,6 +50,7 @@ router.get("/randomize/:n", (req, res) => __awaiter(void 0, void 0, void 0, func
         const results = yield Context_1.default.find({}).select({
             context: 1,
             problem: 1,
+            title: 1,
             options: 1,
             reasoning: 1,
             date: 1,

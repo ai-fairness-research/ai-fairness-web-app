@@ -22,6 +22,7 @@ router.get("/", async (req: Request, res: Response) => {
       context: 1,
       problem: 1,
       options: 1,
+      title: 1,
       reasoning: 1,
       date: 1,
       __v: 1,
@@ -37,6 +38,7 @@ router.get("/randomize/:n", async (req: Request, res: Response) => {
     const results = await Model.find({}).select({
       context: 1,
       problem: 1,
+      title: 1,
       options: 1,
       reasoning: 1,
       date: 1,

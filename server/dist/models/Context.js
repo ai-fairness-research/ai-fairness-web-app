@@ -16,6 +16,9 @@ const ModelSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
+    example: {
+        type: String,
+    },
     options: {
         type: [String],
     },

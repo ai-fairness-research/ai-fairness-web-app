@@ -5,6 +5,7 @@ export interface IModel {
   context: string;
   title?: string;
   problem: string;
+  example?: string;
   options?: string[];
   reasoning?: string[];
   date?: Date;
@@ -26,6 +27,9 @@ const ModelSchema = new Schema<IModelDocument>({
   problem: {
     type: String,
     required: true,
+  },
+  example: {
+    type: String,
   },
   options: {
     type: [String],
