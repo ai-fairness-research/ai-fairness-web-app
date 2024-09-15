@@ -19,6 +19,7 @@ export interface ISurveyUser {
   attitude?: string[];
   uniqueId?: string;
   date?: Date;
+  proId?: string;
 }
 
 export interface IAnswer {
@@ -49,6 +50,7 @@ const SurveyUserSchema = new Schema<ISurveyUserDocument>({
   answers: { type: [Object] },
   attitude: { type: [String] },
   uniqueId: { type: [String] },
+  proId: { type: String },
   date: { type: Date, default: Date.now },
 });
 

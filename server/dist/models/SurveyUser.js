@@ -19,6 +19,7 @@ const SurveyUserSchema = new mongoose_1.Schema({
     answers: { type: [Object] },
     attitude: { type: [String] },
     uniqueId: { type: [String] },
+    proId: { type: String },
     date: { type: Date, default: Date.now },
 });
 const SurveyUser = (0, mongoose_1.model)("SurveyUser", SurveyUserSchema);

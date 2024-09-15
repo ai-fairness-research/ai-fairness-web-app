@@ -16,7 +16,7 @@ const express_1 = require("express");
 const SurveyUser_1 = __importDefault(require("../../models/SurveyUser"));
 const verify_1 = __importDefault(require("../verify"));
 const router = (0, express_1.Router)();
-router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/", verify_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.body);
     const user = new SurveyUser_1.default(req.body);
     yield user.save();
@@ -28,7 +28,7 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(200).send({ status: "400", message: "Internal Server Error" });
     }
 }));
-router.get("/", verify_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const results = yield SurveyUser_1.default.find({}).exec();
         res.status(200).json({ status: "200", message: results.reverse() });

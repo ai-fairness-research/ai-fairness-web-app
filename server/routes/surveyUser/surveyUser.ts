@@ -4,7 +4,7 @@ import verify from "../verify";
 
 const router = Router();
 
-router.post("/", async (req: Request, res: Response) => {
+router.post("/", verify, async (req: Request, res: Response) => {
   console.log(req.body);
   const user = new SurveyUser(req.body as ISurveyUser);
   await user.save();
@@ -16,7 +16,7 @@ router.post("/", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/", verify, async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
   try {
     const results = await SurveyUser.find({}).exec();
     res.status(200).json({ status: "200", message: results.reverse() });
