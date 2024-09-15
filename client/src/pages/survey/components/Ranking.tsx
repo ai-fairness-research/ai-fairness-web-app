@@ -78,7 +78,7 @@ const RankingForm: React.FC<RankingFormProps> = ({
       >
         6. Below are four different ways you might ensure the hiring process is
         fair. Please rank these options from 1 to 4, where 1 is the option you
-        believe is the fairest and 4 is the least fair.
+        believe is the fairest and 4 is the least fair. (Drag and Rearrange)
       </FormLabel>
 
       <DragDropContext onDragEnd={handleOnDragEnd}>

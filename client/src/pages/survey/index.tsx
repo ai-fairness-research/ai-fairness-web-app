@@ -81,15 +81,13 @@ const Survey = () => {
 
   const sendAnswer = async () => {
     console.log(surveyAnswers);
-    await surveyUserService
-      .post(surveyAnswers)
-      .then((res) => {
-        console.log(res);
-        navigate("/success");
-      })
-      .finally(() => {
-        setActiveStep(0);
-      });
+    await surveyUserService.post(surveyAnswers).then((res) => {
+      console.log(res);
+      navigate("/success");
+    });
+    // .finally(() => {
+    //   // setActiveStep(0);
+    // });
 
     // const uniqueId = cryptoRandomString({ length: 10, type: "alphanumeric" });
     // localStorage.setItem("uniqueId", uniqueId);
@@ -112,6 +110,7 @@ const Survey = () => {
       attitude: [],
       proId: "",
     });
+    setActiveStep(0);
   };
 
   return (

@@ -138,6 +138,29 @@ export class ApiService<T, P> {
       throw new Error(`Failed to post data: ${error}`);
     }
   }
+
+  public async uploadImage(id: string, file: File): Promise<T> {
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const headers = {
+        "auth-token": this.TOKEN,
+        "Content-Type": "multipart/form-data",
+      };
+
+      const response: AxiosResponse<T> = await axios.put<T>(
+        `${this.BASE_URL}/${this.ENDPOINT}/image/${id}`,
+        formData,
+        { headers }
+      );
+
+      return response.data;
+    } catch (error: unknown) {
+      console.error(error);
+      throw new Error("Failed to upload image");
+    }
+  }
 }
 
 export const biasService = new ApiService<BiasResponse, BiasPayload>("bias");

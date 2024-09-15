@@ -4,11 +4,12 @@ import CommonCheckboxComponent from "../../../common/CommonCheckboxComponent";
 import { FACTORS } from "../../../constants";
 import { Context, ContextAnswer } from "../../../services/utilities/types";
 import CommonSwitchComponent from "../../../common/CommonSwitchComponent";
-import { error } from "../../../theme/themeColors";
+import { error, secondary } from "../../../theme/themeColors";
 import { CommonWrapper } from "../../../common/CommonBox";
 import DatasetImg from "../../../assets/images/dataset.jpg";
 import ModelImg from "../../../assets/images/model.jpg";
 import RankingForm from "./Ranking";
+import { BACKEND_URL } from "../../../services/api";
 
 interface ContextSectionProps {
   context: Context;
@@ -70,16 +71,11 @@ const ContextSection: React.FC<ContextSectionProps> = ({
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-      <Typography
-        sx={{
-          fontWeight: 600,
-          fontSize: 28,
-          textAlign: "center",
-        }}
-      >
-        {context?.context}: {context?.title}
-      </Typography>
-      {/* </Box> */}
+      <ContextTitle
+        id={context._id}
+        context={context.context}
+        title={context.title}
+      />
       <CommonWrapper>
         <Typography
           sx={{
@@ -97,9 +93,21 @@ const ContextSection: React.FC<ContextSectionProps> = ({
 
         <Box>
           <Typography sx={{ fontWeight: 600, fontSize: 20, mb: 2 }}>
-            Datasets:
+            Datasets Used:
           </Typography>
           <Grid container spacing={2}>
+            <Grid item sm={12} md={8}>
+              {context?.options?.map(
+                (option) =>
+                  option !== "" && (
+                    <Typography sx={{ my: 1 }} key={option}>
+                      -{" "}
+                      <b style={{ marginRight: 2 }}>{option.split(":")[0]}:</b>{" "}
+                      {option.split(":")[1]}
+                    </Typography>
+                  )
+              )}
+            </Grid>
             <Grid
               item
               sm={12}
@@ -112,25 +120,24 @@ const ContextSection: React.FC<ContextSectionProps> = ({
                 style={{ width: "100%", height: "auto", objectFit: "contain" }}
               />
             </Grid>
+          </Grid>
+        </Box>
+
+        <Box>
+          <Typography sx={{ fontWeight: 600, fontSize: 20, mb: 2, mt: 2 }}>
+            Model:
+          </Typography>
+          <Grid container spacing={2}>
             <Grid item sm={12} md={8}>
-              {context?.options?.map(
+              {context?.reasoning?.map(
                 (option) =>
                   option !== "" && (
                     <Typography sx={{ my: 1 }} key={option}>
-                      {" "}
                       - {option}
                     </Typography>
                   )
               )}
             </Grid>
-          </Grid>
-        </Box>
-
-        <Box>
-          <Typography sx={{ fontWeight: 600, fontSize: 20, mb: 2 }}>
-            Model:
-          </Typography>
-          <Grid container spacing={2}>
             <Grid
               item
               sm={12}
@@ -142,16 +149,6 @@ const ContextSection: React.FC<ContextSectionProps> = ({
                 alt="model"
                 style={{ width: "100%", height: "auto", objectFit: "contain" }}
               />
-            </Grid>
-            <Grid item sm={12} md={8}>
-              {context?.reasoning?.map(
-                (option) =>
-                  option !== "" && (
-                    <Typography sx={{ my: 1 }} key={option}>
-                      - {option}
-                    </Typography>
-                  )
-              )}
             </Grid>
           </Grid>
         </Box>
@@ -256,3 +253,52 @@ const ContextSection: React.FC<ContextSectionProps> = ({
 };
 
 export default ContextSection;
+
+interface ContextTitleProps {
+  id: string;
+  context: string;
+  title: string;
+}
+
+const ContextTitle: React.FC<ContextTitleProps> = ({ id, context, title }) => (
+  <Box
+    sx={{
+      position: "relative",
+      height: 200,
+      "&::before": {
+        content: '""',
+        position: "absolute",
+        height: 200,
+        width: "100%",
+        backgroundColor: "rgba(0,0,0,0.5)",
+        borderRadius: 16,
+      },
+    }}
+  >
+    <img
+      src={`${BACKEND_URL}/context/image/${id}`}
+      style={{
+        objectFit: "cover",
+        height: 200,
+        width: "100%",
+        backgroundPosition: "center",
+        borderRadius: 16,
+      }}
+      loading="lazy"
+    />
+    <Typography
+      sx={{
+        fontWeight: 600,
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        color: secondary.main,
+        fontSize: 28,
+        transform: "translate(-50%, -50%)",
+        textAlign: "center",
+      }}
+    >
+      {context}: {title}
+    </Typography>
+  </Box>
+);
