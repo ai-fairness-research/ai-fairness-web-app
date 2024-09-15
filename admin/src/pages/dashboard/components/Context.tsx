@@ -125,12 +125,28 @@ const Context: React.FC = () => {
             onChange={(e) => handleContext("context", e.target.value, index, 0)}
           />
           <TextField
+            value={item.title}
+            size="small"
+            fullWidth
+            label="Title"
+            sx={{ my: 2 }}
+            onChange={(e) => handleContext("title", e.target.value, index, 0)}
+          />
+          <TextField
             value={item.problem}
             size="small"
             fullWidth
             label="Problem"
             sx={{ my: 2 }}
             onChange={(e) => handleContext("problem", e.target.value, index, 0)}
+          />
+          <TextField
+            value={item.example}
+            size="small"
+            fullWidth
+            label="Example"
+            sx={{ my: 2 }}
+            onChange={(e) => handleContext("example", e.target.value, index, 0)}
           />
           <Typography sx={{ fontWeight: 500, mb: 2 }}>Options</Typography>
           <Box sx={{ display: "flex", gap: 2, flexDirection: "column" }}>

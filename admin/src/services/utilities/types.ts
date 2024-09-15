@@ -22,6 +22,8 @@ export interface Context {
   _id: string;
   context: string;
   problem: string;
+  title: string;
+  example: string;
   options: string[];
   reasoning: string[];
   date: string;
@@ -65,10 +67,9 @@ export interface SurveyAnswerPayload {
   religion: string;
   isMinority: string;
   minority: string[];
-  bias: string[];
   answers: ContextAnswer[];
   attitude: string[];
-  uniqueId: string;
+  proId: string;
 }
 
 export interface SurveyResponse {

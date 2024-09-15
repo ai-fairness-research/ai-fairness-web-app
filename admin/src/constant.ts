@@ -63,22 +63,22 @@ export const SURVEY_DATA: GridColDef[] = [
     headerName: "Is Interested in Participation",
     width: 220,
   },
-  {
-    field: "bias1",
-    headerName:
-      "How knowledgeable are you about artificial intelligence (AI) and machine learning (ML)?",
-    width: 180,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.bias[0] || ""} `,
-  },
-  {
-    field: "bias2",
-    headerName:
-      "How concerned are you about potential biases or discrimination embedded in algorithmic decision-making systems?",
-    width: 180,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.bias[1] || ""} `,
-  },
+  // {
+  //   field: "bias1",
+  //   headerName:
+  //     "How knowledgeable are you about artificial intelligence (AI) and machine learning (ML)?",
+  //   width: 180,
+  //   valueGetter: (params: GridValueGetterParams) =>
+  //     `${params.row.bias[0] || ""} `,
+  // },
+  // {
+  //   field: "bias2",
+  //   headerName:
+  //     "How concerned are you about potential biases or discrimination embedded in algorithmic decision-making systems?",
+  //   width: 180,
+  //   valueGetter: (params: GridValueGetterParams) =>
+  //     `${params.row.bias[1] || ""} `,
+  // },
   {
     field: "attitude1",
     headerName:
@@ -135,32 +135,39 @@ export const SURVEY_DATA: GridColDef[] = [
       `${params.row?.answers[0]?.context || ""} `,
   },
   {
-    field: "protected1",
-    headerName: "Protected Categories",
+    field: "factors1",
+    headerName: "Factors 1",
     width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${renderArrayField(params.row?.answers[0]?.protected) || ""} `,
+      `${params.row?.answers[0]?.factors || ""} `,
   },
   {
-    field: "optimized1",
-    headerName: "Optimized Categories",
+    field: "decision1",
+    headerName: "Decision 1",
     width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${renderArrayField(params.row?.answers[0]?.optimized) || ""} `,
+      `${params.row?.answers[0]?.decision || ""} `,
   },
   {
-    field: "developer1",
-    headerName: "Developer Suggestion",
-    width: 220,
+    field: "predictions1",
+    headerName: "Predictions 1",
+    width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${params.row?.answers[0]?.developer?.[0] || ""} `,
+      `${params.row?.answers[0]?.predictions || ""} `,
   },
   {
-    field: "suggestion1",
-    headerName: "General Suggestion",
+    field: "modelImpact1",
+    headerName: "Model Impact 1",
     width: 220,
     valueGetter: (params: GridValueGetterParams) =>
-      `${params.row?.answers[0]?.textAnswer || ""} `,
+      `${renderArrayField(params.row?.answers[0]?.modelImpact) || ""} `,
+  },
+  {
+    field: "buildFocus1",
+    headerName: "Build Focus 1",
+    width: 120,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${renderArrayField(params.row?.answers[0]?.buildFocus) || ""} `,
   },
   {
     field: "context 2",
@@ -170,32 +177,39 @@ export const SURVEY_DATA: GridColDef[] = [
       `${params.row?.answers[1]?.context || ""} `,
   },
   {
-    field: "protected2",
-    headerName: "Protected Categories",
+    field: "factors2",
+    headerName: "Factors 2",
     width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${renderArrayField(params.row?.answers[1]?.protected) || ""} `,
+      `${params.row?.answers[1]?.factors || ""} `,
   },
   {
-    field: "optimized2",
-    headerName: "Optimized Categories",
+    field: "decision2",
+    headerName: "Decision 2",
     width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${renderArrayField(params.row?.answers[1]?.optimized) || ""} `,
+      `${params.row?.answers[1]?.decision || ""} `,
   },
   {
-    field: "developer2",
-    headerName: "Developer Suggestion",
-    width: 220,
+    field: "predictions2",
+    headerName: "Predictions 2",
+    width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${params.row?.answers[1]?.developer?.[0] || ""} `,
+      `${params.row?.answers[1]?.predictions || ""} `,
   },
   {
-    field: "suggestion2",
-    headerName: "General Suggestion",
+    field: "modelImpact2",
+    headerName: "Model Impact 2",
     width: 220,
     valueGetter: (params: GridValueGetterParams) =>
-      `${params.row?.answers[1]?.textAnswer || ""} `,
+      `${renderArrayField(params.row?.answers[1]?.modelImpact) || ""} `,
+  },
+  {
+    field: "buildFocus2",
+    headerName: "Build Focus 2",
+    width: 120,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${renderArrayField(params.row?.answers[1]?.buildFocus) || ""} `,
   },
   {
     field: "context 3",
@@ -205,32 +219,39 @@ export const SURVEY_DATA: GridColDef[] = [
       `${params.row?.answers[2]?.context || ""} `,
   },
   {
-    field: "protected3",
-    headerName: "Protected Categories",
+    field: "factors3",
+    headerName: "Factors 3",
     width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${renderArrayField(params.row?.answers[2]?.protected) || ""} `,
+      `${params.row?.answers[2]?.factors || ""} `,
   },
   {
-    field: "optimized3",
-    headerName: "Optimized Categories",
+    field: "decision3",
+    headerName: "Decision 3",
     width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${renderArrayField(params.row?.answers[2]?.optimized) || ""} `,
+      `${params.row?.answers[2]?.decision || ""} `,
   },
   {
-    field: "developer3",
-    headerName: "Developer Suggestion",
-    width: 220,
+    field: "predictions3",
+    headerName: "Predictions 3",
+    width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${params.row?.answers[2]?.developer?.[0] || ""} `,
+      `${params.row?.answers[2]?.predictions || ""} `,
   },
   {
-    field: "suggestion3",
-    headerName: "General Suggestion",
+    field: "modelImpact3",
+    headerName: "Model Impact 3",
     width: 220,
     valueGetter: (params: GridValueGetterParams) =>
-      `${params.row?.answers[2]?.textAnswer || ""} `,
+      `${renderArrayField(params.row?.answers[2]?.modelImpact) || ""} `,
+  },
+  {
+    field: "buildFocus3",
+    headerName: "Build Focus 3",
+    width: 120,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${renderArrayField(params.row?.answers[2]?.buildFocus) || ""} `,
   },
   {
     field: "context 4",
@@ -240,32 +261,39 @@ export const SURVEY_DATA: GridColDef[] = [
       `${params.row?.answers[3]?.context || ""} `,
   },
   {
-    field: "protected4",
-    headerName: "Protected Categories",
+    field: "factors4",
+    headerName: "Factors 4",
     width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${renderArrayField(params.row?.answers[3]?.protected) || ""} `,
+      `${params.row?.answers[3]?.factors || ""} `,
   },
   {
-    field: "optimized4",
-    headerName: "Optimized Categories",
+    field: "decision4",
+    headerName: "Decision 4",
     width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${renderArrayField(params.row?.answers[3]?.optimized) || ""} `,
+      `${params.row?.answers[3]?.decision || ""} `,
   },
   {
-    field: "developer4",
-    headerName: "Developer Suggestion",
-    width: 220,
+    field: "predictions4",
+    headerName: "Predictions 4",
+    width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${params.row?.answers[3]?.developer?.[0] || ""} `,
+      `${params.row?.answers[3]?.predictions || ""} `,
   },
   {
-    field: "suggestion4",
-    headerName: "General Suggestion",
+    field: "modelImpact4",
+    headerName: "Model Impact 4",
     width: 220,
     valueGetter: (params: GridValueGetterParams) =>
-      `${params.row?.answers[3]?.textAnswer || ""} `,
+      `${renderArrayField(params.row?.answers[3]?.modelImpact) || ""} `,
+  },
+  {
+    field: "buildFocus4",
+    headerName: "Build Focus 4",
+    width: 120,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${renderArrayField(params.row?.answers[3]?.buildFocus) || ""} `,
   },
   {
     field: "context 5",
@@ -275,36 +303,43 @@ export const SURVEY_DATA: GridColDef[] = [
       `${params.row?.answers[4]?.context || ""} `,
   },
   {
-    field: "protected5",
-    headerName: "Protected Categories",
+    field: "factors5",
+    headerName: "Factors 5",
     width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${renderArrayField(params.row?.answers[4]?.protected) || ""} `,
+      `${params.row?.answers[4]?.factors || ""} `,
   },
   {
-    field: "optimized5",
-    headerName: "Optimized Categories",
+    field: "decision5",
+    headerName: "Decision 5",
     width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${renderArrayField(params.row?.answers[4]?.optimized) || ""} `,
+      `${params.row?.answers[4]?.decision || ""} `,
   },
   {
-    field: "developer5",
-    headerName: "Developer Suggestion",
+    field: "predictions5",
+    headerName: "Predictions 5",
+    width: 120,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${params.row?.answers[4]?.predictions || ""} `,
+  },
+  {
+    field: "modelImpact5",
+    headerName: "Model Impact 5",
     width: 220,
     valueGetter: (params: GridValueGetterParams) =>
-      `${params.row?.answers[4]?.developer?.[0] || ""} `,
+      `${renderArrayField(params.row?.answers[4]?.modelImpact) || ""} `,
   },
   {
-    field: "suggestion5",
-    headerName: "General Suggestion",
-    width: 220,
+    field: "buildFocus5",
+    headerName: "Build Focus 5",
+    width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${params.row?.answers[4]?.textAnswer || ""} `,
+      `${renderArrayField(params.row?.answers[4]?.buildFocus) || ""} `,
   },
   {
-    field: "uniqueId",
-    headerName: "Unique ID",
+    field: "proId",
+    headerName: "Prolific ID",
     width: 100,
   },
 ];
