@@ -11,14 +11,17 @@ interface SteppersProps {
 
 const Steppers: React.FC<SteppersProps> = ({ activeStep }) => {
   const steps = [
+    // {
+    //   label: "A PRIMER ON AUDITING",
+    // },
     {
-      label: "BIAS IN MACHINE LEARNING",
+      label: "PROLIFIC ID",
     },
     {
-      label: "MODEL BUILDING EVALUATION",
+      label: "CONDUCTING AUDIT",
     },
     {
-      label: "ATTITUDES AND OPINIONS ABOUT BIAS IN ML",
+      label: "AUDIT",
     },
     {
       label: "DEMOGRAPHICS",
