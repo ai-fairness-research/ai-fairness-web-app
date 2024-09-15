@@ -90,6 +90,7 @@ const Demographics: React.FC<DemographicsProps> = ({ isDemoSubmitted }) => {
               handleDemoChange(selectedOption, itm.field, checked)
             }
             isError={doesItHaveErr(surveyAnswers?.[itm.field])}
+            multicol={true}
           />
         ) : (
           <CommonSwitchComponent
@@ -102,6 +103,7 @@ const Demographics: React.FC<DemographicsProps> = ({ isDemoSubmitted }) => {
             }
             additionalTextField={itm.field === "gender"}
             isError={doesItHaveErr(surveyAnswers?.[itm.field])}
+            multicol={itm.options.length > 7}
           />
         )
       )}

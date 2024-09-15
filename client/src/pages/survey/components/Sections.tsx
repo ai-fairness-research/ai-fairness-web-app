@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import Bias from "./Bias";
+import ProlificId from "./ProlificId";
 import Context from "./Context";
 import Demographics from "./Demographics";
 import Opinions from "./Opinions";
@@ -12,7 +12,7 @@ interface SectionsProps {
   handleNext: () => void;
   handleBack: () => void;
   handleReset: () => void;
-  isBiasedSubmitted: boolean;
+  isIdSubmitted: boolean;
   isOpinionsSubmitted: boolean;
   isDemoSubmitted: boolean;
   isExitSubmitted: boolean;
@@ -23,7 +23,7 @@ const Sections: React.FC<SectionsProps> = ({
   handleNext,
   handleBack,
   handleReset,
-  isBiasedSubmitted,
+  isIdSubmitted,
   isOpinionsSubmitted,
   isDemoSubmitted,
   isExitSubmitted,
@@ -33,13 +33,12 @@ const Sections: React.FC<SectionsProps> = ({
       {activeStep === 0 && (
         <SectionWrapper
           activeStep={activeStep}
-          // topic="Background Information"
-          topic="Bias in Machine Learning"
+          topic="Prolific ID"
           handleNext={handleNext}
           handleBack={handleBack}
         >
           <Box sx={{ display: "flex", gap: 4, flexDirection: "column", mb: 4 }}>
-            <Bias isBiasedSubmitted={isBiasedSubmitted} />
+            <ProlificId isIdSubmitted={isIdSubmitted} />
           </Box>
         </SectionWrapper>
       )}

@@ -4,7 +4,6 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
-import Instructions from "./Instructions";
 import { ApiService } from "../../../services/utilities/provider";
 import {
   Context,
@@ -14,6 +13,7 @@ import {
 import ContextSection from "./ContextSection";
 import { useSurveyAnswerContext } from "../../../context/SurveyAnswerContext";
 import CommonSnackbar from "../../../common/CommonSnackbar";
+import Audit from "./Audit";
 
 const steps = [
   "Instructions",
@@ -43,20 +43,32 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
 
   const [openSnack, setIsOpenSnack] = useState(false);
 
+  // context: string;
+  // factors: string;
+  // decision: string;
+  // predictions: string;
+  // modelImpact: string[];
+  // buildFocus: string[];
+  // ranking: string[];
+
   const handleNext = () => {
     console.log(contextAnswers[activeStep - 1]);
     if (activeStep !== 0) {
       setIsContextSubmitted(true);
       if (
-        contextAnswers[activeStep - 1]?.optimized?.length === 0 ||
-        contextAnswers[activeStep - 1]?.protected?.length === 0 ||
-        contextAnswers[activeStep - 1]?.developer?.length === 0 ||
-        contextAnswers[activeStep - 1]?.textAnswer === "" ||
+        contextAnswers[activeStep - 1]?.modelImpact?.length === 0 ||
+        contextAnswers[activeStep - 1]?.buildFocus?.length === 0 ||
+        // contextAnswers[activeStep - 1]?.ranking?.length === 0 ||
+        contextAnswers[activeStep - 1]?.factors === "" ||
+        contextAnswers[activeStep - 1]?.decision === "" ||
+        contextAnswers[activeStep - 1]?.predictions === "" ||
         contextAnswers[activeStep - 1] === undefined ||
-        contextAnswers[activeStep - 1]?.optimized === undefined ||
-        contextAnswers[activeStep - 1]?.protected === undefined ||
-        contextAnswers[activeStep - 1]?.developer === undefined ||
-        contextAnswers[activeStep - 1]?.textAnswer === undefined
+        contextAnswers[activeStep - 1]?.modelImpact === undefined ||
+        contextAnswers[activeStep - 1]?.buildFocus === undefined ||
+        // contextAnswers[activeStep - 1]?.ranking === undefined ||
+        contextAnswers[activeStep - 1]?.factors === undefined ||
+        contextAnswers[activeStep - 1]?.decision === undefined ||
+        contextAnswers[activeStep - 1]?.predictions === undefined
       ) {
         setIsOpenSnack(true);
         // setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -96,15 +108,19 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
     setIsContextSubmitted(true);
 
     if (
-      contextAnswers[activeStep - 1]?.optimized?.length === 0 ||
-      contextAnswers[activeStep - 1]?.protected?.length === 0 ||
-      contextAnswers[activeStep - 1]?.developer?.length === 0 ||
-      contextAnswers[activeStep - 1]?.textAnswer === "" ||
+      contextAnswers[activeStep - 1]?.modelImpact?.length === 0 ||
+      contextAnswers[activeStep - 1]?.buildFocus?.length === 0 ||
+      // contextAnswers[activeStep - 1]?.ranking?.length === 0 ||
+      contextAnswers[activeStep - 1]?.factors === "" ||
+      contextAnswers[activeStep - 1]?.decision === "" ||
+      contextAnswers[activeStep - 1]?.predictions === "" ||
       contextAnswers[activeStep - 1] === undefined ||
-      contextAnswers[activeStep - 1]?.optimized === undefined ||
-      contextAnswers[activeStep - 1]?.protected === undefined ||
-      contextAnswers[activeStep - 1]?.developer === undefined ||
-      contextAnswers[activeStep - 1]?.textAnswer === undefined
+      contextAnswers[activeStep - 1]?.modelImpact === undefined ||
+      contextAnswers[activeStep - 1]?.buildFocus === undefined ||
+      // contextAnswers[activeStep - 1]?.ranking === undefined ||
+      contextAnswers[activeStep - 1]?.factors === undefined ||
+      contextAnswers[activeStep - 1]?.decision === undefined ||
+      contextAnswers[activeStep - 1]?.predictions === undefined
     ) {
       setIsOpenSnack(true);
     } else {
@@ -141,7 +157,8 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
       </Stepper>
       <React.Fragment>
         {activeStep === 0 ? (
-          <Instructions />
+          // <Instructions />
+          <Audit />
         ) : (
           <ContextSection
             context={context[activeStep - 1]}

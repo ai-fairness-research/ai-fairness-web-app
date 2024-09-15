@@ -16,7 +16,10 @@ export interface Context {
   context: string;
   problem: string;
   options: string[];
+  reasoning: string[];
   date: string;
+  title: string;
+  example: string;
   __v: number;
 }
 
@@ -27,10 +30,12 @@ export interface ContextResponse {
 
 export interface ContextAnswer {
   context: string;
-  protected: string[];
-  optimized: string[];
-  developer: string[];
-  textAnswer: string;
+  factors: string;
+  decision: string;
+  predictions: string;
+  modelImpact: string[];
+  buildFocus: string[];
+  ranking: string[];
 }
 
 export interface SurveyAnswerPayload {
@@ -47,10 +52,9 @@ export interface SurveyAnswerPayload {
   religion: string;
   isMinority: string;
   minority: string[];
-  bias: string[];
   answers: ContextAnswer[];
   attitude: string[];
-  uniqueId: string;
+  proId: string;
 }
 
 export interface SurveyResponse {

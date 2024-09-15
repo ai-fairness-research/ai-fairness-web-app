@@ -4,6 +4,7 @@ import {
   FormControlLabel,
   FormHelperText,
   FormLabel,
+  Grid,
   Radio,
   RadioGroup,
   TextField,
@@ -19,6 +20,8 @@ interface CommonSwitchComponentProps {
   additionalTextField?: boolean;
   helperText?: string;
   isError?: boolean;
+  direction?: boolean;
+  multicol?: boolean;
 }
 
 const CommonSwitchComponent: React.FC<CommonSwitchComponentProps> = ({
@@ -29,6 +32,8 @@ const CommonSwitchComponent: React.FC<CommonSwitchComponentProps> = ({
   additionalTextField = false,
   helperText = "Select one option at least",
   isError = false,
+  direction = false,
+  multicol = false,
 }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (onOptionChange)
@@ -60,15 +65,31 @@ const CommonSwitchComponent: React.FC<CommonSwitchComponentProps> = ({
           name="radio-buttons-group"
           value={selectedOption}
           onChange={handleChange}
+          row={direction}
         >
-          {choices.map((choice) => (
-            <FormControlLabel
-              key={choice}
-              value={choice}
-              control={<Radio />}
-              label={choice}
-            />
-          ))}
+          {multicol ? (
+            <Grid container spacing={1}>
+              {choices.map((choice) => (
+                <Grid item xs={6} md={4} key={choice}>
+                  <FormControlLabel
+                    key={choice}
+                    value={choice}
+                    control={<Radio />}
+                    label={choice}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          ) : (
+            choices.map((choice) => (
+              <FormControlLabel
+                key={choice}
+                value={choice}
+                control={<Radio />}
+                label={choice}
+              />
+            ))
+          )}
         </RadioGroup>
         {isError && <FormHelperText>{helperText}</FormHelperText>}
         {additionalTextField && (

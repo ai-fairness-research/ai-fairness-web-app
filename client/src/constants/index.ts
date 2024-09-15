@@ -22,6 +22,25 @@ export const FACTORS = [
   "Veteran Status",
 ];
 
+export const FACTORS1 = [
+  "Age",
+  "Disability",
+  "Gender",
+  "Gender identity/expression",
+  "Marital Status",
+  "National Origin",
+  "Parental Status",
+];
+
+export const FACTORS2 = [
+  "Political Affiliation",
+  "Race/Ethnicity",
+  "Sexual Orientation",
+  "Socioeconomic Status",
+  "Veteran Status",
+  "Others",
+];
+
 export const DEMO_QUESTIONS = [
   {
     question: "What is your current gender?",

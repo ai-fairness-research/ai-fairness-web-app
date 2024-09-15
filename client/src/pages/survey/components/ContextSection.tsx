@@ -1,11 +1,14 @@
 import React, { useCallback } from "react";
-import { Box, Divider, TextField, Typography } from "@mui/material";
+import { Box, Grid, TextField, Typography } from "@mui/material";
 import CommonCheckboxComponent from "../../../common/CommonCheckboxComponent";
 import { FACTORS } from "../../../constants";
 import { Context, ContextAnswer } from "../../../services/utilities/types";
 import CommonSwitchComponent from "../../../common/CommonSwitchComponent";
-import { BACKEND_URL } from "../../../services/api";
-import { error, secondary } from "../../../theme/themeColors";
+import { error } from "../../../theme/themeColors";
+import { CommonWrapper } from "../../../common/CommonBox";
+import DatasetImg from "../../../assets/images/dataset.jpg";
+import ModelImg from "../../../assets/images/model.jpg";
+import RankingForm from "./Ranking";
 
 interface ContextSectionProps {
   context: Context;
@@ -25,24 +28,28 @@ const ContextSection: React.FC<ContextSectionProps> = ({
   const handleContextChange = (
     selectedOption: string,
     field: string,
-    checked?: boolean
+    checked?: boolean,
+    ranking?: string[]
   ) => {
     const updatedContextAnswers = [...contextAnswers];
     let updatedAnswer = { ...contextAnswers[index - 1] };
-    if (field === "protected" || field === "optimized") {
+    if (field === "modelImpact" || field === "buildFocus") {
       if (!updatedAnswer[field]) updatedAnswer[field] = [];
       let updatedChoice = [...updatedAnswer[field]];
       if (checked) updatedChoice = [...updatedChoice, selectedOption];
       else
         updatedChoice = updatedChoice.filter((itm) => itm !== selectedOption);
       updatedAnswer = { ...updatedAnswer, [field]: updatedChoice };
-    } else if (field === "developer") {
-      updatedAnswer = { ...updatedAnswer, [field]: [selectedOption] };
+    } else if (field === "ranking") {
+      if (!ranking) {
+        ranking = [];
+      }
+      updatedAnswer = { ...updatedAnswer, [field]: ranking };
     } else {
       updatedAnswer = { ...updatedAnswer, [field]: selectedOption };
     }
 
-    updatedAnswer["context"] = context.context;
+    updatedAnswer["context"] = context.title;
     updatedContextAnswers[index - 1] = updatedAnswer;
     // console.log({ updatedContextAnswers });
 
@@ -63,117 +70,187 @@ const ContextSection: React.FC<ContextSectionProps> = ({
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-      <Box
+      <Typography
         sx={{
-          position: "relative",
-          height: 200,
-          "&::before": {
-            content: '""',
-            position: "absolute",
-            height: 200,
-            width: "100%",
-            backgroundColor: "rgba(0,0,0,0.5)",
-          },
+          fontWeight: 600,
+          fontSize: 28,
+          textAlign: "center",
         }}
       >
-        <img
-          src={`${BACKEND_URL}/context/image/${context?._id}`}
-          style={{
-            objectFit: "cover",
-            height: 200,
-            width: "100%",
-            backgroundPosition: "center",
-          }}
-          loading="lazy"
-        />
+        {context?.context}: {context?.title}
+      </Typography>
+      {/* </Box> */}
+      <CommonWrapper>
         <Typography
           sx={{
+            fontSize: 20,
             fontWeight: 600,
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            color: secondary.main,
-            fontSize: 28,
-            transform: "translate(-50%, -50%)",
-            textAlign: "center",
           }}
         >
-          Context: {context?.context}
+          Problem: {context?.problem}
         </Typography>
-      </Box>
-      <Typography
-        sx={{
-          textAlign: "center",
-          fontSize: 20,
-          fontWeight: 600,
-          //   fontStyle: "italic",
-        }}
-      >
-        Problem: {context?.problem}
-      </Typography>
-      <CommonCheckboxComponent
-        question={
-          "Which of the following protected identities be bias the outcome of the model (check all that apply)?"
-        }
-        choices={FACTORS}
-        selectedOptions={contextAnswers?.[index - 1]?.protected || []}
-        onOptionChange={(selectedOption, checked) =>
-          handleContextChange(selectedOption, "protected", checked)
-        }
-        isError={doesItHaveErr(contextAnswers?.[index - 1]?.protected)}
-      />
-      <CommonCheckboxComponent
-        question={
-          "Typically, a handful of protected characteristics can be optimized, when building the model, the designer should focus on limiting potential bias based on (select up to 2):"
-        }
-        choices={FACTORS}
-        selectedOptions={contextAnswers?.[index - 1]?.optimized || []}
-        onOptionChange={(selectedOption, checked) =>
-          handleContextChange(selectedOption, "optimized", checked)
-        }
-        isError={doesItHaveErr(contextAnswers?.[index - 1]?.optimized)}
-      />
-      <CommonSwitchComponent
-        question={"The developer should ensure that model:"}
-        choices={context.options}
-        selectedOption={contextAnswers?.[index - 1]?.developer?.[0] || ""}
-        onOptionChange={(selectedOption) =>
-          handleContextChange(selectedOption, "developer")
-        }
-        isError={doesItHaveErr(contextAnswers?.[index - 1]?.developer?.[0])}
-      />
-      <Divider />
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-        <Typography sx={{ fontWeight: 500 }}>
-          In this evaluation, you indicated that:
+
+        <Typography sx={{ my: 2 }}>
+          <b style={{ marginRight: 4 }}>Example Application:</b>{" "}
+          {context?.example}
         </Typography>
-        <Typography>
-          {contextAnswers[index - 1]?.protected?.map((itm) => itm + ",")}
+
+        <Box>
+          <Typography sx={{ fontWeight: 600, fontSize: 20, mb: 2 }}>
+            Datasets:
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid
+              item
+              sm={12}
+              md={4}
+              sx={{ display: "flex", alignItems: "center" }}
+            >
+              <img
+                src={DatasetImg}
+                alt="datasets"
+                style={{ width: "100%", height: "auto", objectFit: "contain" }}
+              />
+            </Grid>
+            <Grid item sm={12} md={8}>
+              {context?.options?.map(
+                (option) =>
+                  option !== "" && (
+                    <Typography sx={{ my: 1 }} key={option}>
+                      {" "}
+                      - {option}
+                    </Typography>
+                  )
+              )}
+            </Grid>
+          </Grid>
+        </Box>
+
+        <Box>
+          <Typography sx={{ fontWeight: 600, fontSize: 20, mb: 2 }}>
+            Model:
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid
+              item
+              sm={12}
+              md={4}
+              sx={{ display: "flex", alignItems: "center" }}
+            >
+              <img
+                src={ModelImg}
+                alt="model"
+                style={{ width: "100%", height: "auto", objectFit: "contain" }}
+              />
+            </Grid>
+            <Grid item sm={12} md={8}>
+              {context?.reasoning?.map(
+                (option) =>
+                  option !== "" && (
+                    <Typography sx={{ my: 1 }} key={option}>
+                      - {option}
+                    </Typography>
+                  )
+              )}
+            </Grid>
+          </Grid>
+        </Box>
+      </CommonWrapper>
+
+      <Typography sx={{ fontWeight: 600, fontSize: 28 }}>The Audit</Typography>
+
+      <CommonWrapper>
+        <Typography
+          sx={{
+            fontWeight: 500,
+            color: doesItHaveErr(contextAnswers?.[index - 1]?.factors)
+              ? error.main
+              : "#000",
+            mb: 2,
+          }}
+        >
+          1. Are there any factors (e.g., data, community or cultural practices)
+          that the model might not be considering?
         </Typography>
-        <Typography sx={{ fontWeight: 500 }}>
-          were important and that the model output should ensure that:
+        <TextField
+          multiline
+          fullWidth
+          rows={4}
+          value={contextAnswers?.[index - 1]?.factors || ""}
+          onChange={(e) => handleContextChange(e.target.value, "factors")}
+          error={doesItHaveErr(contextAnswers?.[index - 1]?.factors)}
+          sx={{ mb: 4 }}
+        />
+
+        <CommonSwitchComponent
+          question={
+            "2. Is there a high risk of negative consequences if the model makes an incorrect decision?"
+          }
+          choices={["Very High ", "High", "Moderate", "Low", "Very Low"]}
+          selectedOption={contextAnswers?.[index - 1]?.decision || ""}
+          onOptionChange={(selectedOption) =>
+            handleContextChange(selectedOption, "decision")
+          }
+          isError={doesItHaveErr(contextAnswers?.[index - 1]?.decision)}
+          direction={true}
+        />
+
+        <Typography
+          sx={{
+            fontWeight: 500,
+            color: doesItHaveErr(contextAnswers?.[index - 1]?.predictions)
+              ? error.main
+              : "#000",
+            mt: 4,
+            mb: 2,
+          }}
+        >
+          3. What do you believe to be the potential consequences if the model
+          makes a mistake in its predictions?
         </Typography>
-        <Typography>
-          {contextAnswers[index - 1]?.optimized?.map((itm) => itm + ", ")}
-        </Typography>
-      </Box>
-      <Typography
-        sx={{
-          fontWeight: 500,
-          color: doesItHaveErr(contextAnswers?.[index - 1]?.textAnswer)
-            ? error.main
-            : "#000",
-        }}
-      >
-        Can you provide a brief rationale for your choice?
-      </Typography>
-      <TextField
-        multiline
-        rows={4}
-        value={contextAnswers?.[index - 1]?.textAnswer || ""}
-        onChange={(e) => handleContextChange(e.target.value, "textAnswer")}
-        error={doesItHaveErr(contextAnswers?.[index - 1]?.textAnswer)}
-      />
+        <TextField
+          multiline
+          rows={4}
+          value={contextAnswers?.[index - 1]?.predictions || ""}
+          onChange={(e) => handleContextChange(e.target.value, "predictions")}
+          error={doesItHaveErr(contextAnswers?.[index - 1]?.predictions)}
+          fullWidth
+          sx={{ mb: 4 }}
+        />
+
+        <CommonCheckboxComponent
+          question={
+            "4. Which of the following groups in your community might be negatively impacted by the model's decisions?"
+          }
+          choices={FACTORS}
+          selectedOptions={contextAnswers?.[index - 1]?.modelImpact || []}
+          onOptionChange={(selectedOption, checked) =>
+            handleContextChange(selectedOption, "modelImpact", checked)
+          }
+          isError={doesItHaveErr(contextAnswers?.[index - 1]?.modelImpact)}
+          additionalText="Can Select Multiple Options"
+          multicol={true}
+        />
+        <br />
+        <br />
+        <CommonCheckboxComponent
+          question={
+            "5. When building the model, which factor do you believe is the most important to focus on to limit potential bias?"
+          }
+          choices={FACTORS}
+          selectedOptions={contextAnswers?.[index - 1]?.buildFocus || []}
+          onOptionChange={(selectedOption, checked) =>
+            handleContextChange(selectedOption, "buildFocus", checked)
+          }
+          isError={doesItHaveErr(contextAnswers?.[index - 1]?.buildFocus)}
+          additionalText="Can Select Multiple Options"
+          multicol={true}
+        />
+        <RankingForm
+          handleContextChange={handleContextChange}
+          contextAnswer={contextAnswers?.[index - 1]}
+        />
+      </CommonWrapper>
     </Box>
   );
 };

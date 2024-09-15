@@ -44,10 +44,9 @@ export const SurveyAnswerProvider: React.FC<SurveyAnswerProviderProps> = ({
     religion: "",
     isMinority: "",
     minority: [],
-    bias: [],
     answers: [],
     attitude: [],
-    uniqueId: "",
+    proId: "",
   });
 
   const [isSurveyError, setIsSurveyError] = useState<boolean>(false);

@@ -1,5 +1,4 @@
 import * as React from "react";
-import cryptoRandomString from "crypto-random-string";
 import { Grid } from "@mui/material";
 import Steppers from "./components/Steppers";
 import Sections from "./components/Sections";
@@ -14,7 +13,7 @@ const Survey = () => {
   const { surveyAnswers, setSurveyAnswers } = useSurveyAnswerContext();
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const [isBiasedSubmitted, setIsBiasedSubmitted] = React.useState(false);
+  const [isIdSubmitted, setIsIdSubmitted] = React.useState(false);
   const [isOpinionsSubmitted, setIsOpinionsSubmitted] = React.useState(false);
   const [isDemoSubmitted, setIsDemoSubmitted] = React.useState(false);
   const [isExitSubmitted, setIsExitSubmitted] = React.useState(false);
@@ -23,19 +22,21 @@ const Survey = () => {
 
   const handleNext = () => {
     if (activeStep === 0) {
-      setIsBiasedSubmitted(true);
-      if (surveyAnswers.bias[0] && surveyAnswers.bias[1]) {
+      setIsIdSubmitted(true);
+      if (surveyAnswers.proId !== "") {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
       } else {
         setIsOpenSnack(true);
       }
     } else if (activeStep === 2) {
       setIsOpinionsSubmitted(true);
-      if (surveyAnswers.attitude.length === 6) {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      } else {
-        setIsOpenSnack(true);
-      }
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      // setIsOpinionsSubmitted(true);
+      // if (surveyAnswers.attitude.length === 6) {
+      //   setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      // } else {
+      //   setIsOpenSnack(true);
+      // }
     } else if (activeStep === 3) {
       setIsDemoSubmitted(true);
       if (
@@ -79,6 +80,7 @@ const Survey = () => {
   };
 
   const sendAnswer = async () => {
+    console.log(surveyAnswers);
     await surveyUserService
       .post(surveyAnswers)
       .then((res) => {
@@ -89,8 +91,8 @@ const Survey = () => {
         setActiveStep(0);
       });
 
-    const uniqueId = cryptoRandomString({ length: 10, type: "alphanumeric" });
-    localStorage.setItem("uniqueId", uniqueId);
+    // const uniqueId = cryptoRandomString({ length: 10, type: "alphanumeric" });
+    // localStorage.setItem("uniqueId", uniqueId);
     // console.log(surveyAnswers);
     setSurveyAnswers({
       email: "",
@@ -106,10 +108,9 @@ const Survey = () => {
       religion: "",
       isMinority: "",
       minority: [],
-      bias: [],
       answers: [],
       attitude: [],
-      uniqueId: uniqueId,
+      proId: "",
     });
   };
 
@@ -133,7 +134,7 @@ const Survey = () => {
           handleNext={handleNext}
           handleBack={handleBack}
           handleReset={handleReset}
-          isBiasedSubmitted={isBiasedSubmitted}
+          isIdSubmitted={isIdSubmitted}
           isOpinionsSubmitted={isOpinionsSubmitted}
           isDemoSubmitted={isDemoSubmitted}
           isExitSubmitted={isExitSubmitted}
