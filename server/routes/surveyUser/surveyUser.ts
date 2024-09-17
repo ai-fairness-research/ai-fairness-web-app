@@ -4,7 +4,7 @@ import verify from "../verify";
 
 const router = Router();
 
-router.post("/", verify, async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
   console.log(req.body);
   const user = new SurveyUser(req.body as ISurveyUser);
   await user.save();

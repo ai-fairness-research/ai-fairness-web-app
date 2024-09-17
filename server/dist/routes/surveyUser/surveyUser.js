@@ -16,7 +16,7 @@ const express_1 = require("express");
 const SurveyUser_1 = __importDefault(require("../../models/SurveyUser"));
 const verify_1 = __importDefault(require("../verify"));
 const router = (0, express_1.Router)();
-router.post("/", verify_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.body);
     const user = new SurveyUser_1.default(req.body);
     yield user.save();
