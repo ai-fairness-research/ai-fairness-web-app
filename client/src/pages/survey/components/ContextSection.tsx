@@ -29,8 +29,7 @@ const ContextSection: React.FC<ContextSectionProps> = ({
   const handleContextChange = (
     selectedOption: string,
     field: string,
-    checked?: boolean,
-    ranking?: string[]
+    checked?: boolean
   ) => {
     const updatedContextAnswers = [...contextAnswers];
     let updatedAnswer = { ...contextAnswers[index - 1] };
@@ -41,18 +40,13 @@ const ContextSection: React.FC<ContextSectionProps> = ({
       else
         updatedChoice = updatedChoice.filter((itm) => itm !== selectedOption);
       updatedAnswer = { ...updatedAnswer, [field]: updatedChoice };
-    } else if (field === "ranking") {
-      if (!ranking) {
-        ranking = [];
-      }
-      updatedAnswer = { ...updatedAnswer, [field]: ranking };
     } else {
       updatedAnswer = { ...updatedAnswer, [field]: selectedOption };
     }
 
     updatedAnswer["context"] = context.title;
     updatedContextAnswers[index - 1] = updatedAnswer;
-    // console.log({ updatedContextAnswers });
+    console.log({ updatedContextAnswers });
 
     setContextAnswers(updatedContextAnswers);
   };
@@ -244,8 +238,11 @@ const ContextSection: React.FC<ContextSectionProps> = ({
           multicol={true}
         />
         <RankingForm
-          handleContextChange={handleContextChange}
-          contextAnswer={contextAnswers?.[index - 1]}
+          isError={doesItHaveErr(contextAnswers?.[index - 1]?.ranking)}
+          selectedOption={contextAnswers?.[index - 1]?.ranking || ""}
+          onOptionChange={(selectedOption) =>
+            handleContextChange(selectedOption, "ranking")
+          }
         />
       </CommonWrapper>
     </Box>
@@ -271,7 +268,7 @@ const ContextTitle: React.FC<ContextTitleProps> = ({ id, context, title }) => (
         height: 200,
         width: "100%",
         backgroundColor: "rgba(0,0,0,0.5)",
-        borderRadius: 16,
+        borderRadius: 4,
       },
     }}
   >

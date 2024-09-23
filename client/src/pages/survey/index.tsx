@@ -30,13 +30,12 @@ const Survey = () => {
       }
     } else if (activeStep === 2) {
       setIsOpinionsSubmitted(true);
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      // setIsOpinionsSubmitted(true);
-      // if (surveyAnswers.attitude.length === 6) {
-      //   setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      // } else {
-      //   setIsOpenSnack(true);
-      // }
+      // setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      if (surveyAnswers.attitude.length === 6) {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      } else {
+        setIsOpenSnack(true);
+      }
     } else if (activeStep === 3) {
       setIsDemoSubmitted(true);
       if (

@@ -1,5 +1,5 @@
-import { Box, Grid, List, ListItem, Tooltip, Typography } from "@mui/material";
-import { grey, red } from "@mui/material/colors";
+import { Grid, List, ListItem, Tooltip, Typography } from "@mui/material";
+import { red } from "@mui/material/colors";
 import React from "react";
 import { FACTORS1, FACTORS2 } from "../../../constants";
 import { CommonWrapper } from "../../../common/CommonBox";
@@ -182,8 +182,7 @@ const Audit = () => {
           />
           <Typography sx={{ fontWeight: 600, my: 4 }}>
             6. Below are four different ways you might ensure the hiring process
-            is fair. Please rank these options from 1 to 4, where 1 is the
-            option you believe is the fairest and 4 is the least fair.
+            is fair. Please select one option.
           </Typography>
           <Typography>
             Make sure the same percentage of applicants from all backgrounds
@@ -210,7 +209,7 @@ const Audit = () => {
               content="Focus on making sure that applicants with similar qualifications (e.g., same experience and skills) have an equal chance of being recommended for an interview, regardless of their background."
               tipText="This approach ensures that the model is truly fair. If candidates with the same qualifications are treated equally, it removes the risk of bias based on race, gender, or other factors. This is what fairness should look like."
             />
-            <UserAnswer
+            {/* <UserAnswer
               content="Ensure that the model is equally accurate in recommending the best candidates, regardless of their background. For example, if the model correctly identifies the best candidates from one background, it should be just as accurate for candidates from another background."
               tipText="This approach ensures that the model is truly fair. If candidates with the same qualifications are treated equally, it removes the risk of bias based on race, gender, or other factors. This is what fairness should look like."
             />
@@ -221,7 +220,7 @@ const Audit = () => {
             <UserAnswer
               content="Make sure the same percentage of applicants from all backgrounds (e.g., different races, genders) are recommended for interviews. This means that if 10% of applicants from one background are recommended, then 10% of applicants from another background should also be recommended, no matter what."
               tipText="While this might seem fair on the surface, it could lead to tokenism where certain applicants are only recommended to meet a quota. I think the focus should be on fairness based on qualifications, not just percentages."
-            />
+            /> */}
           </Typography>
         </>
 

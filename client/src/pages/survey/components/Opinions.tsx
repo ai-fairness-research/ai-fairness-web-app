@@ -1,7 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { ATTITUDE_CHOICES, ATTITUDE_QUESTIONS } from "../../../constants";
-import CommonSwitchComponent from "../../../common/CommonSwitchComponent";
 import { useSurveyAnswerContext } from "../../../context/SurveyAnswerContext";
+import {
+  Radio,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+import { error, secondary } from "../../../theme/themeColors";
 
 interface OpinionsProps {
   isOpinionsSubmitted: boolean;
@@ -31,6 +39,90 @@ const Opinions: React.FC<OpinionsProps> = ({ isOpinionsSubmitted }) => {
     });
   };
 
+  return (
+    <>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell
+              sx={{
+                fontWeight: 600,
+                borderBottom: `1px solid ${secondary[400]}`,
+                borderRight: `1px solid ${secondary[400]}`,
+              }}
+            >
+              Attitude Questions
+            </TableCell>
+            {ATTITUDE_CHOICES.map((choice) => (
+              <TableCell
+                key={choice}
+                sx={{
+                  fontWeight: 600,
+                  borderBottom: `1px solid ${secondary[400]}`,
+                }}
+              >
+                {choice}
+              </TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {ATTITUDE_QUESTIONS.map((question, index: number) => (
+            <OptionSwitchComponent
+              selectedOption={attitudeAnswers[index] || ""}
+              onOptionChange={(selectedOption) =>
+                handleAttitudeChange(index, selectedOption)
+              }
+              question={question}
+              isOpinionsSubmitted={isOpinionsSubmitted}
+              attitudeAnswers={attitudeAnswers}
+              index={index}
+              key={index}
+            />
+          ))}
+        </TableBody>
+      </Table>
+
+      {/* {ATTITUDE_QUESTIONS.map((question, index: number) => (
+        <CommonSwitchComponent
+          question={question}
+          choices={ATTITUDE_CHOICES}
+          key={question}
+          selectedOption={attitudeAnswers[index] || ""}
+          onOptionChange={(selectedOption) =>
+            handleAttitudeChange(index, selectedOption)
+          }
+          isError={doesItHaveErr(attitudeAnswers[index])}
+        />
+      ))} */}
+    </>
+  );
+};
+
+export default Opinions;
+
+interface OptionSwitchComponentProps {
+  selectedOption?: string;
+  onOptionChange?: (selectedOption: string) => void;
+  question: string;
+  isOpinionsSubmitted: boolean;
+  attitudeAnswers: string[];
+  index: number;
+}
+
+const OptionSwitchComponent: React.FC<OptionSwitchComponentProps> = ({
+  selectedOption,
+  onOptionChange,
+  question,
+  isOpinionsSubmitted,
+  attitudeAnswers,
+  index,
+}) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (onOptionChange)
+      onOptionChange((event.target as HTMLInputElement).value);
+  };
+
   const doesItHaveErr = useCallback(
     (val: string): boolean | undefined => {
       if (isOpinionsSubmitted) {
@@ -45,20 +137,33 @@ const Opinions: React.FC<OpinionsProps> = ({ isOpinionsSubmitted }) => {
 
   return (
     <>
-      {ATTITUDE_QUESTIONS.map((question, index: number) => (
-        <CommonSwitchComponent
-          question={question}
-          choices={ATTITUDE_CHOICES}
-          key={question}
-          selectedOption={attitudeAnswers[index] || ""}
-          onOptionChange={(selectedOption) =>
-            handleAttitudeChange(index, selectedOption)
-          }
-          isError={doesItHaveErr(attitudeAnswers[index])}
-        />
-      ))}
+      <TableRow>
+        <TableCell
+          sx={{
+            color: doesItHaveErr(attitudeAnswers[index]) ? error.main : "#000",
+            fontWeight: 500,
+            borderRight: `1px solid ${secondary[400]}`,
+          }}
+        >
+          {question}
+        </TableCell>
+        {ATTITUDE_CHOICES.map((choice, index: number) => (
+          <TableCell
+            key={choice}
+            sx={{
+              // border: `1px solid ${secondary[300]}`,
+              textAlign: "center",
+            }}
+          >
+            <Radio
+              checked={choice === selectedOption}
+              onChange={handleChange}
+              value={choice}
+              name={`radio-buttons-${index}`}
+            />
+          </TableCell>
+        ))}
+      </TableRow>
     </>
   );
 };
-
-export default Opinions;

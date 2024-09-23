@@ -170,6 +170,13 @@ export const SURVEY_DATA: GridColDef[] = [
       `${renderArrayField(params.row?.answers[0]?.buildFocus) || ""} `,
   },
   {
+    field: "ranking1",
+    headerName: "Ranking 1",
+    width: 120,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${renderArrayField(params.row?.answers[0]?.ranking) || ""} `,
+  },
+  {
     field: "context 2",
     headerName: "Context 2",
     width: 100,
@@ -210,6 +217,13 @@ export const SURVEY_DATA: GridColDef[] = [
     width: 120,
     valueGetter: (params: GridValueGetterParams) =>
       `${renderArrayField(params.row?.answers[1]?.buildFocus) || ""} `,
+  },
+  {
+    field: "ranking2",
+    headerName: "Ranking 2",
+    width: 120,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${renderArrayField(params.row?.answers[1]?.ranking) || ""} `,
   },
   {
     field: "context 3",
@@ -254,6 +268,13 @@ export const SURVEY_DATA: GridColDef[] = [
       `${renderArrayField(params.row?.answers[2]?.buildFocus) || ""} `,
   },
   {
+    field: "ranking3",
+    headerName: "Ranking 3",
+    width: 120,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${renderArrayField(params.row?.answers[2]?.ranking) || ""} `,
+  },
+  {
     field: "context 4",
     headerName: "Context 4",
     width: 100,
@@ -296,6 +317,13 @@ export const SURVEY_DATA: GridColDef[] = [
       `${renderArrayField(params.row?.answers[3]?.buildFocus) || ""} `,
   },
   {
+    field: "ranking4",
+    headerName: "Ranking 4",
+    width: 120,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${renderArrayField(params.row?.answers[3]?.ranking) || ""} `,
+  },
+  {
     field: "context 5",
     headerName: "Context 5",
     width: 100,
@@ -336,6 +364,13 @@ export const SURVEY_DATA: GridColDef[] = [
     width: 120,
     valueGetter: (params: GridValueGetterParams) =>
       `${renderArrayField(params.row?.answers[4]?.buildFocus) || ""} `,
+  },
+  {
+    field: "ranking5",
+    headerName: "Ranking 5",
+    width: 120,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${renderArrayField(params.row?.answers[4]?.ranking) || ""} `,
   },
   {
     field: "proId",

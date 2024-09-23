@@ -35,7 +35,7 @@ export interface ContextAnswer {
   predictions: string;
   modelImpact: string[];
   buildFocus: string[];
-  ranking: string[];
+  ranking: string;
 }
 
 export interface SurveyAnswerPayload {
