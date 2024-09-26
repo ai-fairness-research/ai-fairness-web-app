@@ -15,7 +15,7 @@ const Survey = () => {
 
   const [isIdSubmitted, setIsIdSubmitted] = React.useState(false);
   const [isOpinionsSubmitted, setIsOpinionsSubmitted] = React.useState(false);
-  const [isDemoSubmitted, setIsDemoSubmitted] = React.useState(false);
+  const [isDemoSubmitted] = React.useState(false);
   const [isExitSubmitted, setIsExitSubmitted] = React.useState(false);
 
   const [openSnack, setIsOpenSnack] = React.useState(false);
@@ -31,32 +31,35 @@ const Survey = () => {
     } else if (activeStep === 2) {
       setIsOpinionsSubmitted(true);
       // setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      console.log(surveyAnswers.attitude);
       if (surveyAnswers.attitude.length === 6) {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
       } else {
         setIsOpenSnack(true);
       }
-    } else if (activeStep === 3) {
-      setIsDemoSubmitted(true);
-      if (
-        surveyAnswers.birthYear !== "" &&
-        surveyAnswers.gender &&
-        surveyAnswers.country &&
-        surveyAnswers.educationYears &&
-        surveyAnswers.areaDesc &&
-        surveyAnswers.incomeDesc &&
-        surveyAnswers.isReligion &&
-        surveyAnswers.religion &&
-        surveyAnswers.isMinority &&
-        surveyAnswers.minority &&
-        surveyAnswers.minority.length !== 0 &&
-        surveyAnswers.isDiscriminated
-      ) {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      } else {
-        setIsOpenSnack(true);
-      }
-    } else {
+    }
+    // else if (activeStep === 3) {
+    //   setIsDemoSubmitted(true);
+    //   if (
+    //     surveyAnswers.birthYear !== "" &&
+    //     surveyAnswers.gender &&
+    //     surveyAnswers.country &&
+    //     surveyAnswers.educationYears &&
+    //     surveyAnswers.areaDesc &&
+    //     surveyAnswers.incomeDesc &&
+    //     surveyAnswers.isReligion &&
+    //     surveyAnswers.religion &&
+    //     surveyAnswers.isMinority &&
+    //     surveyAnswers.minority &&
+    //     surveyAnswers.minority.length !== 0 &&
+    //     surveyAnswers.isDiscriminated
+    //   ) {
+    //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    //   } else {
+    //     setIsOpenSnack(true);
+    //   }
+    // }
+    else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };

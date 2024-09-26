@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Typography,
@@ -6,25 +6,40 @@ import {
   FormControl,
   FormHelperText,
 } from "@mui/material";
-import { error, secondary } from "../../../theme/themeColors";
-import { RANKING_OPTIONS } from "../../../constant";
+import { error, secondary, text } from "../../../theme/themeColors";
+// import { RANKING_OPTIONS } from "../../../constants";
+import { UserAnswer } from "./Audit";
+import { IRankingOptions } from "../../../services/utilities/types";
+import { RANKING_OPTIONS } from "../../../constants";
 
 interface RankingFormProps {
   isError?: boolean;
   selectedOption?: string;
   onOptionChange?: (selectedOption: string) => void;
+  index: number;
 }
+
+const shuffleArray = (array: IRankingOptions[], index: number) => {
+  // return array.sort(() => Math.random() - 0.5);
+  return array.sort(() => Math.random() - 0.5 + index * 0.01);
+};
 
 const RankingForm: React.FC<RankingFormProps> = ({
   isError,
   selectedOption,
   onOptionChange,
+  index,
 }) => {
-  // console.log({ selectedOption });
   const handleChange = (id: string) => {
-    console.log("clicked", parseInt(id) - 1);
+    // console.log("clicked", parseInt(id) - 1);
     if (onOptionChange) onOptionChange(RANKING_OPTIONS[parseInt(id) - 1].title);
   };
+
+  const [shuffledOptions, setShuffledOptions] = useState<IRankingOptions[]>([]);
+
+  useEffect(() => {
+    setShuffledOptions(shuffleArray([...RANKING_OPTIONS], index));
+  }, [index]);
 
   return (
     <>
@@ -47,7 +62,7 @@ const RankingForm: React.FC<RankingFormProps> = ({
             Select one option.
           </Typography>
         </FormLabel>
-        {RANKING_OPTIONS.map((choice, index) => (
+        {shuffledOptions.map((choice, index) => (
           <Box
             key={index}
             sx={{
@@ -63,8 +78,19 @@ const RankingForm: React.FC<RankingFormProps> = ({
             }}
             onClick={() => handleChange(choice.id)}
           >
-            <Typography variant="h6">{choice.title}</Typography>
-            <Typography sx={{ mb: 1 }}>{choice.description}</Typography>
+            <UserAnswer
+              tipText={choice.description}
+              content={choice.title}
+              isEric={false}
+              classes={{
+                fontWeight: 600,
+                fontSize: "1.1rem",
+                lineHeight: 1.6,
+                color: text.primary,
+              }}
+            />
+            {/* <Typography variant="h6">{choice.title}</Typography>
+            <Typography sx={{ mb: 1 }}>{choice.description}</Typography> */}
           </Box>
         ))}
         {isError && <FormHelperText>Select one option at least</FormHelperText>}

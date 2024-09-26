@@ -15,7 +15,7 @@ const Steppers: React.FC<SteppersProps> = ({ activeStep }) => {
     //   label: "A PRIMER ON AUDITING",
     // },
     {
-      label: "PROLIFIC ID",
+      label: "QUALTRICS ID",
     },
     {
       label: "CONDUCTING AUDIT",
@@ -23,9 +23,9 @@ const Steppers: React.FC<SteppersProps> = ({ activeStep }) => {
     {
       label: "AUDIT",
     },
-    {
-      label: "DEMOGRAPHICS",
-    },
+    // {
+    //   label: "DEMOGRAPHICS",
+    // },
     {
       label: "EXIT QUESTIONAIRRE",
     },

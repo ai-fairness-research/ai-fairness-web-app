@@ -20,8 +20,8 @@ const steps = [
   "Scenario 1",
   "Scenario 2",
   "Scenario 3",
-  "Scenario 4",
-  "Scenario 5",
+  // "Scenario 4",
+  // "Scenario 5",
 ];
 
 interface ContextComponentProps {
@@ -52,7 +52,7 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
   // ranking: string[];
 
   const handleNext = () => {
-    console.log(contextAnswers[activeStep - 1]);
+    // console.log(contextAnswers[activeStep - 1]);
     if (activeStep !== 0) {
       setIsContextSubmitted(true);
       if (
@@ -89,7 +89,7 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
   const fetchContext = async () => {
     const contextRandomizeService = new ApiService<ContextResponse, Context[]>(
       "context",
-      `randomize/5`
+      `randomize/3`
     );
 
     const response = await contextRandomizeService.getAll();

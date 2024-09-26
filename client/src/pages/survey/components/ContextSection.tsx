@@ -4,12 +4,13 @@ import CommonCheckboxComponent from "../../../common/CommonCheckboxComponent";
 import { FACTORS } from "../../../constants";
 import { Context, ContextAnswer } from "../../../services/utilities/types";
 import CommonSwitchComponent from "../../../common/CommonSwitchComponent";
-import { error, secondary } from "../../../theme/themeColors";
+import { error, secondary, text } from "../../../theme/themeColors";
 import { CommonWrapper } from "../../../common/CommonBox";
 import DatasetImg from "../../../assets/images/dataset.jpg";
 import ModelImg from "../../../assets/images/model.jpg";
 import RankingForm from "./Ranking";
 import { BACKEND_URL } from "../../../services/api";
+import { UserAnswer } from "./Audit";
 
 interface ContextSectionProps {
   context: Context;
@@ -46,7 +47,7 @@ const ContextSection: React.FC<ContextSectionProps> = ({
 
     updatedAnswer["context"] = context.title;
     updatedContextAnswers[index - 1] = updatedAnswer;
-    console.log({ updatedContextAnswers });
+    // console.log({ updatedContextAnswers });
 
     setContextAnswers(updatedContextAnswers);
   };
@@ -73,21 +74,27 @@ const ContextSection: React.FC<ContextSectionProps> = ({
       <CommonWrapper>
         <Typography
           sx={{
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: 600,
           }}
         >
-          Problem: {context?.problem}
+          Problem:
         </Typography>
-
-        <Typography sx={{ my: 2 }}>
-          <b style={{ marginRight: 4 }}>Example Application:</b>{" "}
-          {context?.example}
-        </Typography>
+        <UserAnswer
+          tipText={context?.example}
+          content={context?.problem}
+          classes={{
+            fontSize: 18,
+            fontWeight: 400,
+            marginLeft: 1,
+            color: text.primary,
+          }}
+          isEric={false}
+        />
 
         <Box>
           <Typography sx={{ fontWeight: 600, fontSize: 20, mb: 2 }}>
-            Datasets Used:
+            Datasets:
           </Typography>
           <Grid container spacing={2}>
             <Grid item sm={12} md={8}>
@@ -95,7 +102,6 @@ const ContextSection: React.FC<ContextSectionProps> = ({
                 (option) =>
                   option !== "" && (
                     <Typography sx={{ my: 1 }} key={option}>
-                      -{" "}
                       <b style={{ marginRight: 2 }}>{option.split(":")[0]}:</b>{" "}
                       {option.split(":")[1]}
                     </Typography>
@@ -127,7 +133,7 @@ const ContextSection: React.FC<ContextSectionProps> = ({
                 (option) =>
                   option !== "" && (
                     <Typography sx={{ my: 1 }} key={option}>
-                      - {option}
+                      • {option}
                     </Typography>
                   )
               )}
@@ -243,6 +249,7 @@ const ContextSection: React.FC<ContextSectionProps> = ({
           onOptionChange={(selectedOption) =>
             handleContextChange(selectedOption, "ranking")
           }
+          index={index - 1}
         />
       </CommonWrapper>
     </Box>

@@ -3,7 +3,7 @@ import { Box, Button, Paper, Typography } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ProlificId from "./ProlificId";
 import Context from "./Context";
-import Demographics from "./Demographics";
+// import Demographics from "./Demographics";
 import Opinions from "./Opinions";
 import Exit from "./Exit";
 
@@ -25,7 +25,7 @@ const Sections: React.FC<SectionsProps> = ({
   handleReset,
   isIdSubmitted,
   isOpinionsSubmitted,
-  isDemoSubmitted,
+  // isDemoSubmitted,
   isExitSubmitted,
 }) => {
   return (
@@ -70,7 +70,7 @@ const Sections: React.FC<SectionsProps> = ({
           </Box>
         </SectionWrapper>
       )}
-      {activeStep === 3 && (
+      {/* {activeStep === 3 && (
         <SectionWrapper
           activeStep={activeStep}
           topic="Demographics"
@@ -85,8 +85,8 @@ const Sections: React.FC<SectionsProps> = ({
             </Box>
           </>
         </SectionWrapper>
-      )}
-      {activeStep === 4 && (
+      )} */}
+      {activeStep === 3 && (
         <SectionWrapper
           activeStep={activeStep}
           topic="Exit Questionairre"

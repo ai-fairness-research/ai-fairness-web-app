@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { error, secondary } from "../../../theme/themeColors";
+import ModelImg from "../../../assets/images/model.jpg";
 
 interface OpinionsProps {
   isOpinionsSubmitted: boolean;
@@ -41,6 +42,16 @@ const Opinions: React.FC<OpinionsProps> = ({ isOpinionsSubmitted }) => {
 
   return (
     <>
+      <img
+        src={ModelImg}
+        alt="img"
+        style={{
+          width: "100%",
+          height: 200,
+          objectFit: "cover",
+          borderRadius: 8,
+        }}
+      />
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>

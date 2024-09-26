@@ -235,8 +235,15 @@ export default Audit;
 interface IUserAnswer {
   tipText?: string;
   content?: string;
+  classes?: object;
+  isEric?: boolean;
 }
-const UserAnswer: React.FC<IUserAnswer> = ({ tipText = "", content = "" }) => {
+export const UserAnswer: React.FC<IUserAnswer> = ({
+  tipText = "",
+  content = "",
+  classes = {},
+  isEric = true,
+}) => {
   return (
     <Tooltip
       arrow
@@ -260,8 +267,8 @@ const UserAnswer: React.FC<IUserAnswer> = ({ tipText = "", content = "" }) => {
         },
       }}
     >
-      <Typography sx={{ color: red[600], fontWeight: 600, my: 2 }}>
-        Eric's Answer: {content}
+      <Typography sx={{ color: red[600], fontWeight: 600, my: 2, ...classes }}>
+        {isEric && "Eric's Answer: "} {content}
         <PsychologyIcon />
       </Typography>
     </Tooltip>

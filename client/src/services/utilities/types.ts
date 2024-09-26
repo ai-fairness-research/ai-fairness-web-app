@@ -66,3 +66,9 @@ export interface ApiResponse {
   status: string;
   message: string;
 }
+
+export interface IRankingOptions {
+  id: string;
+  title: string;
+  description: string;
+}
