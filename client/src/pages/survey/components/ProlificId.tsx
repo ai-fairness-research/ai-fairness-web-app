@@ -24,10 +24,11 @@ const ProlificPage: React.FC<ProlificPageProps> = ({ isIdSubmitted }) => {
   return (
     <>
       <Typography sx={{ mt: 2, fontWeight: 500, fontSize: 18 }}>
-        Please Enter Prolific Id
+        Please enter the code you received after completing the screening
+        questionnaire.
       </Typography>
       <TextField
-        label="Proilific ID"
+        label="Participant Code"
         value={surveyAnswers.proId}
         onChange={handleProId}
         sx={{ marginBottom: 2 }}

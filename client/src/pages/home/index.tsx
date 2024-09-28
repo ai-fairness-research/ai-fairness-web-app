@@ -2,6 +2,8 @@ import React from "react";
 import { Container, Typography, Button, Grid } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { grey } from "@mui/material/colors";
+import AboutSection from "./components/aboutSection";
+import HomeImage from "../../assets/images/home.png";
 
 const LandingPage: React.FC = () => {
   return (
@@ -12,19 +14,23 @@ const LandingPage: React.FC = () => {
           xs={12}
           md={6}
           justifyContent="center"
-          alignItems="center"
+          alignItems="flex-start"
           sx={{ display: "flex", flexDirection: "column", gap: 2 }}
         >
-          <Typography variant="h2" align="center">
-            AI Audit
+          <Typography variant="h2" align="left" sx={{ fontSize: 48 }}>
+            Community AI Audits
           </Typography>
-          <Typography variant="body1" sx={{ color: grey[600] }} align="center">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
-            odio. Praesent libero. Sed cursus ante dapibus diam. Lorem ipsum
-            dolor sit amet, consectetur adipiscing elit. Integer nec odio.
-            Praesent libero. Sed cursus ante dapibus diam. Lorem ipsum dolor sit
-            amet, consectetur adipiscing elit. Integer nec odio. Praesent
-            libero. Sed cursus ante dapibus diam.
+          <Typography variant="body1" sx={{ color: grey[700] }} align="left">
+            AI systems are becoming a part of our everyday lives, from
+            recommending movies to making important decisions about health. But
+            sometimes, these systems can miss the mark, especially when they
+            don’t consider the diverse experiences and values of all people.
+            That's where you come in!
+            <br />
+            <br />
+            AI audits allow individual like you to share your thoughts on how AI
+            should work in real-world settings. Your feedback helps developers
+            create AI that is fair, unbiased, and works well for everyone.
           </Typography>
           <NavLink
             to="/questions"
@@ -35,21 +41,20 @@ const LandingPage: React.FC = () => {
             }}
           >
             <Button variant="contained" color="primary" sx={{ mt: 4, mb: 4 }}>
-              Start Survey
+              Start Audit
             </Button>
           </NavLink>
         </Grid>
         <Grid item xs={12} md={6}>
           <img
-            src={
-              "https://ik.imagekit.io/aifairness/Frame-2.webp?updatedAt=1709519629218"
-            }
+            src={HomeImage}
             alt="bg-"
             style={{ width: "100%", objectFit: "contain" }}
             loading="eager"
           />
         </Grid>
       </Grid>
+      <AboutSection />
     </Container>
   );
 };

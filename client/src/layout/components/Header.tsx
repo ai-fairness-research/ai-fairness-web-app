@@ -14,16 +14,17 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { NavLink } from "react-router-dom";
+import Logo from "../../assets/images/logo.png";
 
 const drawerWidth = 240;
 // const navItems = ["Home", "About", "Contact"];
 const navItems = [
+  // {
+  //   label: "About",
+  //   link: "/about",
+  // },
   {
-    label: "About",
-    link: "/about",
-  },
-  {
-    label: "Surveys",
+    label: "Audit",
     link: "/questions",
   },
 ];
@@ -84,11 +85,9 @@ export default function DrawerAppBar() {
           >
             <NavLink to="/">
               <img
-                src={
-                  "https://ik.imagekit.io/aifairness/ai-logo.webp?updatedAt=1710051459362"
-                }
+                src={Logo}
                 alt="ai-logo"
-                style={{ height: 30, objectFit: "contain" }}
+                style={{ height: 60, objectFit: "contain" }}
               />
             </NavLink>
           </Typography>

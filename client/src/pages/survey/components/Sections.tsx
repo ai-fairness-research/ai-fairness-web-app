@@ -33,7 +33,7 @@ const Sections: React.FC<SectionsProps> = ({
       {activeStep === 0 && (
         <SectionWrapper
           activeStep={activeStep}
-          topic="Prolific ID"
+          topic="Participant Code"
           handleNext={handleNext}
           handleBack={handleBack}
         >

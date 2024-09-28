@@ -10,31 +10,39 @@ const Audit = () => {
   return (
     <>
       <Typography component={"h4"} variant="h4" sx={{ mb: 4 }}>
-        How to Audit a Machine Learning Problem
+        How to Audit an Algorithm
       </Typography>
       <Typography>
-        AI Audits are a way to check if a machine learning system treats
-        everyone fairly. These audits help us understand if a model might be
-        biased, which means it could unfairly favor one group of people over
-        another.
-        <br /> <br />
-        On this page, you’ll learn how to perform an AI audit by looking at
-        examples of how these models work and identifying potential issues
-        before they’re implemented in the real-world.
-        <br /> <br />
-        In the space below, we will walk you through how to conduct the audit.
-        Each audit will contain a use case that describes the tool the developer
-        is attempting to build, the datasets they will use, and how the modeling
-        functions. Below each description of the model, you will see an example
-        of how the model might be applied in a real-world setting.
-        <br /> <br />
-        After reviewing the use case, you will be asked four questions about the
-        model to better understand how the outcomes might impact different
-        groups of people. These questions are designed to help you think about
-        whether the model is fair, who might be affected by it, and if there are
-        any risks of bias that should be addressed.
+        AI audits help ensure a system is fair, secure, and respects privacy.
+        They reveal potential biases or issues the developer may have missed,
+        such as favoring one group over another or not protecting sensitive
+        information.
+        <br />
       </Typography>
-      {/* <Box sx={{ backgroundColor: grey[200], padding: 2, my: 2 }}> */}
+      <Typography sx={{ fontWeight: 600, my: 2, fontSize: 18 }}>
+        Here's how it works:
+      </Typography>
+      <Typography>
+        <b>Review the Scenario:</b> Read a brief description of what the model
+        is designed to do and the kind of data it uses. This will help you see
+        the bigger picture of how the model might work in real life.
+        <br />
+        <b>Reflect and Respond:</b> You'll be asked a few simple questions.
+        Think about how the model's decisions miaht impact different people.
+        Consider whether the model is fair and if any group might be overlooked
+        or negatively affected.
+      </Typography>
+      <Typography sx={{ mt: 2 }}>See an example audit below…</Typography>
+      <Typography component={"h6"} variant="h5" sx={{ my: 4 }}>
+        Auditing an Algorithm to Select Job Candidates
+      </Typography>
+      <Typography>
+        Here's an example of an audit that Eric, a Social Worker, helped to
+        evaluate.
+      </Typography>
+      <Typography component={"h6"} variant="h6" sx={{ my: 4 }}>
+        Review the scenario
+      </Typography>
       <CommonWrapper>
         <Typography sx={{ fontWeight: 600, mb: 4 }}>
           ALGORITHMIC HIRING
@@ -45,8 +53,8 @@ const Audit = () => {
           candidate based on their job applications.
         </Typography>
         <Typography>
-          Data: The model will look at data from past job applications. This
-          data includes:
+          <b> Data: </b>The model will look at data from past job applications.
+          This data includes:
         </Typography>
         <List>
           <ListItem>
@@ -79,21 +87,21 @@ const Audit = () => {
           model reviews the data and suggests that Applicant A is the best fit
           for the job based on their experience and education.
         </Typography>
-        {/* </Box> */}
       </CommonWrapper>
-      <Typography>
+      {/* <Typography>
         After reviewing the use case, you will be asked four questions about the
         model to better understand how the outcomes might impact different
         groups of people. These questions are designed to help you think about
         whether the model is fair, who might be affected by it, and if there are
         any risks of bias that should be addressed.
+      </Typography> */}
+
+      <Typography component={"h6"} variant="h5" sx={{ my: 4 }}>
+        Reflect and Respond
       </Typography>
       <Typography sx={{ marginY: 2 }}>
         On hover, you can see how Eric is thinking through some of the questions
         in the audit.
-      </Typography>
-      <Typography sx={{ fontWeight: 600, fontSize: 28, my: 4 }}>
-        The Audit
       </Typography>
       <Grid container spacing={4}>
         <Grid item sm={12} md={4}>
@@ -107,7 +115,14 @@ const Audit = () => {
           <Typography sx={{ fontWeight: 600, fontSize: 18, mb: 2 }}>
             Eric
           </Typography>
-          <Typography>description</Typography>
+          <Typography>
+            Eric is a community advocate with a background in social work. He
+            believes in standing up for what’s right and making sure everyone
+            gets a fair chance, no matter who they are or where they come from.
+            Eric is deeply committed to creating spaces where everyone’s voice
+            is heard and respected. He’s passionate about learning from others
+            and working together to make positive changes in his community.
+          </Typography>
         </Grid>
       </Grid>
       {/* <Box sx={{ backgroundColor: grey[200], padding: 2, my: 2 }}> */}
