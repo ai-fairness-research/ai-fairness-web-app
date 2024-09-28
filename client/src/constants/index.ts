@@ -177,3 +177,12 @@ export const RANKING_OPTIONS: IRankingOptions[] = [
       "If applicants from one background are consistently being overlooked or recommended less often, adjust the model to fix this.",
   },
 ];
+
+export const EXPORT_OPTIONS: string[] = [
+  "consider people’s needs and well-being to create fair and personalized experiences.",
+  "prioritize objectives like efficiency or profitability over people’s needs and well-being.",
+  "focus only on their main goals and not consider people’s needs or well-being.",
+  "base decisions only on objective data to ensure fairness and eliminate discrimination.",
+  "sometimes consider people’s backgrounds to make fairer and more inclusive decisions.",
+  "take people’s backgrounds into account to address past inequalities and promote fairness.",
+];

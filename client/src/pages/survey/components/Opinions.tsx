@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { error, secondary } from "../../../theme/themeColors";
-import ModelImg from "../../../assets/images/model.jpg";
+import ModelImg from "../../../assets/images/attitude.jpg";
 
 interface OpinionsProps {
   isOpinionsSubmitted: boolean;

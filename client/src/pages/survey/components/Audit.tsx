@@ -202,9 +202,6 @@ const Audit = () => {
           <Typography>
             Make sure the same percentage of applicants from all backgrounds
             (e.g., different races, genders) are recommended for interviews.
-            This means that if 10% of applicants from one background are
-            recommended, then 10% of applicants from another background should
-            also be recommended, no matter what.
             <br /> <br />
             Ensure that the model is equally accurate in recommending the best
             candidates, regardless of their background. For example, if the
@@ -224,18 +221,6 @@ const Audit = () => {
               content="Focus on making sure that applicants with similar qualifications (e.g., same experience and skills) have an equal chance of being recommended for an interview, regardless of their background."
               tipText="This approach ensures that the model is truly fair. If candidates with the same qualifications are treated equally, it removes the risk of bias based on race, gender, or other factors. This is what fairness should look like."
             />
-            {/* <UserAnswer
-              content="Ensure that the model is equally accurate in recommending the best candidates, regardless of their background. For example, if the model correctly identifies the best candidates from one background, it should be just as accurate for candidates from another background."
-              tipText="This approach ensures that the model is truly fair. If candidates with the same qualifications are treated equally, it removes the risk of bias based on race, gender, or other factors. This is what fairness should look like."
-            />
-            <UserAnswer
-              content="Check if the model’s recommendations might unintentionally favor or disadvantage certain groups of people. If you find that applicants from one background are consistently being overlooked or recommended less often, adjust the model to fix this."
-              tipText="While this might seem fair on the surface, it could lead to tokenism where certain applicants are only recommended to meet a quota. I think the focus should be on fairness based on qualifications, not just percentages."
-            />
-            <UserAnswer
-              content="Make sure the same percentage of applicants from all backgrounds (e.g., different races, genders) are recommended for interviews. This means that if 10% of applicants from one background are recommended, then 10% of applicants from another background should also be recommended, no matter what."
-              tipText="While this might seem fair on the surface, it could lead to tokenism where certain applicants are only recommended to meet a quota. I think the focus should be on fairness based on qualifications, not just percentages."
-            /> */}
           </Typography>
         </>
 

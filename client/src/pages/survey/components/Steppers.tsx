@@ -15,7 +15,7 @@ const Steppers: React.FC<SteppersProps> = ({ activeStep }) => {
     //   label: "A PRIMER ON AUDITING",
     // },
     {
-      label: "QUALTRICS ID",
+      label: "PARTICIPANT CODE",
     },
     {
       label: "CONDUCTING AUDIT",
