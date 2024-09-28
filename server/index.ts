@@ -40,5 +40,5 @@ app.use("/api/surveyUser", surveyUserRoute);
 app.use("/api/attitude", attitudeRoute);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send(`<p>Ai Fairness Backend !</p>`);
+  res.send(`<p>Ai Audit Backend !</p>`);
 });

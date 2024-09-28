@@ -16,7 +16,7 @@ const LandingPage: React.FC = () => {
           sx={{ display: "flex", flexDirection: "column", gap: 2 }}
         >
           <Typography variant="h2" align="center">
-            AI Fairness Survey
+            AI Audit
           </Typography>
           <Typography variant="body1" sx={{ color: grey[600] }} align="center">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec

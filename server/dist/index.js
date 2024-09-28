@@ -38,5 +38,5 @@ app.use("/api/context", context_1.default);
 app.use("/api/surveyUser", surveyUser_1.default);
 app.use("/api/attitude", attitude_1.default);
 app.get("/", (req, res) => {
-    res.send(`<p>Ai Fairness Backend !</p>`);
+    res.send(`<p>Ai Audit Backend !</p>`);
 });

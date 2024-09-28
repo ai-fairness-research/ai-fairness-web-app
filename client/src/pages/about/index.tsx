@@ -16,7 +16,7 @@ const AboutPage: React.FC = () => {
       <Grid container spacing={3} justifyContent="center" alignItems="center">
         <Grid item xs={12} sx={{ mb: 5, mt: 3 }}>
           <Typography variant="h2" align="center">
-            About AI Fairness
+            About AI Audit
           </Typography>
         </Grid>
         <Grid item xs={12} md={6}>
