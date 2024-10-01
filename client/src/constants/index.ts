@@ -130,16 +130,16 @@ export const DEMO_QUESTIONS = [
   },
 ];
 
-export const ATTITUDE_QUESTIONS = [
-  "It is important for algorithmic systems to consider individual needs and well-being to ensure fair and personalized experiences.",
-  "Algorithmic systems should prioritize other objectives, such as efficiency or profitability over individual needs and well-being",
-  "Algorithmic systems should focus solely on their primary objectives and not be concerned with individual needs and well-being.",
-  "Algorithmic systems should base decisions solely on objective criteria to ensure fairness and eliminate discrimination.",
-  "There may be instances where considering social or demographic backgrounds could lead to more just and inclusive results.",
-  "Algorithmic systems should consider social and demographic backgrounds to address historical biases and promote equity.",
+export const ATTITUDE_QUESTIONS: string[] = [
+  "consider people’s needs and well-being to create fair and personalized experiences.",
+  "prioritize objectives like efficiency or profitability over people’s needs and well-being.",
+  "focus only on their main goals and not consider people’s needs or well-being.",
+  "base decisions only on objective data to ensure fairness and eliminate discrimination.",
+  "sometimes consider people’s backgrounds to make fairer and more inclusive decisions.",
+  "take people’s backgrounds into account to address past inequalities and promote fairness.",
 ];
 
-export const ATTITUDE_CHOICES = [
+export const ATTITUDE_CHOICES: string[] = [
   "Strongly disagree",
   "Somewhat disagree",
   "Neither agree nor disagree",
@@ -176,13 +176,4 @@ export const RANKING_OPTIONS: IRankingOptions[] = [
     description:
       "If applicants from one background are consistently being overlooked or recommended less often, adjust the model to fix this.",
   },
-];
-
-export const EXPORT_OPTIONS: string[] = [
-  "consider people’s needs and well-being to create fair and personalized experiences.",
-  "prioritize objectives like efficiency or profitability over people’s needs and well-being.",
-  "focus only on their main goals and not consider people’s needs or well-being.",
-  "base decisions only on objective data to ensure fairness and eliminate discrimination.",
-  "sometimes consider people’s backgrounds to make fairer and more inclusive decisions.",
-  "take people’s backgrounds into account to address past inequalities and promote fairness.",
 ];

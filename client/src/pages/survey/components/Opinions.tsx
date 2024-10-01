@@ -62,7 +62,7 @@ const Opinions: React.FC<OpinionsProps> = ({ isOpinionsSubmitted }) => {
                 borderRight: `1px solid ${secondary[400]}`,
               }}
             >
-              Attitude Questions
+              Algorithms should…
             </TableCell>
             {ATTITUDE_CHOICES.map((choice) => (
               <TableCell

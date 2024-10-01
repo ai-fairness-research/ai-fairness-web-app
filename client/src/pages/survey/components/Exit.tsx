@@ -1,8 +1,7 @@
-// import { TextField, Typography } from "@mui/material";
 import React, { useCallback } from "react";
+import { TextField, Typography } from "@mui/material";
 import CommonSwitchComponent from "../../../common/CommonSwitchComponent";
 import { useSurveyAnswerContext } from "../../../context/SurveyAnswerContext";
-import { EXPORT_OPTIONS } from "../../../constants";
 
 interface ExitProps {
   isExitSubmitted: boolean;
@@ -31,16 +30,19 @@ const Exit: React.FC<ExitProps> = ({ isExitSubmitted }) => {
 
   return (
     <>
-      {/* <Typography>Thank you for participating!</Typography>
+      <Typography>Thank you for participating!</Typography>
       <Typography>
         Our research team is interested in hearing more about your experiences.
         Would you be interested in participating in a comprehensive interview on
         algorithmic bias? If you're up for it, please share your email address,
         and if chosen, we'll compensate you for your time.
-      </Typography> */}
+      </Typography>
       <CommonSwitchComponent
-        question="Algorithms should…"
-        choices={EXPORT_OPTIONS}
+        question=""
+        choices={[
+          "Yes, I would like to participate",
+          "No, I do not want to participate",
+        ]}
         selectedOption={surveyAnswers?.isInterested || ""}
         onOptionChange={(selectedOption) =>
           handleExitChange(selectedOption, "isInterested")
@@ -48,7 +50,7 @@ const Exit: React.FC<ExitProps> = ({ isExitSubmitted }) => {
         isError={doesItHaveErr(surveyAnswers?.isInterested)}
       />
 
-      {/* {surveyAnswers?.isInterested === "Yes, I would like to participate" && (
+      {surveyAnswers?.isInterested === "Yes, I would like to participate" && (
         <>
           <Typography sx={{ fontWeight: 500 }}>
             If Yes, Please enter your email
@@ -60,7 +62,7 @@ const Exit: React.FC<ExitProps> = ({ isExitSubmitted }) => {
             error={doesItHaveErr(surveyAnswers?.email)}
           />
         </>
-      )} */}
+      )}
     </>
   );
 };

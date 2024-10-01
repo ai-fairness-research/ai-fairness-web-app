@@ -23,25 +23,62 @@ const Audit = () => {
         Here's how it works:
       </Typography>
       <Typography>
-        <b>Review the Scenario:</b> Read a brief description of what the model
-        is designed to do and the kind of data it uses. This will help you see
-        the bigger picture of how the model might work in real life.
+        <b>1. Review the Scenario:</b> Read a brief description of what the
+        model is designed to do and the kind of data it uses. This will help you
+        see the bigger picture of how the model might work in real life.
         <br />
-        <b>Reflect and Respond:</b> You'll be asked a few simple questions.
+        <br />
+        <b>2. Reflect and Respond:</b> You'll be asked a few simple questions.
         Think about how the model's decisions miaht impact different people.
         Consider whether the model is fair and if any group might be overlooked
         or negatively affected.
       </Typography>
       <Typography sx={{ mt: 2 }}>See an example audit below…</Typography>
-      <Typography component={"h6"} variant="h5" sx={{ my: 4 }}>
+      <Typography component={"h6"} variant="h4" sx={{ my: 4 }}>
         Auditing an Algorithm to Select Job Candidates
       </Typography>
       <Typography>
         Here's an example of an audit that Eric, a Social Worker, helped to
         evaluate.
       </Typography>
-      <Typography component={"h6"} variant="h6" sx={{ my: 4 }}>
-        Review the scenario
+      <Grid container spacing={4} sx={{ mt: 2 }}>
+        <Grid item sm={12} md={4}>
+          <img
+            src={EricImg}
+            alt="eric-img"
+            style={{ width: "100%", height: "auto" }}
+          />
+        </Grid>
+        <Grid
+          item
+          sm={12}
+          md={8}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "baseline",
+            flexDirection: "column",
+            gap: 2,
+          }}
+        >
+          {/* <Typography sx={{ fontWeight: 600, fontSize: 18 }} textAlign={"left"}>
+            Eric
+          </Typography> */}
+          <Typography>
+            <Typography sx={{ fontWeight: 700 }} component={"span"}>
+              Eric
+            </Typography>{" "}
+            {"   "}is a community advocate with a background in social work. He
+            believes in standing up for what’s right and making sure everyone
+            gets a fair chance, no matter who they are or where they come from.
+            Eric is deeply committed to creating spaces where everyone’s voice
+            is heard and respected. He’s passionate about learning from others
+            and working together to make positive changes in his community.
+          </Typography>
+        </Grid>
+      </Grid>
+      <Typography component={"h6"} variant="h5" sx={{ my: 4 }}>
+        1. Review the scenario
       </Typography>
       <CommonWrapper>
         <Typography sx={{ fontWeight: 600, mb: 4 }}>
@@ -88,44 +125,14 @@ const Audit = () => {
           for the job based on their experience and education.
         </Typography>
       </CommonWrapper>
-      {/* <Typography>
-        After reviewing the use case, you will be asked four questions about the
-        model to better understand how the outcomes might impact different
-        groups of people. These questions are designed to help you think about
-        whether the model is fair, who might be affected by it, and if there are
-        any risks of bias that should be addressed.
-      </Typography> */}
-
       <Typography component={"h6"} variant="h5" sx={{ my: 4 }}>
-        Reflect and Respond
+        2. Reflect and Respond
       </Typography>
       <Typography sx={{ marginY: 2 }}>
         On hover, you can see how Eric is thinking through some of the questions
         in the audit.
       </Typography>
-      <Grid container spacing={4}>
-        <Grid item sm={12} md={4}>
-          <img
-            src={EricImg}
-            alt="eric-img"
-            style={{ width: "100%", height: "auto" }}
-          />
-        </Grid>
-        <Grid item sm={12} md={8}>
-          <Typography sx={{ fontWeight: 600, fontSize: 18, mb: 2 }}>
-            Eric
-          </Typography>
-          <Typography>
-            Eric is a community advocate with a background in social work. He
-            believes in standing up for what’s right and making sure everyone
-            gets a fair chance, no matter who they are or where they come from.
-            Eric is deeply committed to creating spaces where everyone’s voice
-            is heard and respected. He’s passionate about learning from others
-            and working together to make positive changes in his community.
-          </Typography>
-        </Grid>
-      </Grid>
-      {/* <Box sx={{ backgroundColor: grey[200], padding: 2, my: 2 }}> */}
+
       <CommonWrapper>
         <>
           <Typography sx={{ fontWeight: 600 }}>
@@ -200,25 +207,25 @@ const Audit = () => {
             is fair. Please select one option.
           </Typography>
           <Typography>
-            Make sure the same percentage of applicants from all backgrounds
+            A. Make sure the same percentage of applicants from all backgrounds
             (e.g., different races, genders) are recommended for interviews.
             <br /> <br />
-            Ensure that the model is equally accurate in recommending the best
-            candidates, regardless of their background. For example, if the
+            B. Ensure that the model is equally accurate in recommending the
+            best candidates, regardless of their background. For example, if the
             model correctly identifies the best candidates from one background,
             it should be just as accurate for candidates from another
             background.
             <br /> <br />
-            Focus on making sure that applicants with similar qualifications
+            C. Focus on making sure that applicants with similar qualifications
             (e.g., same experience and skills) have an equal chance of being
             recommended for an interview, regardless of their background.
             <br /> <br />
-            Check if the model’s recommendations might unintentionally favor or
-            disadvantage certain groups of people. If you find that applicants
-            from one background are consistently being overlooked or recommended
-            less often, adjust the model to fix this.
+            D. Check if the model’s recommendations might unintentionally favor
+            or disadvantage certain groups of people. If you find that
+            applicants from one background are consistently being overlooked or
+            recommended less often, adjust the model to fix this.
             <UserAnswer
-              content="Focus on making sure that applicants with similar qualifications (e.g., same experience and skills) have an equal chance of being recommended for an interview, regardless of their background."
+              content="C. Focus on making sure that applicants with similar qualifications (e.g., same experience and skills) have an equal chance of being recommended for an interview, regardless of their background."
               tipText="This approach ensures that the model is truly fair. If candidates with the same qualifications are treated equally, it removes the risk of bias based on race, gender, or other factors. This is what fairness should look like."
             />
           </Typography>

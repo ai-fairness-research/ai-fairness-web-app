@@ -72,14 +72,7 @@ const ContextSection: React.FC<ContextSectionProps> = ({
         title={context.title}
       />
       <CommonWrapper>
-        <Typography
-          sx={{
-            fontSize: 18,
-            fontWeight: 600,
-          }}
-        >
-          Problem:
-        </Typography>
+        <Typography variant="h5">Scenario </Typography>
         <UserAnswer
           tipText={context?.example}
           content={context?.problem}
@@ -133,7 +126,7 @@ const ContextSection: React.FC<ContextSectionProps> = ({
                 (option) =>
                   option !== "" && (
                     <Typography sx={{ my: 1 }} key={option}>
-                      • {option}
+                      {option}
                     </Typography>
                   )
               )}
