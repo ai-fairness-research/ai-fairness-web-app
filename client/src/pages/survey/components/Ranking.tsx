@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Typography,
-  FormLabel,
-  FormControl,
-  FormHelperText,
-} from "@mui/material";
+import { Box, FormLabel, FormControl, FormHelperText } from "@mui/material";
 import { error, secondary, text } from "../../../theme/themeColors";
 // import { RANKING_OPTIONS } from "../../../constants";
 import { UserAnswer } from "./Audit";
@@ -53,14 +47,15 @@ const RankingForm: React.FC<RankingFormProps> = ({
             mb: 2,
           }}
         >
-          6. Below are four different ways you might ensure the hiring process
-          is fair.
-          <Typography
+          6. Below are four different approaches you might take to ensure
+          fairness in this case study. Select one option to evaluate how
+          fairness can be applied to the decision-making process.
+          {/* <Typography
             component="span"
             sx={{ color: "#94A4C4", fontStyle: "italic" }}
           >
-            Select one option.
-          </Typography>
+         
+          </Typography> */}
         </FormLabel>
         {shuffledOptions.map((choice, index) => (
           <Box

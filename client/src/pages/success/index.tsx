@@ -31,8 +31,10 @@ const SuccessPage = () => {
         }}
       >
         <CheckCircleIcon sx={{ color: success.main, fontSize: 128 }} />
-        <Typography variant="h5">
-          Thank you for completing the Survey
+        <Typography variant="h5" sx={{ textAlign: "center" }}>
+          {/* Thank you for completing the Survey */}
+          Thank you for completing the Survey. <br />
+          Please return to your Qualtrics window to submit your survey
         </Typography>
         {uniqueId && (
           <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>

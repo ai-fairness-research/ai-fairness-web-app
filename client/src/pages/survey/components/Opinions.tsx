@@ -62,7 +62,9 @@ const Opinions: React.FC<OpinionsProps> = ({ isOpinionsSubmitted }) => {
                 borderRight: `1px solid ${secondary[400]}`,
               }}
             >
-              Algorithms should…
+              {/* Algorithms should… */}
+              To what extent do you agree or disagree with the following
+              statements about how algorithms should operate?
             </TableCell>
             {ATTITUDE_CHOICES.map((choice) => (
               <TableCell

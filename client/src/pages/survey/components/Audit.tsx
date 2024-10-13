@@ -203,8 +203,9 @@ const Audit = () => {
             tipText="Given the complexities around race and the history of discrimination in hiring, it seems most important to make sure the model doesn’t favor one racial group over another."
           />
           <Typography sx={{ fontWeight: 600, my: 4 }}>
-            6. Below are four different ways you might ensure the hiring process
-            is fair. Please select one option.
+            6. Below are four different approaches you might take to ensure
+            fairness in this case study. Select one option to evaluate how
+            fairness can be applied to the decision-making process.
           </Typography>
           <Typography>
             A. Make sure the same percentage of applicants from all backgrounds
