@@ -34,7 +34,8 @@ const SuccessPage = () => {
         <Typography variant="h5" sx={{ textAlign: "center" }}>
           {/* Thank you for completing the Survey */}
           Thank you for completing the Survey. <br />
-          Please return to your Qualtrics window to submit your survey
+          Please copy and paste the following code in Prolific to mark the
+          survey as complete: C4LBGZHA
         </Typography>
         {uniqueId && (
           <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
