@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Container, Typography } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { secondary, success } from "../../theme/themeColors";
+import { success } from "../../theme/themeColors";
 import { useNavigate } from "react-router-dom";
 
 const SuccessPage = () => {
@@ -39,9 +39,9 @@ const SuccessPage = () => {
         </Typography>
         {uniqueId && (
           <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-            <Typography sx={{ fontWeight: 700, color: secondary[400] }}>
+            {/* <Typography sx={{ fontWeight: 700, color: secondary[400] }}>
               YOUR MECHANICAL TURK CODE: {uniqueId}
-            </Typography>
+            </Typography> */}
             <Button
               color="success"
               variant="outlined"
