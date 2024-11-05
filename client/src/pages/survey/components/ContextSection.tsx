@@ -1,16 +1,17 @@
 import React, { useCallback } from "react";
-import { Box, Grid, TextField, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import CommonCheckboxComponent from "../../../common/CommonCheckboxComponent";
 import { FACTORS } from "../../../constants";
 import { Context, ContextAnswer } from "../../../services/utilities/types";
 import CommonSwitchComponent from "../../../common/CommonSwitchComponent";
-import { error, secondary, text } from "../../../theme/themeColors";
+import { secondary, text } from "../../../theme/themeColors";
 import { CommonWrapper } from "../../../common/CommonBox";
 import DatasetImg from "../../../assets/images/dataset.jpg";
 import ModelImg from "../../../assets/images/model.jpg";
 import RankingForm from "./Ranking";
 import { BACKEND_URL } from "../../../services/api";
 import { UserAnswer } from "./Audit";
+import CommonTextFieldComponent from "../../../common/CommonTextFieldComponent";
 
 interface ContextSectionProps {
   context: Context;
@@ -150,28 +151,17 @@ const ContextSection: React.FC<ContextSectionProps> = ({
       <Typography sx={{ fontWeight: 600, fontSize: 28 }}>The Audit</Typography>
 
       <CommonWrapper>
-        <Typography
-          sx={{
-            fontWeight: 500,
-            color: doesItHaveErr(contextAnswers?.[index - 1]?.factors)
-              ? error.main
-              : "#000",
-            mb: 2,
-          }}
-        >
-          1. Are there any factors (e.g., data, community or cultural practices)
-          that the model might not be considering?
-        </Typography>
-        <TextField
-          multiline
-          fullWidth
-          rows={4}
-          value={contextAnswers?.[index - 1]?.factors || ""}
-          onChange={(e) => handleContextChange(e.target.value, "factors")}
-          error={doesItHaveErr(contextAnswers?.[index - 1]?.factors)}
-          sx={{ mb: 4 }}
+        <CommonTextFieldComponent
+          question={
+            "1. Are there any factors (e.g., data, community or cultural practices) that the model might not be considering?"
+          }
+          value={contextAnswers?.[index - 1]?.factors}
+          onValueChange={(text) => handleContextChange(text, "factors")}
+          isError={doesItHaveErr(contextAnswers?.[index - 1]?.factors)}
+          helperText={
+            "Responses to this question that demonstrate high thoughtfulness and creativity are eligible for an additional $1 incentive pay."
+          }
         />
-
         <CommonSwitchComponent
           question={
             "2. Is there a high risk of negative consequences if the model makes an incorrect decision?"
@@ -185,29 +175,18 @@ const ContextSection: React.FC<ContextSectionProps> = ({
           direction={true}
         />
 
-        <Typography
-          sx={{
-            fontWeight: 500,
-            color: doesItHaveErr(contextAnswers?.[index - 1]?.predictions)
-              ? error.main
-              : "#000",
-            mt: 4,
-            mb: 2,
-          }}
-        >
-          3. What do you believe to be the potential consequences if the model
-          makes a mistake in its predictions?
-        </Typography>
-        <TextField
-          multiline
-          rows={4}
-          value={contextAnswers?.[index - 1]?.predictions || ""}
-          onChange={(e) => handleContextChange(e.target.value, "predictions")}
-          error={doesItHaveErr(contextAnswers?.[index - 1]?.predictions)}
-          fullWidth
-          sx={{ mb: 4 }}
+        <CommonTextFieldComponent
+          question={
+            "3. What do you believe to be the potential consequences if the model makes a mistake in its predictions?"
+          }
+          value={contextAnswers?.[index - 1]?.predictions}
+          onValueChange={(text) => handleContextChange(text, "predictions")}
+          isError={doesItHaveErr(contextAnswers?.[index - 1]?.predictions)}
+          helperText={
+            "Responses to this question that demonstrate high thoughtfulness and creativity are eligible for an additional $1 incentive pay."
+          }
+          classes={{ mt: 4 }}
         />
-
         <CommonCheckboxComponent
           question={
             "4. Which of the following groups in your community might be negatively impacted by the model's decisions?"
