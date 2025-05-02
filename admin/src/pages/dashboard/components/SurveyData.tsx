@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { surveyUserService } from "../../../services/utilities/provider";
 import {
-  SurveyAnswerPayload,
-  SurveyResponse,
+  surveyResponseService,
+  surveyUserService,
+} from "../../../services/utilities/provider";
+import {
+  SurveyResponseReq,
+  SurveyResponses,
 } from "../../../services/utilities/types";
 import { SURVEY_DATA } from "../../../constant";
 import {
@@ -17,14 +20,14 @@ import { error, secondary } from "../../../theme/themeColors";
 
 const SurveyData: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [surveys, setSurveys] = useState<SurveyAnswerPayload[]>([]);
+  const [surveys, setSurveys] = useState<SurveyResponses[]>([]);
 
   const token = localStorage.getItem("moral-token");
 
   const fetchSurveyData = async () => {
     setIsLoading(true);
     try {
-      const res: SurveyResponse = await surveyUserService.getAll();
+      const res: SurveyResponseReq = await surveyResponseService.getAll();
       // console.log(res);
       if (res.status === "200") {
         const surveysWithCustomKey = res.message.map((survey) => ({
@@ -88,11 +91,11 @@ const SurveyData: React.FC = () => {
         columns={SURVEY_COL}
         initialState={{
           pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
+            paginationModel: { page: 0, pageSize: 10 },
           },
         }}
         loading={isLoading}
-        pageSizeOptions={[5, 10]}
+        pageSizeOptions={[5, 10, 25]}
         slots={{ toolbar: GridToolbar }}
         density="standard"
       />

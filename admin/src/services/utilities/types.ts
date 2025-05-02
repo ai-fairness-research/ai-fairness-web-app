@@ -45,6 +45,16 @@ export interface ContextAnswer {
   textAnswer: string;
 }
 
+export interface Answer {
+  buildFocus: string[];
+  context: string;
+  decision: string;
+  factors: string;
+  modelImpact: string[];
+  predictions: string[];
+  ranking: string;
+}
+
 export interface ContextPayload {
   context: string;
   problem: string;
@@ -70,6 +80,31 @@ export interface SurveyAnswerPayload {
   answers: ContextAnswer[];
   attitude: string[];
   proId: string;
+}
+
+export interface SurveyResponses {
+  [key: string]: string | string[] | Answer[];
+  email: string;
+  isInterested: string;
+  isDiscriminated: string;
+  birthYear: string;
+  gender: string;
+  country: string;
+  educationYears: string;
+  areaDesc: string;
+  incomeDesc: string;
+  isReligion: string;
+  religion: string;
+  isMinority: string;
+  minority: string[];
+  answers: Answer[];
+  attitude: string[];
+  proId: string;
+}
+
+export interface SurveyResponseReq {
+  status: string;
+  message: SurveyResponses[];
 }
 
 export interface SurveyResponse {

@@ -174,7 +174,7 @@ export const SURVEY_DATA: GridColDef[] = [
     headerName: "Ranking 1",
     width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${renderArrayField(params.row?.answers[0]?.ranking) || ""} `,
+      `${params.row?.answers[0]?.ranking || ""} `,
   },
   {
     field: "context 2",
@@ -223,7 +223,7 @@ export const SURVEY_DATA: GridColDef[] = [
     headerName: "Ranking 2",
     width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${renderArrayField(params.row?.answers[1]?.ranking) || ""} `,
+      `${params.row?.answers[1]?.ranking || ""} `,
   },
   {
     field: "context 3",
@@ -272,7 +272,7 @@ export const SURVEY_DATA: GridColDef[] = [
     headerName: "Ranking 3",
     width: 120,
     valueGetter: (params: GridValueGetterParams) =>
-      `${renderArrayField(params.row?.answers[2]?.ranking) || ""} `,
+      `${params.row?.answers[2]?.ranking || ""} `,
   },
   {
     field: "context 4",

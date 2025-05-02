@@ -13,6 +13,8 @@ import {
   AttitudeResponse,
   AttitudePayload,
   BiasPayload,
+  SurveyResponses,
+  SurveyResponseReq,
 } from "./types";
 
 export class ApiService<T, P> {
@@ -171,6 +173,12 @@ export const surveyUserService = new ApiService<
   SurveyResponse,
   SurveyAnswerPayload
 >("surveyUser");
+
+export const surveyResponseService = new ApiService<
+  SurveyResponseReq,
+  SurveyResponses
+>("surveyUser");
+
 export const authService = new ApiService<AuthResponse, AuthPayload>("auth");
 export const authLoginService = new ApiService<AuthResponse, AuthPayload>(
   "auth",
