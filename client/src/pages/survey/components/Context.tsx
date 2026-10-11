@@ -4,6 +4,7 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import { ApiService } from "../../../services/utilities/provider";
 import {
   Context,
@@ -93,28 +94,33 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
     try {
       setIsLoading(true);
       setFetchError(null);
-  
+
       const contextRandomizeService =
         new ApiService<ContextResponse, Context[]>(
           "context",
           "randomize/3"
         );
-  
+
       const response = await contextRandomizeService.getAll();
       if (
-          !Array.isArray(response.message) ||
-          response.message.length === 0
-        ) {
-          throw new Error("No audit scenarios returned");
-        }
-    
-        setContext(response.message);
-      } catch (error) {
-        console.error("Error loading audit scenarios:", error);
-        setContext([]);
+        !Array.isArray(response.message) ||
+        response.message.length !== steps.length - 1
+      ) {
+        throw new Error("Expected three audit scenarios");
       }
-    };
- 
+
+      setContext(response.message);
+    } catch (error) {
+      console.error("Error loading audit scenarios:", error);
+      setContext([]);
+      setFetchError(
+        "The audit scenarios could not be loaded. Please try again."
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchContext();
   }, []);
@@ -151,19 +157,6 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
     }
   };
 
-      if (isLoading) {
-      return <Box>Loading audit scenarios...</Box>;
-    }
-    
-    if (fetchError) {
-      return (
-        <Box>
-          <p>{fetchError}</p>
-          <Button onClick={fetchContext}>Try Again</Button>
-        </Box>
-      );
-    }
-
   return (
     <Box sx={{ width: "100%" }}>
       <CommonSnackbar
@@ -189,7 +182,11 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
       <React.Fragment>
         {activeStep === 0 ? (
           <Audit />
-        ) : context[activeStep - 1] ? (
+        ) : isLoading ? (
+          <Box sx={{ p: 3 }} role="status">
+            <Typography>Loading audit scenarios...</Typography>
+          </Box>
+        ) : !fetchError && context[activeStep - 1] ? (
           <ContextSection
             context={context[activeStep - 1]}
             index={activeStep}
@@ -200,9 +197,9 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
         ) : (
           <Box sx={{ p: 3 }}>
             <Typography color="error">
-              The audit scenario could not be loaded.
-              Please refresh the page and try again.
+              {fetchError || "The audit scenario could not be loaded. Please try again."}
             </Typography>
+            <Button onClick={fetchContext}>Try Again</Button>
           </Box>
         )}
       
@@ -232,7 +229,7 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
             }
             disabled={
               activeStep > 0 &&
-              !context[activeStep - 1]
+              (isLoading || !!fetchError || !context[activeStep - 1])
             }
           >
             {activeStep === steps.length - 1 ? "Finish" : "Next"}
@@ -244,6 +241,3 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
 };
 
 export default ContextComponent;
-
-
-   
