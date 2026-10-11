@@ -86,17 +86,39 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  #Added Oct 11 
+  const [isLoading, setIsLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+  
   const fetchContext = async () => {
-    const contextRandomizeService = new ApiService<ContextResponse, Context[]>(
-      "context",
-      `randomize/3`
-    );
-
-    const response = await contextRandomizeService.getAll();
-    // console.log(response);
-    setContext(response.message);
+    try {
+      setIsLoading(true);
+      setFetchError(null);
+  
+      const contextRandomizeService =
+        new ApiService<ContextResponse, Context[]>(
+          "context",
+          "randomize/3"
+        );
+  
+      const response = await contextRandomizeService.getAll();
+  
+      if (
+        !Array.isArray(response.message) ||
+        response.message.length === 0
+      ) {
+        throw new Error("No audit scenarios were returned.");
+      }
+  
+      setContext(response.message);
+    } catch (error) {
+      console.error("Failed to load audit scenarios:", error);
+      setFetchError("Unable to load the audit scenarios.");
+    } finally {
+      setIsLoading(false);
+    }
   };
-
+ ###
   useEffect(() => {
     fetchContext();
   }, []);
@@ -133,6 +155,19 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
     }
   };
 
+      if (isLoading) {
+      return <Box>Loading audit scenarios...</Box>;
+    }
+    
+    if (fetchError) {
+      return (
+        <Box>
+          <p>{fetchError}</p>
+          <Button onClick={fetchContext}>Try Again</Button>
+        </Box>
+      );
+    }
+
   return (
     <Box sx={{ width: "100%" }}>
       <CommonSnackbar
@@ -157,9 +192,8 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
       </Stepper>
       <React.Fragment>
         {activeStep === 0 ? (
-          // <Instructions />
           <Audit />
-        ) : (
+        ) : context[activeStep - 1] ? (
           <ContextSection
             context={context[activeStep - 1]}
             index={activeStep}
@@ -167,31 +201,20 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
             setContextAnswers={setContextAnswers}
             isContextSubmitted={isContextSubmitted}
           />
+        ) : (
+          <Box sx={{ p: 3 }}>
+            <Typography color="error">
+              The audit scenario could not be loaded.
+              Please refresh the page and try again.
+            </Typography>
+          </Box>
         )}
+      
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-          <Button
-            color="inherit"
-            onClick={() => {
-              if (activeStep === 0) {
-                if (handleSectionBack) handleSectionBack();
-              } else {
-                handleBack();
-              }
-            }}
-            sx={{ mr: 1 }}
-          >
-            Back
-          </Button>
-          <Box sx={{ flex: "1 1 auto" }} />
-          <Button
-            onClick={
-              activeStep === steps.length - 1 ? handleFinish : handleNext
-            }
-          >
-            {activeStep === steps.length - 1 ? "Finish" : "Next"}
-          </Button>
+          {/* Keep your existing Back and Next buttons here */}
         </Box>
       </React.Fragment>
+
     </Box>
   );
 };
