@@ -238,11 +238,12 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
             {activeStep === steps.length - 1 ? "Finish" : "Next"}
           </Button>
         </Box>
-      </React.Fragment>
-      </Box>
-      );
-      };
+         </React.Fragment>
+    </Box>
   );
 };
 
 export default ContextComponent;
+
+
+   
