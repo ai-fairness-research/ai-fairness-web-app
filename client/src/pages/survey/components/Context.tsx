@@ -102,23 +102,21 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
         );
   
       const response = await contextRandomizeService.getAll();
-  
       if (
-        !Array.isArray(response.message) ||
-        response.message.length === 0
-      ) {
-        throw new Error("No audit scenarios were returned.");
+          !Array.isArray(response.message) ||
+          response.message.length === 0
+        ) {
+          throw new Error("No audit scenarios returned");
+        }
+    
+        setContext(response.message);
+      } catch (error) {
+        console.error("Error loading audit scenarios:", error);
+        setContext([]);
       }
-  
-      setContext(response.message);
-    } catch (error) {
-      console.error("Failed to load audit scenarios:", error);
-      setFetchError("Unable to load the audit scenarios.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
- ###
+    };
+ 
+  ###
   useEffect(() => {
     fetchContext();
   }, []);
@@ -189,7 +187,7 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
             </Step>
           );
         })}
-      </Stepper>
+      </Stepper>    
       <React.Fragment>
         {activeStep === 0 ? (
           <Audit />
@@ -210,12 +208,42 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
           </Box>
         )}
       
+        {/* Navigation buttons */}
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-          {/* Keep your existing Back and Next buttons here */}
+          <Button
+            color="inherit"
+            onClick={() => {
+              if (activeStep === 0) {
+                if (handleSectionBack) handleSectionBack();
+              } else {
+                handleBack();
+              }
+            }}
+            sx={{ mr: 1 }}
+          >
+            Back
+          </Button>
+      
+          <Box sx={{ flex: "1 1 auto" }} />
+      
+          <Button
+            onClick={
+              activeStep === steps.length - 1
+                ? handleFinish
+                : handleNext
+            }
+            disabled={
+              activeStep > 0 &&
+              !context[activeStep - 1]
+            }
+          >
+            {activeStep === steps.length - 1 ? "Finish" : "Next"}
+          </Button>
         </Box>
       </React.Fragment>
-
-    </Box>
+      </Box>
+      );
+      };
   );
 };
 
