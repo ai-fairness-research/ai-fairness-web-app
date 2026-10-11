@@ -86,7 +86,6 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  #Added Oct 11 
   const [isLoading, setIsLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
   
@@ -116,7 +115,6 @@ const ContextComponent: React.FC<ContextComponentProps> = ({
       }
     };
  
-  ###
   useEffect(() => {
     fetchContext();
   }, []);
